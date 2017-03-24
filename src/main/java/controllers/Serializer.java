@@ -11,10 +11,6 @@ import java.io.*;
  */
 public class Serializer {
 
-    private final String vehicleFilePath = "/tmp/vehicle.ser";
-    private final String driverFilePath = "driver.ser";
-    private final String passengerFilePath = "/tmp/passenger.ser";
-
     public void serialize(Object obj, String filePath) {
         try {
             FileOutputStream fileOut =
@@ -49,107 +45,4 @@ public class Serializer {
         }
     }
 
-
-
-/////////////////////
-
-    public void serializeVehicle(Vehicle vehicle) {
-        try {
-            FileOutputStream fileOut =
-                    new FileOutputStream(vehicleFilePath);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(vehicle);
-            out.close();
-            fileOut.close();
-            System.out.printf("Serialized data is saved in " + vehicleFilePath);
-        }catch(IOException i) {
-            i.printStackTrace();
-        }
-    }
-
-    public Vehicle deserializeVehicle() {
-        try {
-            FileInputStream fileIn = new FileInputStream(vehicleFilePath);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            Vehicle vehicle = (Vehicle) in.readObject();
-            in.close();
-            fileIn.close();
-            return vehicle;
-        }catch(IOException i) {
-            i.printStackTrace();
-            return null;
-        }catch(ClassNotFoundException c) {
-            System.out.println("Vehicle class not found");
-            c.printStackTrace();
-            return null;
-        }
-    }
-
-    public void serializeDriver(Driver driver) {
-        try {
-            FileOutputStream fileOut =
-                    new FileOutputStream(driverFilePath);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(driver);
-            out.close();
-            fileOut.close();
-            System.out.printf("Serialized data is saved in " + driverFilePath);
-        }catch(IOException i) {
-            i.printStackTrace();
-        }
-    }
-
-    public Driver deserializeDriver() {
-        try {
-            FileInputStream fileIn = new FileInputStream(driverFilePath);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            Driver driver = (Driver) in.readObject();
-            in.close();
-            fileIn.close();
-            return driver;
-        } catch (FileNotFoundException f) {
-            return null;
-        } catch(IOException i) {
-            i.printStackTrace();
-            return null;
-        }catch(ClassNotFoundException c) {
-            System.out.println("Driver class not found");
-            c.printStackTrace();
-            return null;
-        }
-    }
-
-    public void serializePassenger(Vehicle vehicle) {
-        try {
-            FileOutputStream fileOut =
-                    new FileOutputStream(vehicleFilePath);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(vehicle);
-            out.close();
-            fileOut.close();
-            System.out.printf("Serialized data is saved in " + vehicleFilePath);
-        }catch(IOException i) {
-            i.printStackTrace();
-        }
-    }
-
-    public Passenger deserializePassenger() {
-        try {
-            FileInputStream fileIn = new FileInputStream(passengerFilePath);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            Passenger passenger = (Passenger) in.readObject();
-            in.close();
-            fileIn.close();
-            return passenger;
-        } catch (FileNotFoundException f) {
-            return null;
-        } catch(IOException i) {
-            i.printStackTrace();
-            return null;
-        }catch(ClassNotFoundException c) {
-            System.out.println("Passenger class not found");
-            c.printStackTrace();
-            return null;
-        }
-    }
 }

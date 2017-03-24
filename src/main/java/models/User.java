@@ -12,12 +12,6 @@ public class User implements Serializable {
     private String lastName;
     private boolean isDriver;
 
-    public User(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.isDriver = false;
-    }
-
     public User(String firstName, String lastName, boolean isDriver) {
         this.firstName = firstName;
         this.lastName = lastName;

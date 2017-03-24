@@ -20,7 +20,13 @@ import java.io.Serializable;
 public class FXMLController {
 
     private final String driverFilePath = "driver.ser";
-    private boolean userIsDriver = false;
+    private final String passengerFilePath = "passenger.ser";
+    private final String vehicleFilePath = "vehicle.ser";
+    private final String driverDashboard = "/driverdash.fxml";
+    private final String passengerDashboard = "/passengerdash.fxml";
+    private final String userDetails = "/userdetails.fxml";
+
+    private boolean userIsDriver;
 
 
     @FXML
@@ -31,6 +37,12 @@ public class FXMLController {
 
     @FXML
     Button registerButton;
+
+    @FXML
+    Button dashboardButton;
+
+    @FXML
+    Button searchScreenButton;
 
     private void loadScene(String path, Button eventSource) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
@@ -46,14 +58,30 @@ public class FXMLController {
     protected void createUser(ActionEvent event) throws Exception {
         Serializer serializer = new Serializer();
         if (userIsDriver) {
-            Driver driver = new Driver("a", "B");
+            // TODO get name from text fields
+            Driver driver = new Driver("Anna", "Burnes");
             serializer.serialize(driver, driverFilePath);
-            loadScene("/driverdash.fxml", driverButton);
+            loadScene(driverDashboard, registerButton);
         } else {
-            Passenger passenger = new Passenger("C", "D");
-            serializer.serialize(passenger, driverFilePath);
-            loadScene("/passengerdash.fxml", driverButton);
+            Passenger passenger = new Passenger("Carrie", "Delaware");
+            serializer.serialize(passenger, passengerFilePath);
+            loadScene(passengerDashboard, registerButton);
         }
+    }
+
+    @FXML
+    protected void backToDashboard(ActionEvent event) throws Exception {
+        if (userIsDriver) {
+            loadScene(driverDashboard, dashboardButton);
+        } else {
+            loadScene(passengerDashboard, dashboardButton);
+        }
+    }
+
+    @FXML
+    protected void loadSearchScreen(ActionEvent event) throws Exception {
+        // check if driver is serialised and if so load otherwise ask for details
+        loadScene("/ridesearch.fxml", searchScreenButton);
     }
 
     @FXML
@@ -63,21 +91,22 @@ public class FXMLController {
         Serializer serializer = new Serializer();
         Driver driver = serializer.deserialize(driverFilePath);
         if (driver != null) {
-            loadScene("/driverdash.fxml", driverButton);
+            loadScene(driverDashboard, driverButton);
         } else {
-            loadScene("/userdetails.fxml", driverButton);
+            loadScene(userDetails, driverButton);
         }
     }
 
     @FXML
     protected void loadPassengerDashboard(ActionEvent event) throws Exception {
         // check if passenger is serialised and if so load otherwise ask for details
+        userIsDriver = false;
         Serializer serializer = new Serializer();
-        Passenger passenger = serializer.deserialize(driverFilePath);
+        Passenger passenger = serializer.deserialize(passengerFilePath);
         if (passenger != null) {
-            loadScene("/passengerdash.fxml", driverButton);
+            loadScene(passengerDashboard, passengerButton);
         } else {
-            loadScene("/userdetails.fxml", driverButton);
+            loadScene(userDetails, passengerButton);
         }
     }
 

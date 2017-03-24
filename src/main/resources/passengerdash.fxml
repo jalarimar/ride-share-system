@@ -11,7 +11,7 @@
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FXMLController">
     <padding><Insets bottom="100" left="25" right="25" top="25" /></padding>
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="332.0" minWidth="10.0" prefWidth="218.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="332.0" minWidth="10.0" percentWidth="50.0" prefWidth="218.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="304.0" />
     </columnConstraints>
     <rowConstraints>
@@ -20,17 +20,11 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Label text="Welcome to the UC Ride Sharing System" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+        <Label text="Passenger Dashboard" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
             <font>
                 <Font size="22.0" />
             </font>
         </Label>
-        <Label text="What kind of unicycle are you?" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-            <font>
-                <Font size="16.0" />
-            </font>
-        </Label>
-        <Button fx:id="driverButton" onAction="#loadDriverDashboard" text="Driver" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-        <Button fx:id="passengerButton" onAction="#loadPassengerDashboard" text="Passenger" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+        <Button fx:id="searchScreenButton" onAction="#loadSearchScreen" text="Search for Stop Points" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
     </children>
 </GridPane>
