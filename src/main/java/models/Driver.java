@@ -18,6 +18,14 @@ public class Driver extends User implements AutoCloseable, Serializable {
         this.vehicles = new ArrayList<>();
     }
 
+    public void addVehicle(Vehicle v) {
+        vehicles.add(v);
+    }
+
+    public ArrayList<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
     public void close() {
         this.close();
     }

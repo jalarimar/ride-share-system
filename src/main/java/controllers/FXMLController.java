@@ -6,13 +6,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import models.Driver;
 import models.Passenger;
 import models.User;
+import models.Vehicle;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created 22/03/2017.
@@ -39,10 +43,37 @@ public class FXMLController {
     Button registerButton;
 
     @FXML
+    Button registerCarButton;
+
+    @FXML
     Button dashboardButton;
 
     @FXML
     Button searchScreenButton;
+
+    @FXML
+    TextField firstName;
+
+    @FXML
+    TextField lastName;
+
+    @FXML
+    TextField vehicleType;
+
+    @FXML
+    TextField vehicleModel;
+
+    @FXML
+    TextField vehicleColour;
+
+    @FXML
+    TextField vehicleLp;
+
+    @FXML
+    TextField vehicleYear;
+
+    @FXML
+    TextField vehicleNos;
 
     private void loadScene(String path, Button eventSource) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
@@ -58,15 +89,35 @@ public class FXMLController {
     protected void createUser(ActionEvent event) throws Exception {
         Serializer serializer = new Serializer();
         if (userIsDriver) {
-            // TODO get name from text fields
-            Driver driver = new Driver("Anna", "Burnes");
+            Driver driver = new Driver(firstName.getText(), lastName.getText());
             serializer.serialize(driver, driverFilePath);
             loadScene(driverDashboard, registerButton);
         } else {
-            Passenger passenger = new Passenger("Carrie", "Delaware");
+            Passenger passenger = new Passenger(firstName.getText(), lastName.getText());
             serializer.serialize(passenger, passengerFilePath);
             loadScene(passengerDashboard, registerButton);
         }
+    }
+
+    @FXML
+    protected void createVehicle(ActionEvent event) throws Exception {
+        //label.setText(car.getText());
+        String type = vehicleType.getText();
+        String model = vehicleModel.getText();
+        String colour = vehicleColour.getText();
+        String licensePlate = vehicleLp.getText();
+        String performance = "";
+        int year = Integer.parseInt(vehicleYear.getText());
+        int numSeats = Integer.parseInt(vehicleNos.getText());
+        Vehicle vehicle = new Vehicle(type, model, colour, licensePlate, "", year, numSeats);
+
+        // TODO need to make this driver's vehicle
+        ArrayList<Vehicle> vehicles = new ArrayList<>();
+        vehicles.add(vehicle);
+
+        // TODO deserialise vehicles as part of "login" function
+        Serializer serializer = new Serializer();
+        serializer.serialize(vehicles, vehicleFilePath);
     }
 
     @FXML
@@ -76,6 +127,12 @@ public class FXMLController {
         } else {
             loadScene(passengerDashboard, dashboardButton);
         }
+    }
+
+    @FXML
+    protected void loadCarDetails(ActionEvent event) throws Exception {
+        // check if driver is serialised and if so load otherwise ask for details
+        loadScene("/cardetails.fxml", registerCarButton);
     }
 
     @FXML

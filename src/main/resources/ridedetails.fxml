@@ -27,14 +27,8 @@
                 <Font size="22.0" />
             </font>
         </Label>
-      <TextField fx:id="firstName" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <GridPane.margin>
-            <Insets right="100.0" />
-         </GridPane.margin></TextField>
-      <TextField fx:id="lastName" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <GridPane.margin>
-            <Insets right="100.0" />
-         </GridPane.margin></TextField>
+      <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Label text="First Name" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="10.0" />
@@ -45,6 +39,6 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </Label>
-      <Button fx:id="registerButton" mnemonicParsing="false" onAction="#createUser" text="Register" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Button fx:id="registerButton" mnemonicParsing="false" text="Register" GridPane.columnIndex="1" GridPane.rowIndex="3" />
     </children>
 </GridPane>

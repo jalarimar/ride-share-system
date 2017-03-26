@@ -22,20 +22,20 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Label text="Enter Details" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+        <Label text="Vehicle Details" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
             <font>
                 <Font size="22.0" />
             </font>
         </Label>
-      <TextField fx:id="firstName" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <TextField fx:id="car" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="100.0" />
          </GridPane.margin></TextField>
-      <TextField fx:id="lastName" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <TextField GridPane.columnIndex="1" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets right="100.0" />
          </GridPane.margin></TextField>
-      <Label text="First Name" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+      <Label fx:id="label" text="First Name" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
@@ -45,6 +45,6 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </Label>
-      <Button fx:id="registerButton" mnemonicParsing="false" onAction="#createUser" text="Register" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Button fx:id="registerButton" mnemonicParsing="false" onAction="#createVehicle" text="Register" GridPane.columnIndex="1" GridPane.rowIndex="3" />
     </children>
 </GridPane>
