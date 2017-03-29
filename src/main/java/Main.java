@@ -25,7 +25,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
 
-        MainController c = new MainController();
+        MainController c = MainController.getInstance();
         String h = c.getDayOfDate(LocalDate.now());
     }
 }

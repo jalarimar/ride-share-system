@@ -1,8 +1,10 @@
 package controllers;
 
 import javafx.fxml.Initializable;
+import javafx.stage.Stage;
 import models.Passenger;
 import models.Ride;
+import models.User;
 import models.Vehicle;
 
 import java.net.URL;
@@ -13,11 +15,42 @@ import java.util.ResourceBundle;
 /**
  * Created by samschofield on 15/03/17.
  */
-public class MainController implements Initializable {
+public class MainController {
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    private static MainController instance = null;
 
+    private MainController() {
+        // Exists to defeat instantiation
+    }
+
+    public static MainController getInstance() {
+        if(instance == null) {
+            instance = new MainController();
+        }
+        return instance;
+    }
+
+    private User user;
+    private Stage stage;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void initialiseUser(boolean isDriver) {
+        this.user = new User("", "", isDriver);
     }
 
     public boolean tryAddPassenger(Ride ride, Passenger passenger) {

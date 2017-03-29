@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CreateRideController">
+    <padding><Insets bottom="25.0" left="25.0" right="25.0" top="25.0" /></padding>
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="332.0" minWidth="10.0" percentWidth="40.0" prefWidth="218.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="304.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <Label text="Create Ride" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+            <font>
+                <Font size="22.0" />
+            </font>
+        </Label>
+      <Button fx:id="createButton" mnemonicParsing="false" onAction="#createRide" text="Create" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#backToDashboard" text="Dashboard" />
+      <Label text="Route" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Label GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Car" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Times (comma separated 24h, eg: 1600, 1615, 1645)" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Direction" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin>
+      </Label>
+      <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label layoutX="236.0" layoutY="97.0" text="Start Date" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Expiry Date" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin></Label>
+      <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <CheckBox mnemonicParsing="false" text="Mon" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="40.0" />
+         </GridPane.margin>
+      </CheckBox>
+      <CheckBox mnemonicParsing="false" text="Tue" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="100.0" />
+         </GridPane.margin>
+      </CheckBox>
+      <CheckBox mnemonicParsing="false" text="Wed" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="160.0" />
+         </GridPane.margin>
+      </CheckBox>
+      <CheckBox mnemonicParsing="false" text="Thu" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="220.0" />
+         </GridPane.margin>
+      </CheckBox>
+      <CheckBox mnemonicParsing="false" text="Fri" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="280.0" />
+         </GridPane.margin>
+      </CheckBox>
+      <CheckBox mnemonicParsing="false" text="Sat" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="340.0" />
+         </GridPane.margin>
+      </CheckBox>
+      <CheckBox mnemonicParsing="false" text="Sun" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="400.0" />
+         </GridPane.margin>
+      </CheckBox>
+      <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <TextField GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets left="60.0" right="50.0" />
+         </GridPane.margin>
+      </TextField>
+      <Label fx:id="errorMessage" GridPane.rowIndex="8" />
+    </children>
+</GridPane>
