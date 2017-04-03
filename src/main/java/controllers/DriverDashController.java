@@ -3,12 +3,16 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import models.StopPoint;
+
+import java.util.List;
 
 /**
  * Created 22/03/2017.
  */
 public class DriverDashController {
 
+    private MainController main = MainController.getInstance();
     private FXMLController fxml = new FXMLController();
 
     private final String createCar = "/createvehicle.fxml";
@@ -31,6 +35,14 @@ public class DriverDashController {
     @FXML
     Button searchScreenButton;
 
+    // for testing purposes only, should use initialise instead, see CreateRouteController
+    public DriverDashController() {
+        System.out.println(main.getDriver().getVehicles());
+        List<StopPoint> stopPoints = main.getDriver().getStopPoints();
+        for (StopPoint sp : stopPoints) {
+            System.out.println(sp.getAddress());
+        }
+    }
 
     @FXML
     protected void loadCreateCar(ActionEvent event) throws Exception {

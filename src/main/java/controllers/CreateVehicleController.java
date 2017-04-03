@@ -4,9 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import models.Driver;
 import models.Vehicle;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created 22/03/2017.
@@ -40,30 +42,51 @@ public class CreateVehicleController {
         fxml.backToDashboard(event);
     }
 
+    private boolean validateUserInput(List<String> userStrings) {
+        boolean isValid = true;
+        for (String string : userStrings) {
+            isValid = isValid && main.isValidInputString(string);
+        }
+        return isValid;
+    }
+
     @FXML
     protected void createVehicle(ActionEvent event) throws Exception {
-
-        // TODO validate user input
 
         String type = vehicleType.getText();
         String model = vehicleModel.getText();
         String colour = vehicleColour.getText();
         String licensePlate = vehicleLp.getText();
-        String performance = "";
-        int year = Integer.parseInt(vehicleYear.getText());
-        int numSeats = Integer.parseInt(vehicleNos.getText());
+        String performance = "NA";
+        String yearString = vehicleYear.getText();
+        String numSeatsString = vehicleNos.getText();
 
-        Vehicle vehicle = new Vehicle(type, model, colour, licensePlate, performance, year, numSeats);
+        List<String> inputStrings = new ArrayList();
+        inputStrings.add(type);
+        inputStrings.add(model);
+        inputStrings.add(colour);
+        inputStrings.add(licensePlate);
+        inputStrings.add(performance);
 
-        // TODO need to make this the driver's vehicle
-        ArrayList<Vehicle> vehicles = new ArrayList<>();
-        vehicles.add(vehicle);
+        boolean isValid = validateUserInput(inputStrings);
 
-        // TODO deserialise vehicles as part of "login" function
-        Serializer serializer = new Serializer();
-        serializer.serialize(vehicles, vehicleFilePath);
+        int year = main.tryParseInt(yearString);
+        int numSeats = main.tryParseInt(numSeatsString);
 
-        fxml.backToDashboard(event);
+        if (isValid && year > -1 && numSeats > -1) {
+            Vehicle vehicle = new Vehicle(type, model, colour, licensePlate, performance, year, numSeats);
+
+            Driver driver = main.getDriver();
+            driver.addVehicle(vehicle);
+
+            // TODO deserialise vehicles as part of "login" function? or are they serialised with driver
+            Serializer serializer = new Serializer();
+            //serializer.serialize(vehicles, vehicleFilePath);
+
+            fxml.backToDashboard(event);
+        } else {
+            System.out.println("Validation Failed");
+        }
     }
 
 

@@ -38,23 +38,25 @@ public class CreateUserController {
         String first = firstName.getText();
         String last = lastName.getText();
 
-        // TODO validate user input
+        //main.getUser().setFirstName(first);
+        //main.getUser().setLastName(last);
 
-        main.getUser().setFirstName(first);
-        main.getUser().setLastName(last);
+        if (main.isValidInputString(first) && main.isValidInputString(last)) {
+            Serializer serializer = new Serializer();
 
-        Serializer serializer = new Serializer();
-
-        if (main.getUser().isDriver()) {
-            Driver driver = new Driver(first, last);
-            main.setUser(driver);
-            serializer.serialize(driver, driverFilePath);
-            fxml.loadScene(driverDashboard);
+            if (main.getUser().isDriver()) {
+                Driver driver = new Driver(first, last);
+                main.setDriver(driver);
+                serializer.serialize(driver, driverFilePath);
+                fxml.loadScene(driverDashboard);
+            } else {
+                Passenger passenger = new Passenger(first, last);
+                main.setUser(passenger);
+                serializer.serialize(passenger, passengerFilePath);
+                fxml.loadScene(passengerDashboard);
+            }
         } else {
-            Passenger passenger = new Passenger(first, last);
-            main.setUser(passenger);
-            serializer.serialize(passenger, passengerFilePath);
-            fxml.loadScene(passengerDashboard);
+            System.out.println("Validation Failed");
         }
     }
 

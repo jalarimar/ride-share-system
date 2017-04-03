@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FXMLController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RideDetailsController">
     <padding><Insets bottom="100" left="25" right="25" top="25" /></padding>
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="332.0" minWidth="10.0" percentWidth="25.0" prefWidth="218.0" />
@@ -40,7 +40,7 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </Label>
-      <Button mnemonicParsing="false" text="Book" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <Button fx:id="bookButton" mnemonicParsing="false" onAction="#bookRide" text="Book" GridPane.columnIndex="2" GridPane.rowIndex="5" />
       <Label text="Car Colour" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets right="10.0" />
@@ -61,13 +61,13 @@
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin></Label>
-      <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-      <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-      <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <Label fx:id="nameText" text="{name}" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label fx:id="modelText" text="{model}" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label fx:id="colourText" text="{colour}" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label fx:id="yearText" text="{year}" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label fx:id="seatsText" text="{seats}" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <Label fx:id="lengthText" text="{length}" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <Label fx:id="stopsText" text="{stops}" GridPane.columnIndex="3" GridPane.rowIndex="3" />
       <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#backToDashboard" text="Dashboard" />
     </children>
 </GridPane>
