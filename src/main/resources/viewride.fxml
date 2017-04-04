@@ -30,34 +30,34 @@
                 <Font size="22.0" />
             </font>
         </Label>
-      <Label text="Driver Name" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+      <Label text="Driver Name:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
       </Label>
-      <Label text="Car Model" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+      <Label text="Car Model:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
       </Label>
       <Button fx:id="bookButton" mnemonicParsing="false" onAction="#bookRide" text="Book" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-      <Label text="Car Colour" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+      <Label text="Car Colour:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin></Label>
-      <Label text="Car Year" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+      <Label text="Car Year:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin></Label>
-      <Label text="Seats Available" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+      <Label text="Seats Available:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin></Label>
-      <Label text="Route Length" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+      <Label text="Route Length:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin></Label>
-      <Label text="Number of Stops" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+      <Label text="Number of Stops:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin></Label>
@@ -69,5 +69,6 @@
       <Label fx:id="lengthText" text="{length}" GridPane.columnIndex="3" GridPane.rowIndex="2" />
       <Label fx:id="stopsText" text="{stops}" GridPane.columnIndex="3" GridPane.rowIndex="3" />
       <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#backToDashboard" text="Dashboard" />
+      <Button fx:id="backButton" mnemonicParsing="false" onAction="#backToRideSearch" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="5" />
     </children>
 </GridPane>

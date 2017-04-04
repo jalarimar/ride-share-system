@@ -59,6 +59,7 @@ public class CreateSPController {
             List<String> existingAdresses = getExistingAdresses();
             if (!existingAdresses.contains(stopPoint.getAddress())) {
                 driver.addStopPoint(stopPoint);
+                main.addStopPoint(stopPoint);
             }
             fxml.backToDashboard(event);
 

@@ -10,10 +10,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.Ride;
+import models.RideStopPoint;
+import models.Status;
 import models.StopPoint;
 
 import java.net.URL;
 import java.util.Collections;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -26,10 +29,12 @@ public class SearchRideController implements Initializable {
 
     private final String viewRide = "/viewride.fxml";
 
-    private ObservableList<Ride> visibleRides = FXCollections.observableArrayList();
+    private ObservableList<RideStopPoint> visibleRidesForThisStopPoint = FXCollections.observableArrayList();
 
     @FXML
     Button dashboardButton;
+    @FXML
+    Button backButton;
     @FXML
     Button bookButton;
     @FXML
@@ -48,17 +53,26 @@ public class SearchRideController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        visibleRides.addAll(main.getSharedRides());
+        List<Ride> allRides = main.getSharedRides();
+        StopPoint here = main.getFocusedStopPoint();
+
+        for (Ride ride : allRides) {
+            for (RideStopPoint r : ride.getRideStopPoints()) {
+                if (r.getStopPoint().equals(here)) {
+                    visibleRidesForThisStopPoint.add(r);
+                }
+            }
+        }
 
         // TODO sort by day and time
         //Collections.sort(visibleRides, (Ride r1, Ride r2) -> r1.?.compareTo(r2.?));
 
-        rideTable.setItems(visibleRides);
+        rideTable.setItems(visibleRidesForThisStopPoint);
 
-        dayCol.setCellValueFactory(new PropertyValueFactory<Ride,String>("day"));
-        timeCol.setCellValueFactory(new PropertyValueFactory<Ride,String>("time")); // StopPointOfRide ?
-        directionCol.setCellValueFactory(new PropertyValueFactory<Ride,String>("direction"));
-        seatCol.setCellValueFactory(new PropertyValueFactory<Ride,Integer>("availableSeats"));
+        dayCol.setCellValueFactory(new PropertyValueFactory<RideStopPoint,String>("day"));
+        timeCol.setCellValueFactory(new PropertyValueFactory<RideStopPoint,String>("time"));
+        directionCol.setCellValueFactory(new PropertyValueFactory<RideStopPoint,String>("direction"));
+        seatCol.setCellValueFactory(new PropertyValueFactory<RideStopPoint,Integer>("availableSeats"));
 
         rideTable.getColumns().setAll(dayCol, timeCol, directionCol, seatCol);
 
@@ -70,17 +84,24 @@ public class SearchRideController implements Initializable {
     }
 
     @FXML
-    protected void bookRide(ActionEvent event) throws Exception {
-        Ride ride = (Ride)rideTable.getSelectionModel().getSelectedItem();
-        // TODO
+    protected void backToSpSearch(ActionEvent event) throws Exception {
+        fxml.loadScene("/stoppointsearch.fxml");
     }
 
-    // TODO attach
+    @FXML
+    protected void bookRide(ActionEvent event) throws Exception {
+        RideStopPoint rideStopPoint = (RideStopPoint)rideTable.getSelectionModel().getSelectedItem();
+        Ride ride = rideStopPoint.getRide();
+        ride.addPassenger(main.getUser());
+        if (ride.getStatus() == Status.FULL) {
+            main.getSharedRides().remove(ride);
+        }
+    }
 
     @FXML
     protected void viewRide(ActionEvent event) throws Exception {
-        Ride ride = (Ride)rideTable.getSelectionModel().getSelectedItem();
-        main.setFocusedRide(ride);
+        RideStopPoint rideStopPoint = (RideStopPoint)rideTable.getSelectionModel().getSelectedItem();
+        main.setFocusedRide(rideStopPoint.getRide());
         try {
             fxml.loadScene(viewRide);
         } catch (Exception ex) {

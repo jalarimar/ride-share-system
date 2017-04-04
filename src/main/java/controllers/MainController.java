@@ -55,6 +55,10 @@ public class MainController {
 
     public List<Ride> getSharedRides() { return sharedRides; }
 
+    public void addSharedRide(Ride r) {
+        sharedRides.add(r);
+    }
+
     public void setDriver(Driver driver) {
         this.driver = driver;
         setUser(driver);
@@ -68,10 +72,16 @@ public class MainController {
         this.stage = stage;
     }
 
+    public StopPoint getFocusedStopPoint() {
+        return focusedStopPoint;
+    }
     public void setFocusedStopPoint(StopPoint sp) {
         this.focusedStopPoint = sp;
     }
 
+    public Ride getFocusedRide() {
+        return focusedRide;
+    }
     public void setFocusedRide(Ride r) {
         this.focusedRide = r;
     }

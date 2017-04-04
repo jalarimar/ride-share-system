@@ -21,12 +21,12 @@ public class Ride {
     private Status status;
     private int availableSeats;
     private Driver driver;
-    private List<Passenger> passengers;
+    private List<User> passengers;
 
-    public Ride(Vehicle vehicle, Driver driver, List<RideStopPoint> rsp, boolean isFromUni, boolean isRecurrent, List<DayOfWeek> days, LocalDate startDate, LocalDate endDate) {
+    public Ride(Vehicle vehicle, Driver driver, List<RideStopPoint> rsps, boolean isFromUni, boolean isRecurrent, List<DayOfWeek> days, LocalDate startDate, LocalDate endDate) {
         this.vehicle = vehicle;
         this.driver = driver;
-        this.rideStopPoints = rsp;
+        this.rideStopPoints = rsps;
         this.isFromUni = isFromUni;
         this.isRecurrent = isRecurrent;
         this.days = days;
@@ -37,6 +37,9 @@ public class Ride {
             this.direction = "From University";
         } else {
             this.direction = "To University";
+        }
+        for (RideStopPoint rsp : rideStopPoints) {
+            rsp.setRide(this);
         }
         this.status = Status.UNSHARED;
         this.availableSeats = 0;
@@ -50,6 +53,10 @@ public class Ride {
         } else {
             return "Short Ride";
         }
+    }
+
+    public List<RideStopPoint> getRideStopPoints() {
+        return rideStopPoints;
     }
 
     public boolean isFromUni() {
@@ -98,7 +105,7 @@ public class Ride {
         return driver;
     }
 
-    public List<Passenger> getPassengers() {
+    public List<User> getPassengers() {
         return passengers;
     }
 
@@ -118,12 +125,20 @@ public class Ride {
         rideStopPoints.add(stopPoint);
     }
 
-    public void addPassenger(Passenger passenger) {
-        passengers.add(passenger);
-        availableSeats -= 1;
+    private void checkAvailableSeats() {
+        if (availableSeats < 1) {
+            status = Status.FULL;
+        }
     }
 
-    public void removePassenger(Passenger passenger) {
+    public void addPassenger(User passenger) {
+        passengers.add(passenger);
+        availableSeats -= 1;
+
+        checkAvailableSeats();
+    }
+
+    public void removePassenger(User passenger) {
         passengers.remove(passenger);
         availableSeats += 1;
     }

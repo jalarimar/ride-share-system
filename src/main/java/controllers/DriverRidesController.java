@@ -69,7 +69,9 @@ public class DriverRidesController implements Initializable {
     protected void shareRide(ActionEvent event) throws Exception {
         // TODO
         Ride ride = (Ride)unsharedRideList.getSelectionModel().getSelectedItem();
+        ride.setAvailableSeats((int)availableSeatsChoice.getSelectionModel().getSelectedItem());
         ride.setStatus(Status.AVAILABLE);
+        main.addSharedRide(ride);
 
         fxml.backToDashboard(event);
     }

@@ -49,10 +49,20 @@ public class CreateRouteController implements Initializable {
         d.addVehicle(new Vehicle("Ford", "Taurus", "Blue", "EXM566", "", 2003, 5));
         d.addVehicle(new Vehicle("Toyota", "Hilux", "Red", "ALB80", "", 2008, 7));
 
-        d.addStopPoint(new StopPoint(42, "Wallaby Way", "Sydney"));
-        d.addStopPoint(new StopPoint(12, "Grimmauld Place", "London"));
-        d.addStopPoint(new StopPoint(2, "Weld St", "Wadestown"));
-        d.addStopPoint(new StopPoint(20, "Kirkwood Ave", "Upper Riccarton"));
+        StopPoint w = new StopPoint(42, "Wallaby Way", "Sydney");
+        StopPoint s = new StopPoint(12, "Grimmauld Place", "London");
+        StopPoint a = new StopPoint(2, "Weld St", "Wadestown");
+        StopPoint f = new StopPoint(20, "Kirkwood Ave", "Upper Riccarton");
+
+        d.addStopPoint(w);
+        d.addStopPoint(s);
+        d.addStopPoint(a);
+        d.addStopPoint(f);
+
+        main.addStopPoint(w);
+        main.addStopPoint(s);
+        main.addStopPoint(a);
+        main.addStopPoint(f);
     }
 
     @Override

@@ -54,6 +54,7 @@ public class SearchSPController implements Initializable {
 
         searchType.setItems(FXCollections.observableArrayList("", "Street", "Suburb"));
 
+        /*
         // TODO remove this block, only for testing
         main.addStopPoint(new StopPoint(150, "Molesworth Street", "Thorndon"));
         main.addStopPoint(new StopPoint(24, "Kayell Ave", "Tawa"));
@@ -61,6 +62,7 @@ public class SearchSPController implements Initializable {
         for (StopPoint sp : main.getDriver().getStopPoints()) {
             main.addStopPoint(sp);
         }
+        */
 
         allStopPoints.addAll(main.getAllStopPoints());
         visibleStopPoints.addAll(allStopPoints);

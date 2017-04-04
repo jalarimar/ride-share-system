@@ -33,8 +33,8 @@ public class Vehicle implements Serializable {
         return type;
     }
 
-    public String getModel() {
-        return model;
+    public String getTypeAndModel() {
+        return type + " " + model;
     }
 
     public String getColour() {

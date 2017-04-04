@@ -40,5 +40,6 @@
       <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#backToDashboard" text="Dashboard" />
       <Button fx:id="bookButton" mnemonicParsing="false" onAction="#bookRide" text="Book Ride" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Button fx:id="viewButton" mnemonicParsing="false" onAction="#viewRide" text="View Details" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+      <Button fx:id="backButton" mnemonicParsing="false" onAction="#backToSpSearch" text="Back" GridPane.rowIndex="4" />
     </children>
 </GridPane>
