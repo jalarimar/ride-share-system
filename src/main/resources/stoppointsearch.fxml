@@ -35,7 +35,7 @@
       <TableView fx:id="spTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="3">
         <columns>
           <TableColumn fx:id="numberCol" prefWidth="75.0" text="Number" />
-          <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name" />
+          <TableColumn fx:id="nameCol" prefWidth="150.0" text="Name" />
             <TableColumn fx:id="suburbCol" prefWidth="75.0" text="Suburb" />
         </columns>
          <GridPane.margin>

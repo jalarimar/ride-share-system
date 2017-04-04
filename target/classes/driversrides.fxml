@@ -24,24 +24,23 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Label text="My Rides" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+        <Label text="Share Rides" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
             <font>
                 <Font size="22.0" />
             </font>
         </Label>
       <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#backToDashboard" text="Dashboard" />
-      <ListView fx:id="rideList" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+      <Label text="Available Seats:" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+      <Button fx:id="shareButton" mnemonicParsing="false" onAction="#shareRide" text="Share" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <ChoiceBox fx:id="availableSeatsChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </ChoiceBox>
+      <ListView fx:id="unsharedRideList" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <GridPane.margin>
             <Insets left="75.0" right="75.0" />
          </GridPane.margin>
       </ListView>
-      <Label text="Available Seats:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Button fx:id="shareButton" mnemonicParsing="false" onAction="#shareRide" text="Share" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <ChoiceBox fx:id="availableSeatsChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
-         <GridPane.margin>
-            <Insets right="50.0" />
-         </GridPane.margin>
-      </ChoiceBox>
-      <Label fx:id="rideNameLabel" text="{ride name}" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
     </children>
 </GridPane>

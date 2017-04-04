@@ -1,92 +1,81 @@
 package models;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created 21/03/2017.
  */
 public class Ride {
 
-    private ArrayList<StopPoint> route;
+    private List<RideStopPoint> rideStopPoints;
     private boolean isFromUni;
+    private String direction;
     private boolean isRecurrent;
-    private ArrayList<String> days;
+    private List<DayOfWeek> days;
     private LocalDate startDate;
     private LocalDate expiryDate;
     private Vehicle vehicle;
     private Status status;
     private int availableSeats;
     private Driver driver;
-    private ArrayList<Passenger> passengers;
+    private List<Passenger> passengers;
 
-    public Ride(Vehicle vehicle, Driver driver) {
-        this.route = new ArrayList<>();
-        this.isFromUni = false;
-        this.isRecurrent = false;
-        this.days = new ArrayList<>();
-        this.expiryDate = null;
+    public Ride(Vehicle vehicle, Driver driver, List<RideStopPoint> rsp, boolean isFromUni, boolean isRecurrent, List<DayOfWeek> days, LocalDate startDate, LocalDate endDate) {
         this.vehicle = vehicle;
-        this.status = Status.UNSHARED;
-        this.availableSeats = vehicle.getPhysicalSeats();
         this.driver = driver;
+        this.rideStopPoints = rsp;
+        this.isFromUni = isFromUni;
+        this.isRecurrent = isRecurrent;
+        this.days = days;
+        this.startDate = startDate;
+        this.expiryDate = endDate;
+
+        if (isFromUni) {
+            this.direction = "From University";
+        } else {
+            this.direction = "To University";
+        }
+        this.status = Status.UNSHARED;
+        this.availableSeats = 0;
         this.passengers = new ArrayList<>();
     }
 
-    public ArrayList<StopPoint> getRoute() {
-        return route;
-    }
-
-    public void setRoute(ArrayList<StopPoint> route) {
-        this.route = route;
+    @Override
+    public String toString() {
+        if (rideStopPoints.size() > 1) {
+            return rideStopPoints.get(0) + " to " + rideStopPoints.get(rideStopPoints.size() - 1);
+        } else {
+            return "Short Ride";
+        }
     }
 
     public boolean isFromUni() {
         return isFromUni;
     }
 
-    public void setFromUni(boolean fromUni) {
-        isFromUni = fromUni;
-    }
+    public String getDirection() { return direction; }
 
     public boolean isRecurrent() {
         return isRecurrent;
     }
 
-    public void setRecurrent(boolean recurrent) {
-        isRecurrent = recurrent;
-    }
-
-    public ArrayList<String> getDays() {
+    public List<DayOfWeek> getDays() {
         return days;
-    }
-
-    public void setDays(ArrayList<String> days) {
-        this.days = days;
     }
 
     public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
     public LocalDate getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(LocalDate expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-
     public Vehicle getVehicle() {
         return vehicle;
-    }
-
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
     }
 
     public Status getStatus() {
@@ -109,16 +98,8 @@ public class Ride {
         return driver;
     }
 
-    public void setDriver(Driver driver) {
-        this.driver = driver;
-    }
-
-    public ArrayList<Passenger> getPassengers() {
+    public List<Passenger> getPassengers() {
         return passengers;
-    }
-
-    public void setPassengers(ArrayList<Passenger> passengers) {
-        this.passengers = passengers;
     }
 
     public int getRouteLength() {
@@ -130,11 +111,11 @@ public class Ride {
     }
 
     public int getNumberOfStops() {
-        return route.size();
+        return rideStopPoints.size();
     }
 
-    public void addStopPoint(StopPoint stopPoint) {
-        route.add(stopPoint);
+    public void addStopPoint(RideStopPoint stopPoint) {
+        rideStopPoints.add(stopPoint);
     }
 
     public void addPassenger(Passenger passenger) {

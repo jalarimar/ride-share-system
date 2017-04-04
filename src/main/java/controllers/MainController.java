@@ -7,6 +7,8 @@ import models.*;
 import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -31,6 +33,11 @@ public class MainController {
     private Driver driver;
     private Stage stage;
 
+    private List<StopPoint> allStopPoints = new ArrayList<>();
+    private List<Ride> sharedRides = new ArrayList<>();
+    private StopPoint focusedStopPoint;
+    private Ride focusedRide;
+
 
     public User getUser() {
         return user;
@@ -44,6 +51,10 @@ public class MainController {
         return driver;
     }
 
+    public List<StopPoint> getAllStopPoints() { return allStopPoints; }
+
+    public List<Ride> getSharedRides() { return sharedRides; }
+
     public void setDriver(Driver driver) {
         this.driver = driver;
         setUser(driver);
@@ -55,6 +66,18 @@ public class MainController {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    public void setFocusedStopPoint(StopPoint sp) {
+        this.focusedStopPoint = sp;
+    }
+
+    public void setFocusedRide(Ride r) {
+        this.focusedRide = r;
+    }
+
+    public void addStopPoint(StopPoint sp) {
+        allStopPoints.add(sp);
     }
 
     public void initialiseUser(boolean isDriver) {

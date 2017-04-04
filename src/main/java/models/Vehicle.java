@@ -24,6 +24,10 @@ public class Vehicle implements Serializable {
         this.physicalSeats = physicalSeats;
     }
 
+    @Override
+    public String toString() {
+        return type + " " + model + " " + licensePlate;
+    }
 
     public String getType() {
         return type;

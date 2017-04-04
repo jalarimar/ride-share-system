@@ -18,6 +18,11 @@ public class User implements Serializable {
         this.isDriver = isDriver;
     }
 
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
+
     public String getFirstName() {
         return firstName;
     }

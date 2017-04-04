@@ -6,6 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import javafx.stage.Stage;
+import models.Driver;
+import models.StopPoint;
+import models.Vehicle;
 
 import java.time.LocalDate;
 
@@ -25,7 +28,9 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
 
+        // For testing only
         MainController c = MainController.getInstance();
         String h = c.getDayOfDate(LocalDate.now());
+
     }
 }

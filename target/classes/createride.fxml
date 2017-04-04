@@ -62,7 +62,7 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </Label>
-      <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <ChoiceBox fx:id="directionChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Label layoutX="236.0" layoutY="97.0" text="Start Date" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets right="10.0" />
@@ -72,50 +72,51 @@
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin></Label>
-      <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <CheckBox mnemonicParsing="false" text="Mon" GridPane.rowIndex="5">
+      <DatePicker fx:id="endDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <ChoiceBox fx:id="carChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <ChoiceBox fx:id="routeChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <CheckBox fx:id="mon" mnemonicParsing="false" text="Mon" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets left="40.0" />
          </GridPane.margin>
       </CheckBox>
-      <CheckBox mnemonicParsing="false" text="Tue" GridPane.rowIndex="5">
+      <CheckBox fx:id="tue" mnemonicParsing="false" text="Tue" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets left="100.0" />
          </GridPane.margin>
       </CheckBox>
-      <CheckBox mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" text="Wd" GridPane.rowIndex="5">
-         <GridPane.margin>
-            <Insets left="160.0" />
-         </GridPane.margin>
-      </CheckBox>
-      <CheckBox mnemonicParsing="false" text="Thu" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+        <CheckBox fx:id="wed" mnemonicParsing="false" text="Wed" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+            <GridPane.margin>
+                <Insets left="160.0" />
+            </GridPane.margin>
+        </CheckBox>
+      <CheckBox fx:id="thu" mnemonicParsing="false" text="Thu" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets left="220.0" />
          </GridPane.margin>
       </CheckBox>
-      <CheckBox mnemonicParsing="false" text="Fri" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+      <CheckBox fx:id="fri" mnemonicParsing="false" text="Fri" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets left="280.0" />
          </GridPane.margin>
       </CheckBox>
-      <CheckBox mnemonicParsing="false" text="Sat" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+      <CheckBox fx:id="sat" mnemonicParsing="false" text="Sat" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets left="340.0" />
          </GridPane.margin>
       </CheckBox>
-      <CheckBox mnemonicParsing="false" text="Sun" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+      <CheckBox fx:id="sun" mnemonicParsing="false" text="Sun" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets left="400.0" />
          </GridPane.margin>
       </CheckBox>
-      <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <TextField GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+      <DatePicker fx:id="startDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <TextField fx:id="timesField" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets left="100.0" />
          </GridPane.margin>
       </TextField>
       <Label fx:id="errorMessage" GridPane.rowIndex="8" />
+      <Label fx:id="nStops" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
     </children>
 </GridPane>

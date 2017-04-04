@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import models.Driver;
 import models.Route;
 import models.StopPoint;
+import models.Vehicle;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -41,6 +42,18 @@ public class CreateRouteController implements Initializable {
     ListView<StopPoint> includedStopPointList;
     @FXML
     ListView<StopPoint> excludedStopPointList;
+
+    //TODO REMOVE
+    public CreateRouteController() {
+        Driver d = main.getDriver();
+        d.addVehicle(new Vehicle("Ford", "Taurus", "Blue", "EXM566", "", 2003, 5));
+        d.addVehicle(new Vehicle("Toyota", "Hilux", "Red", "ALB80", "", 2008, 7));
+
+        d.addStopPoint(new StopPoint(42, "Wallaby Way", "Sydney"));
+        d.addStopPoint(new StopPoint(12, "Grimmauld Place", "London"));
+        d.addStopPoint(new StopPoint(2, "Weld St", "Wadestown"));
+        d.addStopPoint(new StopPoint(20, "Kirkwood Ave", "Upper Riccarton"));
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
