@@ -10,13 +10,16 @@ import models.Vehicle;
 import java.util.ArrayList;
 import java.util.List;
 
+import static controllers.Validator.isAlphanumeric;
+import static controllers.Validator.tryParseInt;
+
 /**
  * Created 22/03/2017.
  */
 public class CreateVehicleController {
 
-    private MainController main = MainController.getInstance();
-    private FXMLController fxml = new FXMLController();
+    private SessionManager main = SessionManager.getInstance();
+    private FXMLNavigator fxml = new FXMLNavigator();
 
     private final String vehicleFilePath = "vehicle.ser"; // TODO make name based on license plate?
 
@@ -45,7 +48,7 @@ public class CreateVehicleController {
     private boolean validateUserInput(List<String> userStrings) {
         boolean isValid = true;
         for (String string : userStrings) {
-            isValid = isValid && main.isAlphanumeric(string);
+            isValid = isValid && isAlphanumeric(string);
         }
         return isValid;
     }
@@ -70,18 +73,14 @@ public class CreateVehicleController {
 
         boolean isValid = validateUserInput(inputStrings);
 
-        int year = main.tryParseInt(yearString);
-        int numSeats = main.tryParseInt(numSeatsString);
+        int year = tryParseInt(yearString);
+        int numSeats = tryParseInt(numSeatsString);
 
         if (isValid && year > -1 && numSeats > -1) {
             Vehicle vehicle = new Vehicle(type, model, colour, licensePlate, performance, year, numSeats);
 
-            Driver driver = main.getDriver();
+            Driver driver = main.getCurrentDriver();
             driver.addVehicle(vehicle);
-
-            // TODO deserialise vehicles as part of "login" function? or are they serialised with driver
-            Serializer serializer = new Serializer();
-            //serializer.serialize(vehicles, vehicleFilePath);
 
             fxml.backToDashboard(event);
         } else {

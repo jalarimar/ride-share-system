@@ -6,8 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import models.Rss;
-import models.User;
 
 
 /**
@@ -15,8 +13,8 @@ import models.User;
  */
 public class StartController {
 
-    private MainController main = MainController.getInstance();
-    private FXMLController fxml = new FXMLController();
+    private SessionManager main = SessionManager.getInstance();
+    private FXMLNavigator fxml = new FXMLNavigator();
 
     private final String driverDashboard = "/driverdash.fxml";
     private final String passengerDashboard = "/passengerdash.fxml";
@@ -36,11 +34,12 @@ public class StartController {
         String password = passwordField.getText();
         if (hasCorrectPassword(userId, password)) {
 
+            //TODO link to rss
             //User user = Rss.getUser();
             //main.setUser(user);
 
             // load driver or passenger dashboard
-            if (main.getUser().isDriver()) {
+            if (main.getCurrentUser().isDriver()) {
                 fxml.loadScene(driverDashboard);
             } else {
                 fxml.loadScene(passengerDashboard);

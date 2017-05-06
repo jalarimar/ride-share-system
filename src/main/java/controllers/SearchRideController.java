@@ -15,17 +15,18 @@ import models.Status;
 import models.StopPoint;
 
 import java.net.URL;
-import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static controllers.FXMLNavigator.spSearch;
 
 /**
  * Created 22/03/2017.
  */
 public class SearchRideController implements Initializable {
 
-    private MainController main = MainController.getInstance();
-    private FXMLController fxml = new FXMLController();
+    private SessionManager main = SessionManager.getInstance();
+    private FXMLNavigator fxml = new FXMLNavigator();
 
     private final String viewRide = "/viewride.fxml";
 
@@ -85,14 +86,14 @@ public class SearchRideController implements Initializable {
 
     @FXML
     protected void backToSpSearch(ActionEvent event) throws Exception {
-        fxml.loadScene("/stoppointsearch.fxml");
+        fxml.loadScene(spSearch);
     }
 
     @FXML
     protected void bookRide(ActionEvent event) throws Exception {
         RideStopPoint rideStopPoint = (RideStopPoint)rideTable.getSelectionModel().getSelectedItem();
         Ride ride = rideStopPoint.getRide();
-        ride.addPassenger(main.getUser());
+        ride.addPassenger(main.getCurrentUser());
         if (ride.getStatus() == Status.FULL) {
             main.getSharedRides().remove(ride);
         }

@@ -1,40 +1,36 @@
 
-import controllers.MainController;
-import controllers.Serializer;
+import controllers.SessionManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import javafx.stage.Stage;
-import models.Driver;
 import models.Rss;
-import models.StopPoint;
-import models.Vehicle;
 
 import java.time.LocalDate;
 
+import static controllers.Converter.getDayOfDate;
+import static controllers.Serializer.loadRss;
+
 
 /**
- * Created by samschofield on 7/03/17.
+ * Created on 7/03/17.
  */
 public class Main extends Application {
 
     public void start(Stage stage) throws Exception {
 
-        Serializer serializer = new Serializer();
-        Rss rss;
-        try {
-            rss = serializer.load();
-        } catch (Exception e) {
+        Rss rss = loadRss();
+        if (rss == null) {
             rss = new Rss();
         }
 
-        MainController main = MainController.getInstance();
-        main.setStage(stage);
-        main.setRss(rss);
+        SessionManager session = SessionManager.getInstance();
+        session.setStage(stage);
+        session.setRss(rss);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root, 500, 400);
         stage.setTitle("UC RSS");
@@ -43,7 +39,7 @@ public class Main extends Application {
         stage.show();
 
         // For testing only
-        String h = main.getDayOfDate(LocalDate.now());
+        String h = getDayOfDate(LocalDate.now());
 
     }
 }

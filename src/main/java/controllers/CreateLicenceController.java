@@ -4,27 +4,23 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import models.Driver;
 import models.Licence;
-import models.User;
 
-import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+
+import static controllers.FXMLNavigator.driverDashboard;
+import static controllers.FXMLNavigator.passengerDashboard;
 
 /**
  * Created 22/03/2017.
  */
 public class CreateLicenceController implements Initializable {
 
-    private MainController main = MainController.getInstance();
-    private FXMLController fxml = new FXMLController();
-
-    private final String driverDashboard = "/driverdash.fxml";
-    private final String passengerDashboard = "/passengerdash.fxml";
+    private SessionManager session = SessionManager.getInstance();
+    private FXMLNavigator fxml = new FXMLNavigator();
 
     @FXML Button createButton;
     @FXML Button cancelButton;
@@ -53,8 +49,7 @@ public class CreateLicenceController implements Initializable {
 
     @FXML
     protected void backToDashboard(ActionEvent event) throws Exception {
-        // TODO check user is now a passenger not a driver
-        main.getUser().setDriver(false);
+        session.getCurrentUser().setIsDriver(false);
         fxml.loadScene(passengerDashboard);
     }
 
@@ -81,7 +76,7 @@ public class CreateLicenceController implements Initializable {
         if (isValidInput()) {
             if (fullRadio.isSelected()) {
                 Licence licence = new Licence("Full", number, issueDate, expiryDate);
-                main.getDriver().setLicence(licence);
+                session.getCurrentDriver().setLicence(licence);
                 fxml.loadScene(driverDashboard);
             } else {
                 errorMessageLabel.setText("You can only be a driver if you have a full licence.");

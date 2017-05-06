@@ -4,20 +4,22 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Stop;
 import models.Driver;
 import models.StopPoint;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static controllers.Validator.isAlphanumeric;
+import static controllers.Validator.tryParseInt;
+
 /**
  * Created 22/03/2017.
  */
 public class CreateSPController {
 
-    private MainController main = MainController.getInstance();
-    private FXMLController fxml = new FXMLController();
+    private SessionManager main = SessionManager.getInstance();
+    private FXMLNavigator fxml = new FXMLNavigator();
 
     @FXML
     Button dashboardButton;
@@ -37,7 +39,7 @@ public class CreateSPController {
 
     private List<String> getExistingAdresses() {
         List<String> existing = new ArrayList<>();
-        for (StopPoint sp : main.getDriver().getStopPoints()) {
+        for (StopPoint sp : main.getCurrentDriver().getStopPoints()) {
             existing.add(sp.getAddress());
         }
         return existing;
@@ -49,11 +51,11 @@ public class CreateSPController {
         String name = nameField.getText();
         String suburb = suburbField.getText();
 
-        int number = main.tryParseInt(numberInput);
+        int number = tryParseInt(numberInput);
 
-        if (number > -1 && main.isAlphanumeric(name) && main.isAlphanumeric(suburb)) {
+        if (number > -1 && isAlphanumeric(name) && isAlphanumeric(suburb)) {
             StopPoint stopPoint = new StopPoint(number, name, suburb);
-            Driver driver = main.getDriver();
+            Driver driver = main.getCurrentDriver();
 
             // same address cannot be added more than once
             List<String> existingAdresses = getExistingAdresses();

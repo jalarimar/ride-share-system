@@ -1,5 +1,6 @@
 package models;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,14 @@ public class Driver extends User {
 
     public Driver(String firstName, String lastName) {
         super(firstName, lastName, true);
+        this.vehicles = new ArrayList<>();
+        this.stopPoints = new ArrayList<>();
+        this.routes = new ArrayList<>();
+        this.rides = new ArrayList<>();
+    }
+
+    public Driver(String firstName, String lastName, String uniID, String password, String email, String address, String homeNumber, String mobileNumber, File photo) {
+        super(firstName, lastName, true, uniID, password, email, address, homeNumber, mobileNumber, photo);
         this.vehicles = new ArrayList<>();
         this.stopPoints = new ArrayList<>();
         this.routes = new ArrayList<>();

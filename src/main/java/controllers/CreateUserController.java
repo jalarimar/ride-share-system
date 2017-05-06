@@ -13,16 +13,16 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static controllers.FXMLNavigator.*;
+import static controllers.Validator.isAlphanumeric;
+
 /**
  * Created 22/03/2017.
  */
 public class CreateUserController implements Initializable {
 
-    private MainController main = MainController.getInstance();
-    private FXMLController fxml = new FXMLController();
-
-    private final String createLicence = "/createlicence.fxml";
-    private final String passengerDashboard = "/passengerdash.fxml";
+    private SessionManager main = SessionManager.getInstance();
+    private FXMLNavigator fxml = new FXMLNavigator();
 
     @FXML Button createButton;
     @FXML Button uploadButton;
@@ -49,6 +49,7 @@ public class CreateUserController implements Initializable {
     private String mobileNumber;
     private String password1;
     private String password2;
+    private File photo;
     private String errorMessage;
 
     @Override
@@ -58,11 +59,6 @@ public class CreateUserController implements Initializable {
         driverRadio.setToggleGroup(accountType);
 
         passengerRadio.setSelected(true);
-    }
-
-    @FXML
-    protected void backToDashboard(ActionEvent event) throws Exception {
-        fxml.backToDashboard(event);
     }
 
     private void collectInputFromFields() {
@@ -77,12 +73,17 @@ public class CreateUserController implements Initializable {
         password2 = password2Field.getText();
     }
 
+    private boolean isValidPhoto() {
+        String fileFormatRegex = "^.*\\.(jpg|JPG|jpeg|JPEG|png|PNG)$";
+        return photo != null && photo.getName().matches(fileFormatRegex);
+    }
+
     private boolean isValidInput() {
         errorMessage = "Validation Failed";  // default message
         boolean isValid = true;
 
         // TODO more general validation - Validator class
-        if (!main.isAlphanumeric(firstName) || !main.isAlphanumeric(lastName)) {
+        if (!isAlphanumeric(firstName) || !isAlphanumeric(lastName)) {
             isValid = false;
         }
 
@@ -106,6 +107,11 @@ public class CreateUserController implements Initializable {
             errorMessage = "Passwords do not match";
         }
 
+        if (!isValidPhoto()) {
+            isValid = false;
+            errorMessage = "Valid photo must be uploaded";
+        }
+
         return isValid;
     }
 
@@ -116,12 +122,12 @@ public class CreateUserController implements Initializable {
 
         if (isValidInput()) {
             if (driverRadio.isSelected()) {
-                Driver driver = new Driver(firstName, lastName);
-                main.setDriver(driver);
+                Driver driver = new Driver(firstName, lastName, id, password1, email, address, homeNumber, mobileNumber, photo);
+                main.setCurrentUser(driver);
                 fxml.loadScene(createLicence);
             } else if (passengerRadio.isSelected()){
-                User user = new User(firstName, lastName, false);
-                main.setUser(user);
+                User user = new User(firstName, lastName, false, id, password1, email, address, homeNumber, mobileNumber, photo);
+                main.setCurrentUser(user);
                 fxml.loadScene(passengerDashboard);
             } else {
                 errorMessageLabel.setText("Please select an account type.");
@@ -137,14 +143,13 @@ public class CreateUserController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image File");
         Stage stage = main.getStage();
-        File file = fileChooser.showOpenDialog(stage);
-
-        String fileFormatRegex = "^.*\\.(jpg|JPG|jpeg|JPEG|png|PNG)$";
-        if (file != null && file.getName().matches(fileFormatRegex)) {
-            if (file.getName().length() > 30) {
-                fileNameLabel.setText(file.getName().substring(0, 28) + "...");
+        photo = fileChooser.showOpenDialog(stage);
+        
+        if (isValidPhoto()) {
+            if (photo.getName().length() > 30) {
+                fileNameLabel.setText(photo.getName().substring(0, 28) + "...");
             } else {
-                fileNameLabel.setText(file.getName());
+                fileNameLabel.setText(photo.getName());
             }
         } else {
             fileNameLabel.setText(".jpg/.jpeg or .png");

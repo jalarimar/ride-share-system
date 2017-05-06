@@ -1,6 +1,5 @@
 package controllers;
 
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,10 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
-import models.Route;
 import models.StopPoint;
-import models.Vehicle;
 
 import java.net.URL;
 import java.util.*;
@@ -23,8 +19,8 @@ import java.util.*;
  */
 public class SearchSPController implements Initializable {
 
-    private MainController main = MainController.getInstance();
-    private FXMLController fxml = new FXMLController();
+    private SessionManager main = SessionManager.getInstance();
+    private FXMLNavigator fxml = new FXMLNavigator();
 
     private final String rideSearch = "/ridesearch.fxml";
 

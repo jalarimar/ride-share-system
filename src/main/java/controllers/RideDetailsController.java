@@ -1,7 +1,5 @@
 package controllers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,13 +13,15 @@ import models.Vehicle;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static controllers.FXMLNavigator.rideSearch;
+
 /**
  * Created 22/03/2017.
  */
 public class RideDetailsController implements Initializable {
 
-    private MainController main = MainController.getInstance();
-    private FXMLController fxml = new FXMLController();
+    private SessionManager main = SessionManager.getInstance();
+    private FXMLNavigator fxml = new FXMLNavigator();
 
     @FXML
     Button dashboardButton;
@@ -66,13 +66,13 @@ public class RideDetailsController implements Initializable {
 
     @FXML
     protected void backToRideSearch(ActionEvent event) throws Exception {
-        fxml.loadScene("/ridesearch.fxml");
+        fxml.loadScene(rideSearch);
     }
 
     @FXML
     protected void bookRide(ActionEvent event) throws Exception {
         Ride ride = main.getFocusedRide();
-        ride.addPassenger(main.getUser());
+        ride.addPassenger(main.getCurrentUser());
         if (ride.getStatus() == Status.FULL) {
             main.getSharedRides().remove(ride);
         }

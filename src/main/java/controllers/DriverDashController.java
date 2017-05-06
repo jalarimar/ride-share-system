@@ -3,26 +3,19 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import models.Driver;
 import models.StopPoint;
-import models.Vehicle;
 
 import java.util.List;
+
+import static controllers.FXMLNavigator.*;
 
 /**
  * Created 22/03/2017.
  */
 public class DriverDashController {
 
-    private MainController main = MainController.getInstance();
-    private FXMLController fxml = new FXMLController();
-
-    private final String createCar = "/createvehicle.fxml";
-    private final String createSp = "/createstoppoint.fxml";
-    private final String createRoute = "/createroute.fxml";
-    private final String createRide = "/createride.fxml";
-    private final String myRides = "/driversrides.fxml";
-    private final String spSearch = "/stoppointsearch.fxml";
+    private SessionManager main = SessionManager.getInstance();
+    private FXMLNavigator fxml = new FXMLNavigator();
 
     @FXML
     Button registerCarButton;
@@ -39,8 +32,8 @@ public class DriverDashController {
 
     // for testing purposes only, should use initialise instead, see CreateRouteController
     public DriverDashController() {
-        System.out.println(main.getDriver().getVehicles());
-        List<StopPoint> stopPoints = main.getDriver().getStopPoints();
+        System.out.println(main.getCurrentDriver().getVehicles());
+        List<StopPoint> stopPoints = main.getCurrentDriver().getStopPoints();
         for (StopPoint sp : stopPoints) {
             System.out.println(sp.getAddress());
         }

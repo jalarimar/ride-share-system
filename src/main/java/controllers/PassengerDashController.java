@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
  */
 public class PassengerDashController {
 
-    private FXMLController fxml = new FXMLController();
+    private FXMLNavigator fxml = new FXMLNavigator();
 
     private final String spSearch = "/stoppointsearch.fxml";
 

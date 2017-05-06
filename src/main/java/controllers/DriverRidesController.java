@@ -7,12 +7,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import models.Ride;
-import models.Route;
 import models.Status;
-import models.Vehicle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,8 +19,8 @@ import java.util.ResourceBundle;
  */
 public class DriverRidesController implements Initializable {
 
-    private MainController main = MainController.getInstance();
-    private FXMLController fxml = new FXMLController();
+    private SessionManager main = SessionManager.getInstance();
+    private FXMLNavigator fxml = new FXMLNavigator();
     ObservableList<Integer> availableSeats;
 
     @FXML
@@ -39,7 +36,7 @@ public class DriverRidesController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<Ride> unsharedRides = FXCollections.observableArrayList();
-        for (Ride ride : main.getDriver().getRides()) {
+        for (Ride ride : main.getCurrentDriver().getRides()) {
             if (ride.getStatus() == Status.UNSHARED) {
                 unsharedRides.add(ride);
             }

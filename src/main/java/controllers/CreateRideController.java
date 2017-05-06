@@ -1,16 +1,11 @@
 package controllers;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import models.*;
 
 import java.net.URL;
@@ -18,16 +13,17 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
+
+import static controllers.Validator.tryParseInt;
 
 /**
  * Created 22/03/2017.
  */
 public class CreateRideController implements Initializable {
 
-    private MainController main = MainController.getInstance();
-    private FXMLController fxml = new FXMLController();
+    private SessionManager session = SessionManager.getInstance();
+    private FXMLNavigator fxml = new FXMLNavigator();
 
     @FXML
     Button dashboardButton;
@@ -65,13 +61,13 @@ public class CreateRideController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<Vehicle> availableVehicles = FXCollections.observableArrayList();
-        availableVehicles.addAll(main.getDriver().getVehicles());
+        availableVehicles.addAll(session.getCurrentDriver().getVehicles());
         carChoice.setItems(availableVehicles);
 
         directionChoice.setItems(FXCollections.observableArrayList("To University", "From University"));
 
         ObservableList<Route> availableRoutes = FXCollections.observableArrayList();
-        availableRoutes.addAll(main.getDriver().getRoutes());
+        availableRoutes.addAll(session.getCurrentDriver().getRoutes());
         routeChoice.setItems(availableRoutes);
 
         routeChoice.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -120,7 +116,7 @@ public class CreateRideController implements Initializable {
         String rawInput = timesField.getText();
         for (String time : rawInput.split(",")) {
             String trimmedTime = time.trim();
-            if (main.tryParseInt(trimmedTime) > -1 && trimmedTime.length() == 4) {
+            if (tryParseInt(trimmedTime) > -1 && trimmedTime.length() == 4) {
                 times.add(trimmedTime);
             }
         }
@@ -171,7 +167,7 @@ public class CreateRideController implements Initializable {
             LocalDate end = endDatePicker.getValue();
             boolean isRecurrent = start != end && start != null && end != null && days.size() > 0;
 
-            Driver driver = main.getDriver();
+            Driver driver = session.getCurrentDriver();
             Ride ride = new Ride(vehicle, driver, spWithTimes, isFromUni, isRecurrent, days, start, end);
             driver.addRide(ride);
 

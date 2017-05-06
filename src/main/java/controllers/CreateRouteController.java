@@ -11,20 +11,20 @@ import javafx.scene.control.TextField;
 import models.Driver;
 import models.Route;
 import models.StopPoint;
-import models.Vehicle;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static controllers.Validator.isAlphanumeric;
 
 /**
  * Created 22/03/2017.
  */
 public class CreateRouteController implements Initializable {
 
-    private MainController main = MainController.getInstance();
-    private FXMLController fxml = new FXMLController();
+    private SessionManager main = SessionManager.getInstance();
+    private FXMLNavigator fxml = new FXMLNavigator();
     private ObservableList<StopPoint> route = FXCollections.observableArrayList();
     private ObservableList<StopPoint> availablePoints = FXCollections.observableArrayList();
 
@@ -68,7 +68,7 @@ public class CreateRouteController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        List<StopPoint> stopPoints = main.getDriver().getStopPoints();
+        List<StopPoint> stopPoints = main.getCurrentDriver().getStopPoints();
         availablePoints.addAll(stopPoints);
 
         excludedStopPointList.setItems(availablePoints);
@@ -105,8 +105,8 @@ public class CreateRouteController implements Initializable {
     @FXML
     protected void createRoute(ActionEvent event) throws Exception {
         String name = nameField.getText();
-        if (main.isAlphanumeric(name)) {
-            Driver driver = main.getDriver();
+        if (isAlphanumeric(name)) {
+            Driver driver = main.getCurrentDriver();
             Route r = new Route(name, route);
             driver.addRoute(r);
 
