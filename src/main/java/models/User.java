@@ -1,16 +1,21 @@
 package models;
 
-import java.io.Serializable;
 
 /**
  * Created 21/03/2017.
  */
-public class User implements Serializable {
+public class User {
 
-    private static final long serialVersionUID = 1L;
     private String firstName;
     private String lastName;
     private boolean isDriver;
+    private String uniID;
+    private String password;
+    private String email;
+    private String address;
+    private String homeNumber;
+    private String mobileNumber;
+    private String photo;
 
     public User(String firstName, String lastName, boolean isDriver) {
         this.firstName = firstName;

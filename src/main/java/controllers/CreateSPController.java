@@ -51,7 +51,7 @@ public class CreateSPController {
 
         int number = main.tryParseInt(numberInput);
 
-        if (number > -1 && main.isValidInputString(name) && main.isValidInputString(suburb)) {
+        if (number > -1 && main.isAlphanumeric(name) && main.isAlphanumeric(suburb)) {
             StopPoint stopPoint = new StopPoint(number, name, suburb);
             Driver driver = main.getDriver();
 

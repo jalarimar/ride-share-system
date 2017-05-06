@@ -1,8 +1,8 @@
 package controllers;
 
-import models.Driver;
-import models.Passenger;
-import models.Vehicle;
+import gherkin.deps.com.google.gson.Gson;
+import gherkin.deps.com.google.gson.GsonBuilder;
+import models.Rss;
 
 import java.io.*;
 
@@ -11,38 +11,16 @@ import java.io.*;
  */
 public class Serializer {
 
-    public void serialize(Object obj, String filePath) {
-        try {
-            FileOutputStream fileOut =
-                    new FileOutputStream(filePath);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(obj);
-            out.close();
-            fileOut.close();
-            System.out.printf("Serialized data is saved in " + filePath);
-        }catch(IOException i) {
-            i.printStackTrace();
-        }
+    static Gson gson = new GsonBuilder().create();
+
+    public static Rss load() throws UnsupportedEncodingException {
+        Reader reader = new InputStreamReader(Serializer.class.getResourceAsStream("/rss.json"), "UTF-8");
+        return gson.fromJson(reader, Rss.class);
     }
 
-    public <T> T deserialize(String filePath) {
-        try {
-            FileInputStream fileIn = new FileInputStream(filePath);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            T obj = (T) in.readObject();
-            in.close();
-            fileIn.close();
-            return obj;
-        } catch (FileNotFoundException f) {
-            return null;
-        } catch(IOException i) {
-            i.printStackTrace();
-            return null;
-        }catch(ClassNotFoundException c) {
-            System.out.println("Class not found");
-            c.printStackTrace();
-            return null;
-        }
+    public static void save(Rss system) throws IOException {
+        Writer writer = new OutputStreamWriter(new FileOutputStream("src/main/resources/rss.json"), "UTF-8");
+        gson.toJson(system, writer);
+        writer.close();
     }
-
 }

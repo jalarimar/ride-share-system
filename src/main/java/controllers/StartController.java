@@ -2,13 +2,13 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-import models.Driver;
-import models.Passenger;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import models.Rss;
+import models.User;
+
 
 /**
  * Created 22/03/2017.
@@ -16,49 +16,48 @@ import models.Passenger;
 public class StartController {
 
     private MainController main = MainController.getInstance();
-    private FXMLController fxml;
+    private FXMLController fxml = new FXMLController();
 
-    private final String driverFilePath = "driver.ser";
-    private final String passengerFilePath = "passenger.ser";
     private final String driverDashboard = "/driverdash.fxml";
     private final String passengerDashboard = "/passengerdash.fxml";
     private final String createUser = "/createuser.fxml";
 
-    @FXML
-    Button driverButton;
-    @FXML
-    Button passengerButton;
+    @FXML TextField usernameField;
+    @FXML PasswordField passwordField;
+    @FXML Label errorMessageLabel;
+    @FXML Button loginButton;
+    @FXML Button registerButton;
+
 
     @FXML
-    protected void loadDriverDashboard(ActionEvent event) throws Exception {
-        // check if driver is serialised and if so load otherwise ask for details
-        main.initialiseUser(true);
-        main.setStage((Stage)driverButton.getScene().getWindow());
-        fxml = new FXMLController();
+    protected void attemptLogin(ActionEvent event) throws Exception {
+        // find user and check password
+        String userId = usernameField.getText();
+        String password = passwordField.getText();
+        if (hasCorrectPassword(userId, password)) {
 
-        Serializer serializer = new Serializer();
-        Driver driver = serializer.deserialize(driverFilePath);
-        if (driver != null) {
-            fxml.loadScene(driverDashboard);
+            //User user = Rss.getUser();
+            //main.setUser(user);
+
+            // load driver or passenger dashboard
+            if (main.getUser().isDriver()) {
+                fxml.loadScene(driverDashboard);
+            } else {
+                fxml.loadScene(passengerDashboard);
+            }
         } else {
-            fxml.loadScene(createUser);
+            errorMessageLabel.setText("Incorrect ID or password");
         }
     }
 
     @FXML
-    protected void loadPassengerDashboard(ActionEvent event) throws Exception {
-        // check if passenger is serialised and if so load otherwise ask for details
-        main.initialiseUser(false);
-        main.setStage((Stage)passengerButton.getScene().getWindow());
-        fxml = new FXMLController();
+    protected void loadCreateUser(ActionEvent event) throws Exception {
+        fxml.loadScene(createUser);
+    }
 
-        Serializer serializer = new Serializer();
-        Passenger passenger = serializer.deserialize(passengerFilePath);
-        if (passenger != null) {
-            fxml.loadScene(passengerDashboard);
-        } else {
-            fxml.loadScene(createUser);
-        }
+    private boolean hasCorrectPassword(String userId, String password) {
+        // TODO check password matches user password in json
+        return false;
     }
 
 }

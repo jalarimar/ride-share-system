@@ -20,17 +20,18 @@ public class FXMLController {
 
     private boolean userIsDriver;
 
-    @FXML
-    Button dashboardButton; // something is still using this controller
-
     public FXMLController() {
-        this.userIsDriver = main.getUser().isDriver();
+        if (main.getUser() != null) {
+            this.userIsDriver = main.getUser().isDriver();
+        } else {
+            this.userIsDriver = false;
+        }
     }
 
     public void loadScene(String path) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
         Parent root = loader.load();
-        Scene scene = new Scene(root, 500, 400);
+        Scene scene = new Scene(root, 600, 500);
         Stage stage = main.getStage();
         stage.setScene(scene);
         stage.setResizable(false);

@@ -48,6 +48,11 @@
             <version>1.2.5</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>gherkin</artifactId>
+            <version>RELEASE</version>
+        </dependency>
     </dependencies>
 
 

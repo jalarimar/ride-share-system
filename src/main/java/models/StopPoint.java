@@ -11,7 +11,9 @@ public class StopPoint {
     private String suburb;
 
     public StopPoint(int streetNumber, String streetName, String suburb) {
-        this.streetNumber = streetNumber;
+        if (streetNumber > 0) {
+            this.streetNumber = streetNumber;
+        }
         this.streetName = streetName;
         this.suburb = suburb;
     }

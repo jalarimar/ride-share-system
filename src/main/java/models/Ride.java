@@ -98,7 +98,14 @@ public class Ride {
     }
 
     public void setAvailableSeats(int availableSeats) {
-        this.availableSeats = availableSeats;
+        if (availableSeats <= vehicle.getPhysicalSeats() && availableSeats >= 0) {
+            this.availableSeats = availableSeats;
+        } else {
+            this.availableSeats = vehicle.getPhysicalSeats();
+        }
+        if (availableSeats == 0) {
+            status = Status.FULL;
+        }
     }
 
     public Driver getDriver() {

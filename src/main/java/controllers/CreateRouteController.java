@@ -43,6 +43,7 @@ public class CreateRouteController implements Initializable {
     @FXML
     ListView<StopPoint> excludedStopPointList;
 
+    /*
     //TODO REMOVE
     public CreateRouteController() {
         Driver d = main.getDriver();
@@ -63,7 +64,7 @@ public class CreateRouteController implements Initializable {
         main.addStopPoint(s);
         main.addStopPoint(a);
         main.addStopPoint(f);
-    }
+    }*/
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -79,9 +80,13 @@ public class CreateRouteController implements Initializable {
         fxml.backToDashboard(event);
     }
 
+    private StopPoint getSelectedStopPoint() {
+        return excludedStopPointList.getSelectionModel().getSelectedItem();
+    }
+
     @FXML
     protected void addStopPointToRoute(ActionEvent event) {
-        StopPoint selectedPoint = excludedStopPointList.getSelectionModel().getSelectedItem();
+        StopPoint selectedPoint = getSelectedStopPoint();
         if (selectedPoint != null) {
             route.add(selectedPoint);
             availablePoints.remove(selectedPoint);
@@ -100,7 +105,7 @@ public class CreateRouteController implements Initializable {
     @FXML
     protected void createRoute(ActionEvent event) throws Exception {
         String name = nameField.getText();
-        if (main.isValidInputString(name)) {
+        if (main.isAlphanumeric(name)) {
             Driver driver = main.getDriver();
             Route r = new Route(name, route);
             driver.addRoute(r);
@@ -111,5 +116,15 @@ public class CreateRouteController implements Initializable {
         }
     }
 
+
+    /*public void MockCreateRouteController() {
+        CreateRouteController x = mock(CreateRouteController.class);
+        when(x.getSelectedStopPoint()).thenReturn(new StopPoint(5, "Street", "Suburb"));
+
+        int oldRouteSize = route.size();
+        x.addStopPointToRoute();
+        Assert.assertTrue(route.size() > oldRouteSize);
+
+    }*/
 
 }

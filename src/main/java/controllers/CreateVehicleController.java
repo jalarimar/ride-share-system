@@ -45,7 +45,7 @@ public class CreateVehicleController {
     private boolean validateUserInput(List<String> userStrings) {
         boolean isValid = true;
         for (String string : userStrings) {
-            isValid = isValid && main.isValidInputString(string);
+            isValid = isValid && main.isAlphanumeric(string);
         }
         return isValid;
     }

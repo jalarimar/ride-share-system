@@ -14,6 +14,10 @@ public class Vehicle implements Serializable {
     private int year;
     private int physicalSeats;
 
+    public Vehicle(String licensePlate) {
+        this.licensePlate = licensePlate;
+    }
+
     public Vehicle(String type, String model, String colour, String licensePlate, String performance, int year, int physicalSeats) {
         this.type = type;
         this.model = model;
@@ -27,6 +31,23 @@ public class Vehicle implements Serializable {
     @Override
     public String toString() {
         return type + " " + model + " " + licensePlate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Vehicle vehicle = (Vehicle) o;
+        return licensePlate.equals(vehicle.licensePlate);
+    }
+
+    @Override
+    public int hashCode() {
+        return licensePlate.hashCode();
     }
 
     public String getType() {

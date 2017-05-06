@@ -1,19 +1,15 @@
 package models;
 
-import javafx.scene.paint.Stop;
-
-import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created 21/03/2017.
  */
-public class Driver extends User implements AutoCloseable, Serializable {
+public class Driver extends User {
 
-    private static final long serialVersionUID = 1L;
-    //private String photo;
-    //private String grade;
+    private Licence licence;
     private List<Vehicle> vehicles;
     private List<StopPoint> stopPoints;
     private List<Route> routes;
@@ -26,6 +22,8 @@ public class Driver extends User implements AutoCloseable, Serializable {
         this.routes = new ArrayList<>();
         this.rides = new ArrayList<>();
     }
+
+    public void setLicence(Licence licence) { this.licence = licence; }
 
     public void addVehicle(Vehicle v) {
         vehicles.add(v);
@@ -53,7 +51,7 @@ public class Driver extends User implements AutoCloseable, Serializable {
 
     public List<Ride> getRides() {return rides; }
 
-    public void close() {
-        this.close();
+    public Licence getLicence() {
+        return licence;
     }
 }
