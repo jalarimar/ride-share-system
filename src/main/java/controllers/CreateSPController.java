@@ -10,6 +10,7 @@ import models.StopPoint;
 import java.util.ArrayList;
 import java.util.List;
 
+import static controllers.Serializer.saveRss;
 import static controllers.Validator.isAlphanumeric;
 import static controllers.Validator.tryParseInt;
 
@@ -18,7 +19,7 @@ import static controllers.Validator.tryParseInt;
  */
 public class CreateSPController {
 
-    private SessionManager main = SessionManager.getInstance();
+    private SessionManager session = SessionManager.getInstance();
     private FXMLNavigator fxml = new FXMLNavigator();
 
     @FXML
@@ -39,7 +40,7 @@ public class CreateSPController {
 
     private List<String> getExistingAdresses() {
         List<String> existing = new ArrayList<>();
-        for (StopPoint sp : main.getCurrentDriver().getStopPoints()) {
+        for (StopPoint sp : session.getCurrentDriver().getStopPoints()) {
             existing.add(sp.getAddress());
         }
         return existing;
@@ -55,13 +56,14 @@ public class CreateSPController {
 
         if (number > -1 && isAlphanumeric(name) && isAlphanumeric(suburb)) {
             StopPoint stopPoint = new StopPoint(number, name, suburb);
-            Driver driver = main.getCurrentDriver();
+            Driver driver = session.getCurrentDriver();
 
             // same address cannot be added more than once
             List<String> existingAdresses = getExistingAdresses();
             if (!existingAdresses.contains(stopPoint.getAddress())) {
                 driver.addStopPoint(stopPoint);
-                main.addStopPoint(stopPoint);
+                session.getRss().addStopPoint(stopPoint);
+                saveRss(session.getRss());
             }
             fxml.backToDashboard(event);
 

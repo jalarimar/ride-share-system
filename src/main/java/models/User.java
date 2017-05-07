@@ -66,4 +66,16 @@ public class User {
     public void setIsDriver(boolean driver) {
         isDriver = driver;
     }
+
+    public String getUniID() {
+        return uniID;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

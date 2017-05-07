@@ -14,13 +14,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static controllers.FXMLNavigator.rideSearch;
+import static controllers.Serializer.saveRss;
 
 /**
  * Created 22/03/2017.
  */
 public class RideDetailsController implements Initializable {
 
-    private SessionManager main = SessionManager.getInstance();
+    private SessionManager session = SessionManager.getInstance();
     private FXMLNavigator fxml = new FXMLNavigator();
 
     @FXML
@@ -46,7 +47,7 @@ public class RideDetailsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Ride ride = main.getFocusedRide();
+        Ride ride = session.getFocusedRide();
         Driver driver = ride.getDriver();
         Vehicle vehicle = ride.getVehicle();
 
@@ -71,11 +72,10 @@ public class RideDetailsController implements Initializable {
 
     @FXML
     protected void bookRide(ActionEvent event) throws Exception {
-        Ride ride = main.getFocusedRide();
-        ride.addPassenger(main.getCurrentUser());
-        if (ride.getStatus() == Status.FULL) {
-            main.getSharedRides().remove(ride);
-        }
+        Ride ride = session.getFocusedRide();
+        ride.addPassenger(session.getCurrentUser());
+        session.getRss().saveModifiedRide(ride);
+        saveRss(session.getRss());
 
         fxml.backToDashboard(event);
     }

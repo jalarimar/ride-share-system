@@ -14,12 +14,14 @@ import models.Status;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static controllers.Serializer.saveRss;
+
 /**
  * Created 22/03/2017.
  */
 public class DriverRidesController implements Initializable {
 
-    private SessionManager main = SessionManager.getInstance();
+    private SessionManager session = SessionManager.getInstance();
     private FXMLNavigator fxml = new FXMLNavigator();
     ObservableList<Integer> availableSeats;
 
@@ -36,7 +38,7 @@ public class DriverRidesController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<Ride> unsharedRides = FXCollections.observableArrayList();
-        for (Ride ride : main.getCurrentDriver().getRides()) {
+        for (Ride ride : session.getCurrentDriver().getRides()) {
             if (ride.getStatus() == Status.UNSHARED) {
                 unsharedRides.add(ride);
             }
@@ -68,7 +70,8 @@ public class DriverRidesController implements Initializable {
         Ride ride = (Ride)unsharedRideList.getSelectionModel().getSelectedItem();
         ride.setAvailableSeats((int)availableSeatsChoice.getSelectionModel().getSelectedItem());
         ride.setStatus(Status.AVAILABLE);
-        main.addSharedRide(ride);
+        session.getRss().saveModifiedRide(ride);
+        saveRss(session.getRss());
 
         fxml.backToDashboard(event);
     }

@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import models.Rss;
 import models.StopPoint;
 
 import java.net.URL;
@@ -19,7 +20,7 @@ import java.util.*;
  */
 public class SearchSPController implements Initializable {
 
-    private SessionManager main = SessionManager.getInstance();
+    private SessionManager session = SessionManager.getInstance();
     private FXMLNavigator fxml = new FXMLNavigator();
 
     private final String rideSearch = "/ridesearch.fxml";
@@ -60,7 +61,7 @@ public class SearchSPController implements Initializable {
         }
         */
 
-        allStopPoints.addAll(main.getAllStopPoints());
+        allStopPoints.addAll(session.getRss().getAllStopPoints());
         visibleStopPoints.addAll(allStopPoints);
 
         Collections.sort(visibleStopPoints, (StopPoint sp1, StopPoint sp2) -> sp1.getStreetNumAsInt().compareTo(sp2.getStreetNumAsInt()));
@@ -80,7 +81,7 @@ public class SearchSPController implements Initializable {
     private void waitForSelection() {
         spTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                main.setFocusedStopPoint((StopPoint)newSelection);
+                session.setFocusedStopPoint((StopPoint)newSelection);
                 try {
                     fxml.loadScene(rideSearch);
                 } catch (Exception ex) {

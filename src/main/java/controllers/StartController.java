@@ -2,10 +2,18 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import models.Driver;
+import models.User;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import static controllers.FXMLNavigator.*;
 
 
 /**
@@ -13,12 +21,8 @@ import javafx.scene.control.TextField;
  */
 public class StartController {
 
-    private SessionManager main = SessionManager.getInstance();
+    private SessionManager session = SessionManager.getInstance();
     private FXMLNavigator fxml = new FXMLNavigator();
-
-    private final String driverDashboard = "/driverdash.fxml";
-    private final String passengerDashboard = "/passengerdash.fxml";
-    private final String createUser = "/createuser.fxml";
 
     @FXML TextField usernameField;
     @FXML PasswordField passwordField;
@@ -26,20 +30,18 @@ public class StartController {
     @FXML Button loginButton;
     @FXML Button registerButton;
 
-
     @FXML
     protected void attemptLogin(ActionEvent event) throws Exception {
-        // find user and check password
         String userId = usernameField.getText();
         String password = passwordField.getText();
+
         if (hasCorrectPassword(userId, password)) {
 
-            //TODO link to rss
-            //User user = Rss.getUser();
-            //main.setUser(user);
+            User user = session.getRss().getUserById(userId);
+            session.setCurrentUser(user);
 
             // load driver or passenger dashboard
-            if (main.getCurrentUser().isDriver()) {
+            if (user instanceof Driver) {
                 fxml.loadScene(driverDashboard);
             } else {
                 fxml.loadScene(passengerDashboard);
@@ -55,8 +57,12 @@ public class StartController {
     }
 
     private boolean hasCorrectPassword(String userId, String password) {
-        // TODO check password matches user password in json
-        return false;
+        User rssUser = session.getRss().getUserById(userId);
+        if (rssUser != null) {
+            String rssPassword = rssUser.getPassword();
+            return password.equals(rssPassword);
+        } else {
+            return false;
+        }
     }
-
 }

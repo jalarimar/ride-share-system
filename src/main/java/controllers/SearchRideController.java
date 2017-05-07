@@ -19,16 +19,16 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static controllers.FXMLNavigator.spSearch;
+import static controllers.FXMLNavigator.viewRide;
+import static controllers.Serializer.saveRss;
 
 /**
  * Created 22/03/2017.
  */
 public class SearchRideController implements Initializable {
 
-    private SessionManager main = SessionManager.getInstance();
+    private SessionManager session = SessionManager.getInstance();
     private FXMLNavigator fxml = new FXMLNavigator();
-
-    private final String viewRide = "/viewride.fxml";
 
     private ObservableList<RideStopPoint> visibleRidesForThisStopPoint = FXCollections.observableArrayList();
 
@@ -54,8 +54,8 @@ public class SearchRideController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        List<Ride> allRides = main.getSharedRides();
-        StopPoint here = main.getFocusedStopPoint();
+        List<Ride> allRides = session.getRss().getAvailableRides();
+        StopPoint here = session.getFocusedStopPoint();
 
         for (Ride ride : allRides) {
             for (RideStopPoint r : ride.getRideStopPoints()) {
@@ -93,16 +93,15 @@ public class SearchRideController implements Initializable {
     protected void bookRide(ActionEvent event) throws Exception {
         RideStopPoint rideStopPoint = (RideStopPoint)rideTable.getSelectionModel().getSelectedItem();
         Ride ride = rideStopPoint.getRide();
-        ride.addPassenger(main.getCurrentUser());
-        if (ride.getStatus() == Status.FULL) {
-            main.getSharedRides().remove(ride);
-        }
+        ride.addPassenger(session.getCurrentUser());
+        session.getRss().saveModifiedRide(ride);
+        saveRss(session.getRss());
     }
 
     @FXML
     protected void viewRide(ActionEvent event) throws Exception {
         RideStopPoint rideStopPoint = (RideStopPoint)rideTable.getSelectionModel().getSelectedItem();
-        main.setFocusedRide(rideStopPoint.getRide());
+        session.setFocusedRide(rideStopPoint.getRide());
         try {
             fxml.loadScene(viewRide);
         } catch (Exception ex) {

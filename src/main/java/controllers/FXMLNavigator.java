@@ -16,6 +16,7 @@ public class FXMLNavigator {
 
     public static final String driverDashboard = "/driverdash.fxml";
     public static final String passengerDashboard = "/passengerdash.fxml";
+    public static final String createUser = "/createuser.fxml";
     public static final String createLicence = "/createlicence.fxml";
     public static final String createCar = "/createvehicle.fxml";
     public static final String createSp = "/createstoppoint.fxml";
@@ -24,6 +25,7 @@ public class FXMLNavigator {
     public static final String myRides = "/driversrides.fxml";
     public static final String spSearch = "/stoppointsearch.fxml";
     public static final String rideSearch = "/ridesearch.fxml";
+    public static final String viewRide = "/viewride.fxml";
 
     public FXMLNavigator() {
     }

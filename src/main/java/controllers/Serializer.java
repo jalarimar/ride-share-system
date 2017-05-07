@@ -21,7 +21,7 @@ public final class Serializer {
             Reader reader = new InputStreamReader(Serializer.class.getResourceAsStream("/rss.json"), "UTF-8");
             return gson.fromJson(reader, Rss.class);
 
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             System.out.println(e);
             return null;
         }

@@ -4,12 +4,14 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created 21/03/2017.
  */
 public class Ride {
 
+    private UUID id;
     private List<RideStopPoint> rideStopPoints;
     private boolean isFromUni;
     private String direction;
@@ -24,6 +26,7 @@ public class Ride {
     private List<User> passengers;
 
     public Ride(Vehicle vehicle, Driver driver, List<RideStopPoint> rsps, boolean isFromUni, boolean isRecurrent, List<DayOfWeek> days, LocalDate startDate, LocalDate endDate) {
+        this.id = UUID.randomUUID();
         this.vehicle = vehicle;
         this.driver = driver;
         this.rideStopPoints = rsps;
@@ -54,6 +57,8 @@ public class Ride {
             return "Short Ride";
         }
     }
+
+    public UUID getId() { return id; }
 
     public List<RideStopPoint> getRideStopPoints() {
         return rideStopPoints;

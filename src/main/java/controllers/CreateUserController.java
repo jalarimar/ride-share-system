@@ -21,7 +21,7 @@ import static controllers.Validator.isAlphanumeric;
  */
 public class CreateUserController implements Initializable {
 
-    private SessionManager main = SessionManager.getInstance();
+    private SessionManager session = SessionManager.getInstance();
     private FXMLNavigator fxml = new FXMLNavigator();
 
     @FXML Button createButton;
@@ -123,11 +123,11 @@ public class CreateUserController implements Initializable {
         if (isValidInput()) {
             if (driverRadio.isSelected()) {
                 Driver driver = new Driver(firstName, lastName, id, password1, email, address, homeNumber, mobileNumber, photo);
-                main.setCurrentUser(driver);
+                session.setCurrentUser(driver);
                 fxml.loadScene(createLicence);
             } else if (passengerRadio.isSelected()){
                 User user = new User(firstName, lastName, false, id, password1, email, address, homeNumber, mobileNumber, photo);
-                main.setCurrentUser(user);
+                session.setCurrentUser(user);
                 fxml.loadScene(passengerDashboard);
             } else {
                 errorMessageLabel.setText("Please select an account type.");
@@ -142,7 +142,7 @@ public class CreateUserController implements Initializable {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image File");
-        Stage stage = main.getStage();
+        Stage stage = session.getStage();
         photo = fileChooser.showOpenDialog(stage);
         
         if (isValidPhoto()) {

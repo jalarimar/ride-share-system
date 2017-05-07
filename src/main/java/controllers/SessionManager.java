@@ -6,8 +6,8 @@ import models.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static controllers.Serializer.saveRss;
 import static controllers.Serializer.loadRss;
+import static controllers.Serializer.saveRss;
 
 /**
  * Created by jar156 on 6/05/17.
@@ -29,10 +29,6 @@ public class SessionManager {
     private Stage stage;
     private Rss rss;
     private User currentUser;
-
-    // TODO replace these with RSS
-    private List<StopPoint> allStopPoints = new ArrayList<>();
-    private List<Ride> sharedRides = new ArrayList<>();
 
     // what the user is currently looking at
     private StopPoint focusedStopPoint;
@@ -64,7 +60,7 @@ public class SessionManager {
         return currentUser;
     }
     public Driver getCurrentDriver() {
-        if (currentUser.isDriver()) {
+        if (currentUser instanceof Driver) {
             return (Driver)currentUser;
         } else {
             return null;
@@ -72,26 +68,18 @@ public class SessionManager {
     }
     public void setCurrentUser(User user) {
         this.currentUser = user;
-        // TODO check if user is in RSS if not add them
-        saveRss(rss);
+
+        String id = user.getUniID();
+        if (rss.getUserById(id) == null) {
+            rss.addUser(user);
+            saveRss(rss);
+            System.out.println("user added");
+        }
     }
 
-    //////
-
-    public List<StopPoint> getAllStopPoints() { return allStopPoints; }
-
-    public List<Ride> getSharedRides() { return sharedRides; }
-
-    public void addStopPoint(StopPoint sp) {
-        allStopPoints.add(sp);
-    }
-
-    public void addSharedRide(Ride r) {
-        sharedRides.add(r);
-    }
 
 /*
-    // TODO move this function
+    // TODO move or remove this function
     public boolean tryAddPassenger(Ride ride, User passenger) {
         Vehicle vehicle = ride.getVehicle();
         int nSeats = vehicle.getPhysicalSeats();
