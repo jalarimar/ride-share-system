@@ -10,7 +10,6 @@ import models.StopPoint;
 import java.util.ArrayList;
 import java.util.List;
 
-import static controllers.Serializer.saveRss;
 import static controllers.Validator.isAlphanumeric;
 import static controllers.Validator.tryParseInt;
 
@@ -62,8 +61,6 @@ public class CreateSPController {
             List<String> existingAdresses = getExistingAdresses();
             if (!existingAdresses.contains(stopPoint.getAddress())) {
                 driver.addStopPoint(stopPoint);
-                session.getRss().addStopPoint(stopPoint);
-                saveRss(session.getRss());
             }
             fxml.backToDashboard(event);
 

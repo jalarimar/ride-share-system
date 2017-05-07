@@ -31,7 +31,9 @@ public class CreateUserController implements Initializable {
     @FXML TextField lastNameField;
     @FXML TextField idField;
     @FXML TextField emailField;
-    @FXML TextField addressField;
+    @FXML TextField addressNumField;
+    @FXML TextField addressStreetField;
+    @FXML TextField addressSuburbField;
     @FXML TextField homeNumberField;
     @FXML TextField mobileNumberField;
     @FXML TextField password1Field;
@@ -66,7 +68,8 @@ public class CreateUserController implements Initializable {
         lastName = lastNameField.getText();
         id = idField.getText();
         email = emailField.getText();
-        address = addressField.getText();
+        address = addressNumField.getText() + " " + addressStreetField.getText() + ", " + addressSuburbField.getText();
+        // TODO change StopPoint to Address and use it here
         homeNumber = homeNumberField.getText();
         mobileNumber = mobileNumberField.getText();
         password1 = password1Field.getText();

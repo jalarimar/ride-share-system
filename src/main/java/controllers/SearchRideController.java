@@ -11,7 +11,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.Ride;
 import models.RideStopPoint;
-import models.Status;
 import models.StopPoint;
 
 import java.net.URL;
@@ -20,7 +19,7 @@ import java.util.ResourceBundle;
 
 import static controllers.FXMLNavigator.spSearch;
 import static controllers.FXMLNavigator.viewRide;
-import static controllers.Serializer.saveRss;
+import static models.Status.AVAILABLE;
 
 /**
  * Created 22/03/2017.
@@ -92,20 +91,26 @@ public class SearchRideController implements Initializable {
     @FXML
     protected void bookRide(ActionEvent event) throws Exception {
         RideStopPoint rideStopPoint = (RideStopPoint)rideTable.getSelectionModel().getSelectedItem();
-        Ride ride = rideStopPoint.getRide();
-        ride.addPassenger(session.getCurrentUser());
-        session.getRss().saveModifiedRide(ride);
-        saveRss(session.getRss());
+        if (rideStopPoint != null) {
+            Ride ride = rideStopPoint.getRide();
+            if (ride.getStatus() == AVAILABLE) {
+                ride.addPassenger(session.getCurrentUser());
+            } else {
+                // TODO error message
+            }
+        }
     }
 
     @FXML
     protected void viewRide(ActionEvent event) throws Exception {
         RideStopPoint rideStopPoint = (RideStopPoint)rideTable.getSelectionModel().getSelectedItem();
-        session.setFocusedRide(rideStopPoint.getRide());
-        try {
-            fxml.loadScene(viewRide);
-        } catch (Exception ex) {
-            System.out.println("Load Scene Failed");
+        if (rideStopPoint != null) {
+            session.setFocusedRide(rideStopPoint.getRide());
+            try {
+                fxml.loadScene(viewRide);
+            } catch (Exception ex) {
+                System.out.println("Load Scene Failed");
+            }
         }
     }
 

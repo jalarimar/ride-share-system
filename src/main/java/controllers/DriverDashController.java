@@ -30,15 +30,6 @@ public class DriverDashController {
     @FXML
     Button searchScreenButton;
 
-    // for testing purposes only, should use initialise instead, see CreateRouteController
-    public DriverDashController() {
-        System.out.println(main.getCurrentDriver().getVehicles());
-        List<StopPoint> stopPoints = main.getCurrentDriver().getStopPoints();
-        for (StopPoint sp : stopPoints) {
-            System.out.println(sp.getAddress());
-        }
-    }
-
     @FXML
     protected void loadCreateCar(ActionEvent event) throws Exception {
         fxml.loadScene(createCar);

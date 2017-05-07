@@ -22,11 +22,11 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
 
         Rss rss = loadRss();
-        System.out.println("attempted load");
         if (rss == null) {
             System.out.println("not found");
             rss = new Rss();
         }
+        System.out.println(rss.getAllUsers().toString());
 
         SessionManager session = SessionManager.getInstance();
         session.setStage(stage);

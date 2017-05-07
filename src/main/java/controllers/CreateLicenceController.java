@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import models.Driver;
 import models.Licence;
 import models.User;
 
@@ -14,7 +13,6 @@ import java.util.ResourceBundle;
 
 import static controllers.FXMLNavigator.driverDashboard;
 import static controllers.FXMLNavigator.passengerDashboard;
-import static controllers.Serializer.saveRss;
 
 /**
  * Created 22/03/2017.
@@ -54,8 +52,6 @@ public class CreateLicenceController implements Initializable {
         User user = session.getCurrentUser();
         session.getRss().removeDriver(user.getUniID());
         user.setIsDriver(false);
-        session.getRss().saveModifiedUser(user);
-        saveRss(session.getRss());
 
         fxml.loadScene(passengerDashboard);
     }

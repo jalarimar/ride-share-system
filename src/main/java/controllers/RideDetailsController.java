@@ -7,14 +7,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import models.Driver;
 import models.Ride;
-import models.Status;
 import models.Vehicle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import static controllers.FXMLNavigator.rideSearch;
-import static controllers.Serializer.saveRss;
+import static models.Status.AVAILABLE;
 
 /**
  * Created 22/03/2017.
@@ -73,10 +72,11 @@ public class RideDetailsController implements Initializable {
     @FXML
     protected void bookRide(ActionEvent event) throws Exception {
         Ride ride = session.getFocusedRide();
-        ride.addPassenger(session.getCurrentUser());
-        session.getRss().saveModifiedRide(ride);
-        saveRss(session.getRss());
-
-        fxml.backToDashboard(event);
+        if (ride.getStatus() == AVAILABLE) {
+            ride.addPassenger(session.getCurrentUser());
+            fxml.backToDashboard(event);
+        } else {
+            // TODO error message
+        }
     }
 }

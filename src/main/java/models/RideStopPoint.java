@@ -1,17 +1,21 @@
 package models;
 
 
+import controllers.SessionManager;
+
+import java.util.UUID;
+
 /**
  * Created 04/04/2017.
  */
 public class RideStopPoint {
-    private Ride ride;
+    private UUID rideId;
     private StopPoint stopPoint;
     private String time;
     private String day;
 
     public RideStopPoint(StopPoint sp, String time, String day) {
-        this.ride = null;
+        this.rideId = null;
         this.stopPoint = sp;
         this.time = time;
         this.day = day;
@@ -23,10 +27,10 @@ public class RideStopPoint {
     }
 
     public void setRide(Ride ride) {
-        this.ride = ride;
+        this.rideId = ride.getId();
     }
     public Ride getRide() {
-        return ride;
+        return SessionManager.getInstance().getRss().getRideById(rideId);
     }
 
     public StopPoint getStopPoint() {
@@ -44,14 +48,6 @@ public class RideStopPoint {
     public String getDay() {return day; }
     public void setDay(String day) {
         this.day = day;
-    }
-
-    public String getDirection() {
-        return ride.getDirection();
-    }
-
-    public Integer getAvailableSeats() {
-        return ride.getAvailableSeats();
     }
 
 }

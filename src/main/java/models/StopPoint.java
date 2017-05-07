@@ -1,6 +1,5 @@
 package models;
 
-import java.time.LocalDateTime;
 
 /**
  * Created 21/03/2017.
@@ -21,6 +20,31 @@ public class StopPoint {
     @Override
     public String toString() {
         return Integer.toString(streetNumber) + " " + streetName + ", " + suburb;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof StopPoint)) {
+            return false;
+        }
+        StopPoint stopPoint = (StopPoint)obj;
+        if (!this.toString().equals(stopPoint.toString())) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + this.toString().hashCode();
+        return result;
     }
 
     public String getStreetNumber() {

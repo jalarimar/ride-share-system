@@ -66,21 +66,21 @@ public class Rss {
             return allUsers.get(id);
         }
     }
-    public Driver getDriverById(String id) {
-        return allDrivers.get(id);
+
+    public Ride getRideById(UUID id) {
+        return allRides.get(id);
     }
 
-    public void saveModifiedUser(User user) {
+    public void updateUser(User user) {
         String id = user.getUniID();
         allUsers.replace(id, user);
+
+        if (user instanceof Driver) {
+            allDrivers.replace(id, (Driver)user);
+        }
     }
 
-    public void saveModifiedDriver(Driver driver) {
-        String id = driver.getUniID();
-        allDrivers.replace(id, driver);
-    }
-
-    public void saveModifiedRide(Ride ride) {
+    public void updateRide(Ride ride) {
         UUID id = ride.getId();
         allRides.replace(id, ride);
     }

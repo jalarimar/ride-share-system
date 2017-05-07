@@ -1,10 +1,16 @@
 package models;
 
+import controllers.SessionManager;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import static controllers.Serializer.saveRss;
+import static models.Status.AVAILABLE;
+import static models.Status.FULL;
 
 /**
  * Created 21/03/2017.
@@ -22,13 +28,13 @@ public class Ride {
     private Vehicle vehicle;
     private Status status;
     private int availableSeats;
-    private Driver driver;
-    private List<User> passengers;
+    private String driverId;
+    private List<String> passengerIds;
 
     public Ride(Vehicle vehicle, Driver driver, List<RideStopPoint> rsps, boolean isFromUni, boolean isRecurrent, List<DayOfWeek> days, LocalDate startDate, LocalDate endDate) {
         this.id = UUID.randomUUID();
         this.vehicle = vehicle;
-        this.driver = driver;
+        this.driverId = driver.getUniID();
         this.rideStopPoints = rsps;
         this.isFromUni = isFromUni;
         this.isRecurrent = isRecurrent;
@@ -41,12 +47,15 @@ public class Ride {
         } else {
             this.direction = "To University";
         }
-        for (RideStopPoint rsp : rideStopPoints) {
+        for (RideStopPoint rsp : rsps) {
             rsp.setRide(this);
         }
         this.status = Status.UNSHARED;
         this.availableSeats = 0;
-        this.passengers = new ArrayList<>();
+        this.passengerIds = new ArrayList<>();
+
+        SessionManager.getInstance().getRss().addRide(this);
+        saveRss(SessionManager.getInstance().getRss());
     }
 
     @Override
@@ -59,47 +68,57 @@ public class Ride {
     }
 
     public UUID getId() { return id; }
-
     public List<RideStopPoint> getRideStopPoints() {
         return rideStopPoints;
     }
-
     public boolean isFromUni() {
         return isFromUni;
     }
-
     public String getDirection() { return direction; }
-
     public boolean isRecurrent() {
         return isRecurrent;
     }
-
     public List<DayOfWeek> getDays() {
         return days;
     }
-
     public LocalDate getStartDate() {
         return startDate;
     }
-
     public LocalDate getExpiryDate() {
         return expiryDate;
     }
-
     public Vehicle getVehicle() {
         return vehicle;
     }
-
     public Status getStatus() {
         return status;
+    }
+    public int getAvailableSeats() {
+        return availableSeats;
+    }
+
+    public Driver getDriver() {
+        return (Driver)SessionManager.getInstance().getRss().getUserById(driverId);
+    }
+    public List<User> getPassengers() {
+        List<User> passengers = new ArrayList<>();
+        for (String userId : passengerIds) {
+            passengers.add(SessionManager.getInstance().getRss().getUserById(userId));
+        }
+        return passengers;
+    }
+    public int getRouteLength() {
+        // TODO for story 2.8
+        return 0;
+    }
+    public int getNumberOfStops() {
+        return rideStopPoints.size();
     }
 
     public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public int getAvailableSeats() {
-        return availableSeats;
+        SessionManager.getInstance().getRss().updateRide(this);
+        saveRss(SessionManager.getInstance().getRss());
     }
 
     public void setAvailableSeats(int availableSeats) {
@@ -109,50 +128,41 @@ public class Ride {
             this.availableSeats = vehicle.getPhysicalSeats();
         }
         if (availableSeats == 0) {
-            status = Status.FULL;
+            status = FULL;
         }
-    }
 
-    public Driver getDriver() {
-        return driver;
-    }
-
-    public List<User> getPassengers() {
-        return passengers;
-    }
-
-    public int getRouteLength() {
-        return 0;
-    }
-
-    public int getEstimatedDuration() {
-        return 0;
-    }
-
-    public int getNumberOfStops() {
-        return rideStopPoints.size();
+        SessionManager.getInstance().getRss().updateRide(this);
+        saveRss(SessionManager.getInstance().getRss());
     }
 
     public void addStopPoint(RideStopPoint stopPoint) {
         rideStopPoints.add(stopPoint);
-    }
-
-    private void checkAvailableSeats() {
-        if (availableSeats < 1) {
-            status = Status.FULL;
-        }
+        SessionManager.getInstance().getRss().updateRide(this);
+        saveRss(SessionManager.getInstance().getRss());
     }
 
     public void addPassenger(User passenger) {
-        passengers.add(passenger);
+        passengerIds.add(passenger.getUniID());
         availableSeats -= 1;
 
-        checkAvailableSeats();
+        if (availableSeats < 1) {
+            status = FULL;
+        }
+
+        SessionManager.getInstance().getRss().updateRide(this);
+        saveRss(SessionManager.getInstance().getRss());
     }
 
     public void removePassenger(User passenger) {
-        passengers.remove(passenger);
+        passengerIds.remove(passenger.getUniID());
         availableSeats += 1;
+
+        if (availableSeats == 1 && status == FULL) {
+            status = AVAILABLE;
+        }
+
+        SessionManager.getInstance().getRss().updateRide(this);
+        saveRss(SessionManager.getInstance().getRss());
     }
 
 }
