@@ -10,7 +10,7 @@ import org.junit.Assert;
 
 
 /**
- * Created by sam on 11/03/17.
+ * Created on 11/03/17.
  */
 public class DriverSteps {
 
@@ -25,7 +25,7 @@ public class DriverSteps {
 
     @When("^I register a (\\w+) car: (\\w+) (\\w+) (\\d+), with license (\\w+) and (\\d+) seats$")
     public void iRegisterACar(String colour, String type, String model, int year, String licensePlate, int physicalSeats) throws Throwable {
-        Vehicle vehicle = new Vehicle(type, model, colour, licensePlate, "", year, physicalSeats);
+        Vehicle vehicle = new Vehicle(licensePlate);
         driver.addVehicle(vehicle);
     }
 

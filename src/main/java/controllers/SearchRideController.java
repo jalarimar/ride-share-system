@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 
 import static controllers.FXMLNavigator.spSearch;
 import static controllers.FXMLNavigator.viewRide;
-import static models.Status.AVAILABLE;
+import static models.RideStatus.AVAILABLE;
 
 /**
  * Created 22/03/2017.

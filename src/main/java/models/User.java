@@ -23,13 +23,15 @@ public class User {
     private String mobileNumber;
     private File photo;
 
+    private transient Rss rss = SessionManager.getInstance().getRss();
+
+    // TODO remove only used by Driver
     public User(String firstName, String lastName, boolean isDriver) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.isDriver = isDriver;
 
-        SessionManager.getInstance().getRss().addUser(this);
-        saveRss(SessionManager.getInstance().getRss());
+        rss.addUser(this);
     }
 
     public User(String firstName, String lastName, boolean isDriver, String uniID, String password, String email, String address, String homeNumber, String mobileNumber, File photo) {
@@ -44,8 +46,7 @@ public class User {
         this.mobileNumber = mobileNumber;
         this.photo = photo;
 
-        SessionManager.getInstance().getRss().addUser(this);
-        saveRss(SessionManager.getInstance().getRss());
+        rss.addUser(this);
     }
 
     @Override
@@ -72,25 +73,61 @@ public class User {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-        SessionManager.getInstance().getRss().updateUser(this);
-        saveRss(SessionManager.getInstance().getRss());
+        rss.updateUser(this);
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-        SessionManager.getInstance().getRss().updateUser(this);
-        saveRss(SessionManager.getInstance().getRss());
+        rss.updateUser(this);
     }
 
     public void setIsDriver(boolean driver) {
         isDriver = driver;
-        SessionManager.getInstance().getRss().updateUser(this);
-        saveRss(SessionManager.getInstance().getRss());
+        rss.updateUser(this);
     }
 
     public void setPassword(String password) {
         this.password = password;
-        SessionManager.getInstance().getRss().updateUser(this);
-        saveRss(SessionManager.getInstance().getRss());
+        rss.updateUser(this);
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getHomeNumber() {
+        return homeNumber;
+    }
+
+    public void setHomeNumber(String homeNumber) {
+        this.homeNumber = homeNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public File getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(File photo) {
+        this.photo = photo;
     }
 }

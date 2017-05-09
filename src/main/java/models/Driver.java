@@ -3,16 +3,14 @@ package models;
 import controllers.SessionManager;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static controllers.Serializer.saveRss;
 
 /**
  * Created 21/03/2017.
  */
-public class Driver extends User {
+public class Driver extends User implements Observer {
 
     private Licence licence;
     private List<Vehicle> vehicles;
@@ -20,6 +18,18 @@ public class Driver extends User {
     private List<Route> routes;
     private List<UUID> myRideIds;
 
+    private transient Rss rss = SessionManager.getInstance().getRss();
+
+    public Driver(Driver driver) {
+        super(driver.getFirstName(), driver.getLastName(), true, driver.getUniID(), driver.getPassword(), driver.getEmail(), driver.getAddress(), driver.getHomeNumber(), driver.getMobileNumber(), driver.getPhoto());
+        this.vehicles = driver.getVehicles();
+        this.stopPoints = driver.getStopPoints();
+        this.routes = driver.getRoutes();
+        this.myRideIds = driver.myRideIds;
+        this.rss = SessionManager.getInstance().getRss();
+    }
+
+    // TODO remove this constructor is only used in tests
     public Driver(String firstName, String lastName) {
         super(firstName, lastName, true);
         this.vehicles = new ArrayList<>();
@@ -27,8 +37,7 @@ public class Driver extends User {
         this.routes = new ArrayList<>();
         this.myRideIds = new ArrayList<>();
 
-        SessionManager.getInstance().getRss().addUser(this);
-        saveRss(SessionManager.getInstance().getRss());
+        rss.addUser(this);
     }
 
     public Driver(String firstName, String lastName, String uniID, String password, String email, String address, String homeNumber, String mobileNumber, File photo) {
@@ -38,8 +47,7 @@ public class Driver extends User {
         this.routes = new ArrayList<>();
         this.myRideIds = new ArrayList<>();
 
-        SessionManager.getInstance().getRss().addUser(this);
-        saveRss(SessionManager.getInstance().getRss());
+        rss.addUser(this);
     }
 
     public List<Vehicle> getVehicles() {
@@ -50,7 +58,7 @@ public class Driver extends User {
     public List<Ride> getMyRides() {
         List<Ride> rides = new ArrayList<>();
         for (UUID id : myRideIds) {
-            rides.add(SessionManager.getInstance().getRss().getRideById(id));
+            rides.add(rss.getRideById(id));
         }
         return rides;
     }
@@ -58,34 +66,36 @@ public class Driver extends User {
         return licence;
     }
 
+    public void update(Observable obs, Object obj)
+    {
+        rss.updateUser(this);
+        // TODO find a different way to add observer
+    }
+
     public void setLicence(Licence licence) {
         this.licence = licence;
-        SessionManager.getInstance().getRss().updateUser(this);
-        saveRss(SessionManager.getInstance().getRss());
+        rss.updateUser(this);
     }
 
     public void addVehicle(Vehicle v) {
         vehicles.add(v);
-        SessionManager.getInstance().getRss().updateUser(this);
-        saveRss(SessionManager.getInstance().getRss());
+        rss.updateUser(this);
     }
 
     public void addStopPoint(StopPoint p) {
         stopPoints.add(p);
-        SessionManager.getInstance().getRss().updateUser(this);
-        SessionManager.getInstance().getRss().addStopPoint(p);
-        saveRss(SessionManager.getInstance().getRss());
+        rss.updateUser(this);
+        rss.addStopPoint(p);
     }
 
     public void addRoute(Route route) {
         routes.add(route);
-        SessionManager.getInstance().getRss().updateUser(this);
-        saveRss(SessionManager.getInstance().getRss());
+        rss.updateUser(this);
     }
 
     public void addRide(Ride ride) {
         myRideIds.add(ride.getId());
-        SessionManager.getInstance().getRss().updateUser(this);
+        rss.updateUser(this);
         saveRss(SessionManager.getInstance().getRss());
     }
 }

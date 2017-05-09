@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import models.Ride;
-import models.Status;
+import models.RideStatus;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,7 +37,7 @@ public class DriverRidesController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<Ride> unsharedRides = FXCollections.observableArrayList();
         for (Ride ride : session.getCurrentDriver().getMyRides()) {
-            if (ride.getStatus() == Status.UNSHARED) {
+            if (ride.getStatus() == RideStatus.UNSHARED) {
                 unsharedRides.add(ride);
             }
         }
@@ -67,7 +67,7 @@ public class DriverRidesController implements Initializable {
         // TODO
         Ride ride = (Ride)unsharedRideList.getSelectionModel().getSelectedItem();
         ride.setAvailableSeats((int)availableSeatsChoice.getSelectionModel().getSelectedItem());
-        ride.setStatus(Status.AVAILABLE);
+        ride.setStatus(RideStatus.AVAILABLE);
 
         fxml.backToDashboard(event);
     }

@@ -5,7 +5,7 @@ import controllers.SessionManager;
 import java.util.*;
 
 import static controllers.Serializer.saveRss;
-import static models.Status.AVAILABLE;
+import static models.RideStatus.AVAILABLE;
 
 /**
  * Created 26/04/2017.
@@ -43,19 +43,25 @@ public class Rss {
         if (user instanceof Driver) {
             allDrivers.put(user.getUniID(), (Driver)user);
         }
+
+        saveRss(this);
     }
 
     public void removeDriver(String id) {
         if (allDrivers.containsKey(id)) {
             allDrivers.remove(id);
         }
+
+        saveRss(this);
     }
 
     public void addStopPoint(StopPoint stopPoint) {
         allStopPoints.add(stopPoint);
+        saveRss(this);
     }
     public void addRide(Ride ride) {
         allRides.put(ride.getId(), ride);
+        saveRss(this);
     }
 
     public User getUserById(String id) {
@@ -65,6 +71,10 @@ public class Rss {
         } else {
             return allUsers.get(id);
         }
+    }
+
+    public Driver getDriverById(String id) {
+        return allDrivers.get(id);
     }
 
     public Ride getRideById(UUID id) {
@@ -78,11 +88,14 @@ public class Rss {
         if (user instanceof Driver) {
             allDrivers.replace(id, (Driver)user);
         }
+        saveRss(this);
     }
 
     public void updateRide(Ride ride) {
         UUID id = ride.getId();
         allRides.replace(id, ride);
+
+        saveRss(this);
     }
 
     public List<Ride> getAvailableRides() {

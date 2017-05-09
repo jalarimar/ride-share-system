@@ -3,10 +3,12 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import models.Driver;
 import models.Vehicle;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,22 +25,17 @@ public class CreateVehicleController {
 
     private final String vehicleFilePath = "vehicle.ser"; // TODO make name based on license plate?
 
-    @FXML
-    Button dashboardButton;
-    @FXML
-    Button createButton;
-    @FXML
-    TextField vehicleType;
-    @FXML
-    TextField vehicleModel;
-    @FXML
-    TextField vehicleColour;
-    @FXML
-    TextField vehicleLp;
-    @FXML
-    TextField vehicleYear;
-    @FXML
-    TextField vehicleNos;
+    @FXML Button dashboardButton;
+    @FXML Button createButton;
+    @FXML TextField vehicleType;
+    @FXML TextField vehicleModel;
+    @FXML TextField vehicleColour;
+    @FXML TextField vehicleLp;
+    @FXML TextField vehicleYear;
+    @FXML TextField vehicleNos;
+    @FXML TextField vehiclePerformance;
+    @FXML DatePicker regPicker;
+    @FXML DatePicker wofPicker;
 
     @FXML
     protected void backToDashboard(ActionEvent event) throws Exception {
@@ -60,7 +57,7 @@ public class CreateVehicleController {
         String model = vehicleModel.getText();
         String colour = vehicleColour.getText();
         String licensePlate = vehicleLp.getText();
-        String performance = "NA";
+        String performance = vehiclePerformance.getText();
         String yearString = vehicleYear.getText();
         String numSeatsString = vehicleNos.getText();
 
@@ -71,13 +68,16 @@ public class CreateVehicleController {
         inputStrings.add(licensePlate);
         inputStrings.add(performance);
 
+        LocalDate regExpiry = regPicker.getValue();
+        LocalDate wofExpiry = wofPicker.getValue();
+
         boolean isValid = validateUserInput(inputStrings);
 
         int year = tryParseInt(yearString);
         int numSeats = tryParseInt(numSeatsString);
 
         if (isValid && year > -1 && numSeats > -1) {
-            Vehicle vehicle = new Vehicle(type, model, colour, licensePlate, performance, year, numSeats);
+            Vehicle vehicle = new Vehicle(type, model, colour, licensePlate, performance, year, numSeats, regExpiry, wofExpiry);
 
             Driver driver = main.getCurrentDriver();
             driver.addVehicle(vehicle);

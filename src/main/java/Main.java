@@ -6,7 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import javafx.stage.Stage;
+import models.Driver;
+import models.Licence;
 import models.Rss;
+import models.User;
 
 import java.time.LocalDate;
 
@@ -27,6 +30,8 @@ public class Main extends Application {
             rss = new Rss();
         }
         System.out.println(rss.getAllUsers().toString());
+
+
 
         SessionManager session = SessionManager.getInstance();
         session.setStage(stage);

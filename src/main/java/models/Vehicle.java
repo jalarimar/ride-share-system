@@ -1,6 +1,9 @@
 package models;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+
+import static models.NotificationStatus.NONE;
 
 /**
  * Created 21/03/2017.
@@ -13,12 +16,16 @@ public class Vehicle implements Serializable {
     private String performance;
     private int year;
     private int physicalSeats;
+    private LocalDate wofExpiry;
+    private LocalDate regExpiry;
+    private NotificationStatus lastSeenWofNotification;
+    private NotificationStatus lastSeenRegNotification;
 
     public Vehicle(String licensePlate) {
         this.licensePlate = licensePlate;
     }
 
-    public Vehicle(String type, String model, String colour, String licensePlate, String performance, int year, int physicalSeats) {
+    public Vehicle(String type, String model, String colour, String licensePlate, String performance, int year, int physicalSeats, LocalDate regExpiry, LocalDate wofExpiry) {
         this.type = type;
         this.model = model;
         this.colour = colour;
@@ -26,6 +33,11 @@ public class Vehicle implements Serializable {
         this.performance = performance;
         this.year = year;
         this.physicalSeats = physicalSeats;
+        this.wofExpiry = wofExpiry;
+        this.regExpiry = regExpiry;
+
+        this.lastSeenWofNotification = NONE;
+        this.lastSeenRegNotification = NONE;
     }
 
     @Override
@@ -78,5 +90,37 @@ public class Vehicle implements Serializable {
         return physicalSeats;
     }
 
+    public LocalDate getWofExpiry() {
+        return wofExpiry;
+    }
 
+    public void setWofExpiry(LocalDate wofExpiry) {
+        this.wofExpiry = wofExpiry;
+        lastSeenWofNotification = NONE;
+    }
+
+    public LocalDate getRegExpiry() {
+        return regExpiry;
+    }
+
+    public void setRegExpiry(LocalDate regExpiry) {
+        this.regExpiry = regExpiry;
+        lastSeenRegNotification = NONE;
+    }
+
+    public NotificationStatus getLastSeenWofNotification() {
+        return lastSeenWofNotification;
+    }
+
+    public void setLastSeenWofNotification(NotificationStatus lastSeenWofNotification) {
+        this.lastSeenWofNotification = lastSeenWofNotification;
+    }
+
+    public NotificationStatus getLastSeenRegNotification() {
+        return lastSeenRegNotification;
+    }
+
+    public void setLastSeenRegNotification(NotificationStatus lastSeenRegNotification) {
+        this.lastSeenRegNotification = lastSeenRegNotification;
+    }
 }

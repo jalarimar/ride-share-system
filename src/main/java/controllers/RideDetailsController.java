@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static controllers.FXMLNavigator.rideSearch;
-import static models.Status.AVAILABLE;
+import static models.RideStatus.AVAILABLE;
 
 /**
  * Created 22/03/2017.

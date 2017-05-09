@@ -3,7 +3,7 @@ package models;
 /**
  * Created 24/03/2017.
  */
-public enum Status {
+public enum RideStatus {
     UNSHARED,
     AVAILABLE,
     FULL,

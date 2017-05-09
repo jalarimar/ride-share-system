@@ -72,8 +72,6 @@ public class SessionManager {
         String id = user.getUniID();
         if (rss.getUserById(id) == null) {
             rss.addUser(user);
-            saveRss(rss);
-            System.out.println("user added");
         }
     }
 
