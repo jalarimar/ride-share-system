@@ -19,7 +19,7 @@ import static controllers.Validator.tryParseInt;
 public class CreateSPController {
 
     private SessionManager session = SessionManager.getInstance();
-    private FXMLNavigator fxml = new FXMLNavigator();
+    private Navigator fxml = new Navigator();
 
     @FXML
     Button dashboardButton;
@@ -40,7 +40,7 @@ public class CreateSPController {
     private List<String> getExistingAdresses() {
         List<String> existing = new ArrayList<>();
         for (StopPoint sp : session.getCurrentDriver().getStopPoints()) {
-            existing.add(sp.getAddress());
+            existing.add(sp.toString());
         }
         return existing;
     }
@@ -59,7 +59,7 @@ public class CreateSPController {
 
             // same address cannot be added more than once
             List<String> existingAdresses = getExistingAdresses();
-            if (!existingAdresses.contains(stopPoint.getAddress())) {
+            if (!existingAdresses.contains(stopPoint.toString())) {
                 driver.addStopPoint(stopPoint);
             }
             fxml.backToDashboard(event);

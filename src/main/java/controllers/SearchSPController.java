@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import models.Rss;
 import models.StopPoint;
 
 import java.net.URL;
@@ -21,7 +20,7 @@ import java.util.*;
 public class SearchSPController implements Initializable {
 
     private SessionManager session = SessionManager.getInstance();
-    private FXMLNavigator fxml = new FXMLNavigator();
+    private Navigator fxml = new Navigator();
 
     private final String rideSearch = "/ridesearch.fxml";
 

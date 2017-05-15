@@ -17,8 +17,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static controllers.FXMLNavigator.spSearch;
-import static controllers.FXMLNavigator.viewRide;
+import static controllers.Navigator.spSearch;
+import static controllers.Navigator.viewRide;
 import static models.RideStatus.AVAILABLE;
 
 /**
@@ -27,7 +27,7 @@ import static models.RideStatus.AVAILABLE;
 public class SearchRideController implements Initializable {
 
     private SessionManager session = SessionManager.getInstance();
-    private FXMLNavigator fxml = new FXMLNavigator();
+    private Navigator fxml = new Navigator();
 
     private ObservableList<RideStopPoint> visibleRidesForThisStopPoint = FXCollections.observableArrayList();
 

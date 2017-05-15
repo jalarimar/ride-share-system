@@ -15,7 +15,7 @@ public class RideTests {
 
     @Test
     public void testAvailableSeatsLessThanPhysical() {
-        Vehicle v = new Vehicle("Ford", "Fiesta", "White", "ABC456", "", 2001, 3, LocalDate.now(), LocalDate.now());
+        Vehicle v = new Vehicle("Ford", "Fiesta", "White", "ABC456", 0, 2001, 3, LocalDate.now(), LocalDate.now());
         Driver d = new Driver("Jack", "Harkness");
         Ride ride = new Ride(v, d, new ArrayList<>(), false, false, new ArrayList<>(), LocalDate.now(), LocalDate.now());
         ride.setAvailableSeats(7);
@@ -24,7 +24,7 @@ public class RideTests {
 
     @Test
     public void testAvailableSeatsGreaterThanZero() {
-        Vehicle v = new Vehicle("Ford", "Fiesta", "White", "ABC456", "", 2001, 3, LocalDate.now(), LocalDate.now());
+        Vehicle v = new Vehicle("Ford", "Fiesta", "White", "ABC456", 0, 2001, 3, LocalDate.now(), LocalDate.now());
         Driver d = new Driver("Jack", "Harkness");
         Ride ride = new Ride(v, d, new ArrayList<>(), false, false, new ArrayList<>(), LocalDate.now(), LocalDate.now());
         ride.setAvailableSeats(-7);
@@ -33,7 +33,7 @@ public class RideTests {
 
     @Test
     public void testStatusIsFull() {
-        Vehicle v = new Vehicle("Ford", "Fiesta", "White", "ABC456", "", 2001, 3, LocalDate.now(), LocalDate.now());
+        Vehicle v = new Vehicle("Ford", "Fiesta", "White", "ABC456", 0, 2001, 3, LocalDate.now(), LocalDate.now());
         Driver d = new Driver("Jack", "Harkness");
         Ride ride = new Ride(v, d, new ArrayList<>(), false, false, new ArrayList<>(), LocalDate.now(), LocalDate.now());
         ride.setAvailableSeats(0);
@@ -42,7 +42,7 @@ public class RideTests {
 
     @Test
     public void testStatusIsNotFull() {
-        Vehicle v = new Vehicle("Ford", "Fiesta", "White", "ABC456", "", 2001, 3, LocalDate.now(), LocalDate.now());
+        Vehicle v = new Vehicle("Ford", "Fiesta", "White", "ABC456", 0, 2001, 3, LocalDate.now(), LocalDate.now());
         Driver d = new Driver("Jack", "Harkness");
         Ride ride = new Ride(v, d, new ArrayList<>(), false, false, new ArrayList<>(), LocalDate.now(), LocalDate.now());
         ride.setAvailableSeats(1);

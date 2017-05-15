@@ -11,6 +11,12 @@ import models.Licence;
 import models.Rss;
 import models.User;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.time.LocalDate;
 
 import static controllers.Converter.getDayOfDate;
@@ -47,6 +53,5 @@ public class Main extends Application {
 
         // For testing only
         String h = getDayOfDate(LocalDate.now());
-
     }
 }

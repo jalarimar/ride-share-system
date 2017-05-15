@@ -24,7 +24,7 @@ import static controllers.Validator.isAlphanumeric;
 public class CreateRouteController implements Initializable {
 
     private SessionManager main = SessionManager.getInstance();
-    private FXMLNavigator fxml = new FXMLNavigator();
+    private Navigator fxml = new Navigator();
     private ObservableList<StopPoint> route = FXCollections.observableArrayList();
     private ObservableList<StopPoint> availablePoints = FXCollections.observableArrayList();
 

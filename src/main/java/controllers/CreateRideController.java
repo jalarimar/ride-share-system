@@ -23,7 +23,7 @@ import static controllers.Validator.tryParseInt;
 public class CreateRideController implements Initializable {
 
     private SessionManager session = SessionManager.getInstance();
-    private FXMLNavigator fxml = new FXMLNavigator();
+    private Navigator fxml = new Navigator();
 
     @FXML
     Button dashboardButton;

@@ -33,6 +33,7 @@ public class SessionManager {
     // what the user is currently looking at
     private StopPoint focusedStopPoint;
     private Ride focusedRide;
+    private Vehicle focusedVehicle;
 
     ////// Getters and Setters
 
@@ -55,6 +56,9 @@ public class SessionManager {
     public void setFocusedRide(Ride r) {
         this.focusedRide = r;
     }
+
+    public Vehicle getFocusedVehicle() { return focusedVehicle; }
+    public void setFocusedVehicle(Vehicle v) { this.focusedVehicle = v; }
 
     public User getCurrentUser() {
         return currentUser;

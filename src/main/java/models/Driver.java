@@ -1,8 +1,10 @@
 package models;
 
 import controllers.SessionManager;
+import javafx.fxml.Initializable;
 
 import java.io.File;
+import java.net.URL;
 import java.util.*;
 
 import static controllers.Serializer.saveRss;
@@ -18,7 +20,7 @@ public class Driver extends User implements Observer {
     private List<Route> routes;
     private List<UUID> myRideIds;
 
-    private transient Rss rss = SessionManager.getInstance().getRss();
+    private transient Rss rss = SessionManager.getInstance().getRss(); // TODO this doesn't work
 
     public Driver(Driver driver) {
         super(driver.getFirstName(), driver.getLastName(), true, driver.getUniID(), driver.getPassword(), driver.getEmail(), driver.getAddress(), driver.getHomeNumber(), driver.getMobileNumber(), driver.getPhoto());
@@ -95,7 +97,8 @@ public class Driver extends User implements Observer {
 
     public void addRide(Ride ride) {
         myRideIds.add(ride.getId());
-        rss.updateUser(this);
+        System.out.println("RSS " + rss); // TODO rss is null
+        SessionManager.getInstance().getRss().updateUser(this);
         saveRss(SessionManager.getInstance().getRss());
     }
 }

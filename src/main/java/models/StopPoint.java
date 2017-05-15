@@ -1,5 +1,11 @@
 package models;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * Created 21/03/2017.
@@ -8,6 +14,7 @@ public class StopPoint {
     private int streetNumber;
     private String streetName;
     private String suburb;
+    private double distanceFromUni;
 
     public StopPoint(int streetNumber, String streetName, String suburb) {
         if (streetNumber > 0) {
@@ -15,6 +22,8 @@ public class StopPoint {
         }
         this.streetName = streetName;
         this.suburb = suburb;
+
+        calculateDistanceFromUni();
     }
 
     @Override
@@ -50,21 +59,58 @@ public class StopPoint {
     public String getStreetNumber() {
         return Integer.toString(streetNumber);
     }
-
     public Integer getStreetNumAsInt() {
         return streetNumber;
     }
-
     public String getStreetName() {
         return streetName;
     }
     public String getSuburb() {
         return suburb;
     }
-
-    public String getAddress() {
-        String address = Integer.toString(streetNumber) + " " + streetName + ", " + suburb;
-        return address;
+    public double getDistanceFromUni() {
+        return distanceFromUni;
     }
 
+    /////////
+
+    private void calculateDistanceFromUni() {
+        String uniAddress = "University Dr, Ilam";
+        String thisAddress = this.toString();
+        String apikey =  "AIzaSyDimWu3GwLCSyM22KEE-0jh9Z9oJoW-6Ek";
+        String baseUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?";
+
+        HttpURLConnection connection = null;
+        double value = -1;
+
+        try {
+            //Create connection
+            String origin = "origins=" + URLEncoder.encode(uniAddress, "UTF-8");
+            String destination = "destinations=" + URLEncoder.encode(thisAddress, "UTF-8");
+            String parameters = origin + "&" + destination + "&key=" + apikey;
+            URL url = new URL(baseUrl + parameters);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+
+            //Get Response
+            InputStream inputStream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("distance")) {
+                    reader.readLine(); // text value
+                    String valueLine = reader.readLine(); // numeric value
+                    value = Integer.valueOf(valueLine.substring(28));
+                }
+            }
+            reader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
+        distanceFromUni = value / 1000; // m to km
+    }
 }

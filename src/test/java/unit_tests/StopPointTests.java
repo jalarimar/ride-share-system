@@ -13,7 +13,6 @@ public class StopPointTests {
     @Test
     public void testToStringFormat() {
         StopPoint stopPoint = new StopPoint(2, "Mulberry Grove", "Warwickville");
-        Assert.assertTrue(stopPoint.toString().equals(stopPoint.getAddress()));
         Assert.assertTrue(stopPoint.toString().equals(stopPoint.getStreetNumber() + " " + stopPoint.getStreetName() + ", " + stopPoint.getSuburb()));
     }
 

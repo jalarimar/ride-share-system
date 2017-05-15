@@ -11,8 +11,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import static controllers.FXMLNavigator.driverDashboard;
-import static controllers.FXMLNavigator.passengerDashboard;
+import static controllers.Navigator.driverDashboard;
+import static controllers.Navigator.passengerDashboard;
 
 /**
  * Created 22/03/2017.
@@ -20,7 +20,7 @@ import static controllers.FXMLNavigator.passengerDashboard;
 public class CreateLicenceController implements Initializable {
 
     private SessionManager session = SessionManager.getInstance();
-    private FXMLNavigator fxml = new FXMLNavigator();
+    private Navigator fxml = new Navigator();
 
     @FXML Button createButton;
     @FXML Button cancelButton;

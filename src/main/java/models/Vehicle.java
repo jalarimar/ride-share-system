@@ -13,7 +13,7 @@ public class Vehicle implements Serializable {
     private String model;
     private String colour;
     private String licensePlate;
-    private String performance;
+    private int performance; // L per 100 km
     private int year;
     private int physicalSeats;
     private LocalDate wofExpiry;
@@ -25,7 +25,7 @@ public class Vehicle implements Serializable {
         this.licensePlate = licensePlate;
     }
 
-    public Vehicle(String type, String model, String colour, String licensePlate, String performance, int year, int physicalSeats, LocalDate regExpiry, LocalDate wofExpiry) {
+    public Vehicle(String type, String model, String colour, String licensePlate, int performance, int year, int physicalSeats, LocalDate regExpiry, LocalDate wofExpiry) {
         this.type = type;
         this.model = model;
         this.colour = colour;
@@ -65,6 +65,7 @@ public class Vehicle implements Serializable {
     public String getType() {
         return type;
     }
+    public String getModel() { return model; }
 
     public String getTypeAndModel() {
         return type + " " + model;
@@ -78,7 +79,7 @@ public class Vehicle implements Serializable {
         return licensePlate;
     }
 
-    public String getPerformance() {
+    public int getPerformance() {
         return performance;
     }
 

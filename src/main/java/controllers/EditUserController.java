@@ -13,19 +13,18 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static controllers.Navigator.*;
+import static controllers.Navigator.createLicence;
+import static controllers.Navigator.passengerDashboard;
 import static controllers.Validator.isAlphanumeric;
 
 /**
- * Created 22/03/2017.
+ * Created 09/05/2017.
  */
-public class CreateUserController implements Initializable {
+public class EditUserController implements Initializable {
 
     private SessionManager session = SessionManager.getInstance();
     private Navigator fxml = new Navigator();
 
-    @FXML Button createButton;
-    @FXML Button uploadButton;
     @FXML Label fileNameLabel;
     @FXML TextField firstNameField;
     @FXML TextField lastNameField;
@@ -60,7 +59,35 @@ public class CreateUserController implements Initializable {
         passengerRadio.setToggleGroup(accountType);
         driverRadio.setToggleGroup(accountType);
 
-        passengerRadio.setSelected(true);
+        populateWithExistingInfo();
+    }
+
+    @FXML
+    protected void backToDashboard(ActionEvent event) throws Exception {
+        fxml.backToDashboard(event);
+    }
+
+    private void populateWithExistingInfo() {
+        User user = session.getCurrentUser();
+
+        fileNameLabel.setText(user.getPhoto().getName());
+        firstNameField.setPromptText(user.getFirstName());
+        lastNameField.setPromptText(user.getLastName());
+        emailField.setPromptText(user.getEmail());
+        idField.setPromptText(user.getUniID());
+        addressNumField.setPromptText(user.getFirstName()); // TODO address
+        addressStreetField.setPromptText(user.getFirstName()); // TODO address
+        addressSuburbField.setPromptText(user.getAddress()); // TODO address
+        homeNumberField.setPromptText(user.getHomeNumber());
+        mobileNumberField.setPromptText(user.getMobileNumber());
+
+        if (user instanceof Driver) {
+            driverRadio.setSelected(true);
+        } else {
+            passengerRadio.setSelected(true);
+        }
+
+        idField.setDisable(true);
     }
 
     private void collectInputFromFields() {
@@ -119,9 +146,11 @@ public class CreateUserController implements Initializable {
     }
 
     @FXML
-    protected void createUser(ActionEvent event) throws Exception {
+    protected void saveDetails(ActionEvent event) throws Exception {
 
         collectInputFromFields();
+
+        // TODO check this works with serialisation
 
         if (isValidInput()) {
             if (driverRadio.isSelected()) {

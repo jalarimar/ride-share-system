@@ -2,15 +2,17 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import models.Driver;
 import models.Vehicle;
 
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import static controllers.Validator.isAlphanumeric;
 import static controllers.Validator.tryParseInt;
@@ -18,15 +20,11 @@ import static controllers.Validator.tryParseInt;
 /**
  * Created 22/03/2017.
  */
-public class CreateVehicleController {
+public class EditVehicleController implements Initializable {
 
-    private SessionManager main = SessionManager.getInstance();
+    private SessionManager session = SessionManager.getInstance();
     private Navigator fxml = new Navigator();
 
-    private final String vehicleFilePath = "vehicle.ser"; // TODO make name based on license plate?
-
-    @FXML Button dashboardButton;
-    @FXML Button createButton;
     @FXML TextField vehicleType;
     @FXML TextField vehicleModel;
     @FXML TextField vehicleColour;
@@ -36,6 +34,28 @@ public class CreateVehicleController {
     @FXML TextField vehiclePerformance;
     @FXML DatePicker regPicker;
     @FXML DatePicker wofPicker;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Vehicle vehicle = session.getFocusedVehicle();
+        vehicleType.setPromptText(vehicle.getType());
+        vehicleModel.setPromptText(vehicle.getModel());
+        vehicleColour.setPromptText(vehicle.getColour());
+        vehicleLp.setPromptText(vehicle.getLicensePlate());
+        vehicleYear.setPromptText(Integer.toString(vehicle.getYear()));
+        vehicleNos.setPromptText(Integer.toString(vehicle.getPhysicalSeats()));
+        vehiclePerformance.setPromptText(Integer.toString(vehicle.getPerformance()));
+        regPicker.setPromptText(vehicle.getRegExpiry().toString());
+        wofPicker.setPromptText(vehicle.getWofExpiry().toString());
+
+        vehicleType.setDisable(true);
+        vehicleModel.setDisable(true);
+        vehicleColour.setDisable(true);
+        vehicleLp.setDisable(true);
+        vehicleYear.setDisable(true);
+        vehicleNos.setDisable(true);
+        // only performance, WOF and registration expiry can be updated
+    }
 
     @FXML
     protected void backToDashboard(ActionEvent event) throws Exception {
@@ -51,7 +71,10 @@ public class CreateVehicleController {
     }
 
     @FXML
-    protected void createVehicle(ActionEvent event) throws Exception {
+    protected void saveVehicle(ActionEvent event) throws Exception {
+
+        // TODO change from create to save
+        // TODO update ride price if performance changes and notify passengers
 
         String type = vehicleType.getText();
         String model = vehicleModel.getText();
@@ -79,7 +102,7 @@ public class CreateVehicleController {
         if (isValid && year > -1 && numSeats > -1 && performance > -1) {
             Vehicle vehicle = new Vehicle(type, model, colour, licensePlate, performance, year, numSeats, regExpiry, wofExpiry);
 
-            Driver driver = main.getCurrentDriver();
+            Driver driver = session.getCurrentDriver();
             driver.addVehicle(vehicle);
 
             fxml.backToDashboard(event);

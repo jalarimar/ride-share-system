@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 public class DriverRidesController implements Initializable {
 
     private SessionManager session = SessionManager.getInstance();
-    private FXMLNavigator fxml = new FXMLNavigator();
+    private Navigator fxml = new Navigator();
     ObservableList<Integer> availableSeats;
 
     @FXML

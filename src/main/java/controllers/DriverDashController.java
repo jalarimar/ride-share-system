@@ -2,33 +2,15 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import models.StopPoint;
 
-import java.util.List;
-
-import static controllers.FXMLNavigator.*;
+import static controllers.Navigator.*;
 
 /**
  * Created 22/03/2017.
  */
 public class DriverDashController {
 
-    private SessionManager main = SessionManager.getInstance();
-    private FXMLNavigator fxml = new FXMLNavigator();
-
-    @FXML
-    Button registerCarButton;
-    @FXML
-    Button stopPointButton;
-    @FXML
-    Button routeButton;
-    @FXML
-    Button rideButton;
-    @FXML
-    Button myRidesButton;
-    @FXML
-    Button searchScreenButton;
+    private Navigator fxml = new Navigator();
 
     @FXML
     protected void loadCreateCar(ActionEvent event) throws Exception {
@@ -60,5 +42,9 @@ public class DriverDashController {
         fxml.loadScene(spSearch);
     }
 
+    @FXML
+    protected void loadEditDashboard(ActionEvent event) throws Exception {
+        fxml.loadScene(editDashboard);
+    }
 
 }

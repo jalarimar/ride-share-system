@@ -13,6 +13,7 @@ public class RideStopPoint {
     private StopPoint stopPoint;
     private String time;
     private String day;
+    private double price;
 
     public RideStopPoint(StopPoint sp, String time, String day) {
         this.rideId = null;
@@ -28,6 +29,7 @@ public class RideStopPoint {
 
     public void setRide(Ride ride) {
         this.rideId = ride.getId();
+        calculatePrice(ride);
     }
     public Ride getRide() {
         return SessionManager.getInstance().getRss().getRideById(rideId);
@@ -50,4 +52,13 @@ public class RideStopPoint {
         this.day = day;
     }
 
+    public double getPrice() {return price;}
+
+    private void calculatePrice(Ride ride) {
+        double performance = ride.getVehicle().getPerformance(); // L/100km
+        double distance = this.stopPoint.getDistanceFromUni(); // km
+        double fuelPrice = 2.15; // $/L
+
+        this.price = fuelPrice * performance * (distance / 100); // $
+    }
 }

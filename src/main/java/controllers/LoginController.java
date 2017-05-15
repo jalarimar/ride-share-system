@@ -1,19 +1,14 @@
 package controllers;
 
-import gherkin.lexer.No;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import models.*;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.ResourceBundle;
 
-import static controllers.FXMLNavigator.*;
+import static controllers.Navigator.*;
 import static models.NotificationStatus.*;
 
 
@@ -23,7 +18,7 @@ import static models.NotificationStatus.*;
 public class LoginController {
 
     private SessionManager session = SessionManager.getInstance();
-    private FXMLNavigator fxml = new FXMLNavigator();
+    private Navigator fxml = new Navigator();
 
     @FXML TextField usernameField;
     @FXML PasswordField passwordField;
@@ -122,7 +117,7 @@ public class LoginController {
             // load driver or passenger dashboard
             if (user instanceof Driver) {
 
-                Driver oldDriver = (Driver)user;
+                /*Driver oldDriver = (Driver)user;
                 Driver newDriver = new Driver(oldDriver);
                 Licence oldLicence = oldDriver.getLicence();
                 Licence newLicence = new Licence(oldLicence.getType(), oldLicence.getNumber(), oldLicence.getIssueDate(), oldLicence.getExpiryDate());
@@ -131,7 +126,7 @@ public class LoginController {
 
                 //TODO this fixes the other problem but ends up in infinite loop because "changed" and "obs" fields of Licence aren't transient
 
-                checkExpiry(newDriver);
+                checkExpiry(newDriver);*/
 
 
 

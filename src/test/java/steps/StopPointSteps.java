@@ -41,7 +41,7 @@ public class StopPointSteps {
     public void theListOfStopPointsContainsClonbernPlaceIlam(int num, String name, String suburb) throws Throwable {
         boolean containsAddress = false;
         for (StopPoint sp : driverStopPoints) {
-            if (sp.getAddress().equals(Integer.toString(num) + " " + name + ", " + suburb)) {
+            if (sp.toString().equals(Integer.toString(num) + " " + name + ", " + suburb)) {
                 containsAddress = true;
             }
         }
