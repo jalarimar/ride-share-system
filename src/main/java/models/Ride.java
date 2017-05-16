@@ -31,8 +31,6 @@ public class Ride {
     private String driverId;
     private List<String> passengerIds;
 
-    private transient Rss rss = SessionManager.getInstance().getRss();
-
     public Ride(Vehicle vehicle, Driver driver, List<RideStopPoint> rsps, boolean isFromUni, boolean isRecurrent, List<DayOfWeek> days, LocalDate startDate, LocalDate endDate) {
         this.id = UUID.randomUUID();
         this.vehicle = vehicle;
@@ -56,7 +54,7 @@ public class Ride {
         this.availableSeats = 0;
         this.passengerIds = new ArrayList<>();
 
-        rss.addRide(this);
+        Rss.getInstance().addRide(this);
     }
 
     @Override
@@ -99,12 +97,12 @@ public class Ride {
     }
 
     public Driver getDriver() {
-        return rss.getDriverById(driverId);
+        return Rss.getInstance().getDriverById(driverId);
     }
     public List<User> getPassengers() {
         List<User> passengers = new ArrayList<>();
         for (String userId : passengerIds) {
-            passengers.add(SessionManager.getInstance().getRss().getUserById(userId));
+            passengers.add(Rss.getInstance().getUserById(userId));
         }
         return passengers;
     }
@@ -118,7 +116,7 @@ public class Ride {
 
     public void setStatus(RideStatus status) {
         this.status = status;
-        rss.updateRide(this);
+        //rss.updateRide(this);
     }
 
     public void setAvailableSeats(int availableSeats) {
@@ -131,12 +129,12 @@ public class Ride {
             status = FULL;
         }
 
-        rss.updateRide(this);
+        //rss.updateRide(this);
     }
 
     public void addStopPoint(RideStopPoint stopPoint) {
         rideStopPoints.add(stopPoint);
-        rss.updateRide(this);
+        //rss.updateRide(this);
     }
 
     public void addPassenger(User passenger) {
@@ -147,7 +145,7 @@ public class Ride {
             status = FULL;
         }
 
-        rss.updateRide(this);
+        //rss.updateRide(this);
     }
 
     public void removePassenger(User passenger) {
@@ -158,7 +156,7 @@ public class Ride {
             status = AVAILABLE;
         }
 
-        rss.updateRide(this);
+        //rss.updateRide(this);
     }
 
 }

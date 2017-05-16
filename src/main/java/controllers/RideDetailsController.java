@@ -51,7 +51,7 @@ public class RideDetailsController implements Initializable {
         seatsText.setText(Integer.toString(ride.getAvailableSeats()));
         lengthText.setText(rideStopPoint.getStopPoint().getDistanceFromUni() + "m");
         stopsText.setText(Integer.toString(ride.getNumberOfStops()));
-        priceText.setText(String.format("$%.2f", rideStopPoint.getPrice() + " NZD"));
+        priceText.setText(String.format("$%.2fNZD", rideStopPoint.getPrice()));
     }
 
     @FXML

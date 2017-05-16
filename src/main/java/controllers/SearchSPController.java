@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import models.Rss;
 import models.StopPoint;
 
 import java.net.URL;
@@ -60,7 +61,7 @@ public class SearchSPController implements Initializable {
         }
         */
 
-        allStopPoints.addAll(session.getRss().getAllStopPoints());
+        allStopPoints.addAll(Rss.getInstance().getAllStopPoints());
         visibleStopPoints.addAll(allStopPoints);
 
         Collections.sort(visibleStopPoints, (StopPoint sp1, StopPoint sp2) -> sp1.getStreetNumAsInt().compareTo(sp2.getStreetNumAsInt()));

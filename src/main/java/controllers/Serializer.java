@@ -27,8 +27,10 @@ public final class Serializer {
         }
     }
 
-    public static void saveRss(Rss system) {
+    public static void saveRss() {
         try {
+            Rss system = Rss.getInstance();
+
             Writer writer = new OutputStreamWriter(new FileOutputStream("src/main/resources/rss.json"), "UTF-8");
             gson.toJson(system, writer);
             writer.close();

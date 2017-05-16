@@ -72,7 +72,6 @@ public class StopPoint {
         return distanceFromUni;
     }
 
-    /////////
 
     private void calculateDistanceFromUni() {
         String uniAddress = "University Dr, Ilam";
@@ -81,7 +80,7 @@ public class StopPoint {
         String baseUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?";
 
         HttpURLConnection connection = null;
-        double value = -1;
+        double value = 0;
 
         try {
             //Create connection
@@ -105,7 +104,7 @@ public class StopPoint {
             }
             reader.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Could not connect.");
         } finally {
             if (connection != null) {
                 connection.disconnect();

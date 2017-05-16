@@ -32,7 +32,7 @@ public class RideStopPoint {
         calculatePrice(ride);
     }
     public Ride getRide() {
-        return SessionManager.getInstance().getRss().getRideById(rideId);
+        return Rss.getInstance().getRideById(rideId);
     }
 
     public StopPoint getStopPoint() {

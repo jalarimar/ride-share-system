@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import models.Licence;
+import models.Rss;
 import models.User;
 
 import java.net.URL;
@@ -50,7 +51,7 @@ public class CreateLicenceController implements Initializable {
     @FXML
     protected void backToDashboard(ActionEvent event) throws Exception {
         User user = session.getCurrentUser();
-        session.getRss().removeDriver(user.getUniID());
+        Rss.getInstance().removeDriver(user.getUniID());
         user.setIsDriver(false);
 
         fxml.loadScene(passengerDashboard);

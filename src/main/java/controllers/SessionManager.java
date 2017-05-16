@@ -27,7 +27,6 @@ public class SessionManager {
     }
 
     private Stage stage;
-    private Rss rss;
     private User currentUser;
 
     // what the user is currently looking at
@@ -41,9 +40,6 @@ public class SessionManager {
         return stage;
     }
     public void setStage(Stage stage) { this.stage = stage; }
-
-    public Rss getRss() { return rss; }
-    public void setRss(Rss rss) { this.rss = rss; }
 
     public StopPoint getFocusedStopPoint() {
         return focusedStopPoint;
@@ -74,8 +70,8 @@ public class SessionManager {
         this.currentUser = user;
 
         String id = user.getUniID();
-        if (rss.getUserById(id) == null) {
-            rss.addUser(user);
+        if (Rss.getInstance().getUserById(id) == null) {
+            Rss.getInstance().addUser(user);
         }
     }
 

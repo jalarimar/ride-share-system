@@ -4,6 +4,7 @@ import controllers.SessionManager;
 
 import java.util.*;
 
+import static controllers.Serializer.loadRss;
 import static controllers.Serializer.saveRss;
 import static models.RideStatus.AVAILABLE;
 
@@ -12,12 +13,24 @@ import static models.RideStatus.AVAILABLE;
  */
 public class Rss {
 
+    private static Rss instance = null;
+
+    public static Rss getInstance() {
+        if(instance == null) {
+            instance = loadRss();
+            if (instance == null) {
+                instance = new Rss();
+            }
+        }
+        return instance;
+    }
+
     private HashMap<String, User> allUsers;
     private HashMap<String, Driver> allDrivers;
     private Collection<StopPoint> allStopPoints;
     private HashMap<UUID, Ride> allRides;
 
-    public Rss() {
+    private Rss() {
         allUsers = new HashMap<>();
         allDrivers = new HashMap<>();
         allStopPoints = new HashSet<>();
@@ -44,7 +57,7 @@ public class Rss {
             allDrivers.put(user.getUniID(), (Driver)user);
         }
 
-        saveRss(this);
+        saveRss();
     }
 
     public void removeDriver(String id) {
@@ -52,16 +65,16 @@ public class Rss {
             allDrivers.remove(id);
         }
 
-        saveRss(this);
+        saveRss();
     }
 
     public void addStopPoint(StopPoint stopPoint) {
         allStopPoints.add(stopPoint);
-        saveRss(this);
+        saveRss();
     }
     public void addRide(Ride ride) {
         allRides.put(ride.getId(), ride);
-        saveRss(this);
+        saveRss();
     }
 
     public User getUserById(String id) {
@@ -79,23 +92,6 @@ public class Rss {
 
     public Ride getRideById(UUID id) {
         return allRides.get(id);
-    }
-
-    public void updateUser(User user) {
-        String id = user.getUniID();
-        allUsers.replace(id, user);
-
-        if (user instanceof Driver) {
-            allDrivers.replace(id, (Driver)user);
-        }
-        saveRss(this);
-    }
-
-    public void updateRide(Ride ride) {
-        UUID id = ride.getId();
-        allRides.replace(id, ride);
-
-        saveRss(this);
     }
 
     public List<Ride> getAvailableRides() {

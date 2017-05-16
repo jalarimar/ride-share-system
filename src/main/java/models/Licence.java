@@ -7,12 +7,13 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 
+import static controllers.Serializer.saveRss;
 import static models.NotificationStatus.NONE;
 
 /**
  * Created 26/04/2017.
  */
-public class Licence extends Observable {
+public class Licence {
     private String type;
     private String number;
     private LocalDate issueDate;
@@ -46,32 +47,27 @@ public class Licence extends Observable {
 
     public void setType(String type) {
         this.type = type;
-        setChanged();
-        notifyObservers();
+        saveRss();
     }
 
     public void setNumber(String number) {
         this.number = number;
-        setChanged();
-        notifyObservers();
+        saveRss();
     }
 
     public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
-        setChanged();
-        notifyObservers();
+        saveRss();
     }
 
     public void setExpiryDate(LocalDate newExpiry) {
         this.expiryDate = newExpiry;
         lastSeenNotification = NONE;
-        setChanged();
-        notifyObservers();
+        saveRss();
     }
 
     public void setLastSeenNotification(NotificationStatus lastSeenNotification) {
         this.lastSeenNotification = lastSeenNotification;
-        setChanged();
-        notifyObservers();
+        saveRss();
     }
 }

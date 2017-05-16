@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.Ride;
 import models.RideStopPoint;
+import models.Rss;
 import models.StopPoint;
 
 import java.net.URL;
@@ -53,7 +54,7 @@ public class SearchRideController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        List<Ride> allRides = session.getRss().getAvailableRides();
+        List<Ride> allRides = Rss.getInstance().getAvailableRides();
         StopPoint here = session.getFocusedStopPoint();
 
         for (Ride ride : allRides) {

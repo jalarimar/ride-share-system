@@ -111,24 +111,13 @@ public class LoginController {
 
         if (hasCorrectPassword(userId, password)) {
 
-            User user = session.getRss().getUserById(userId);
+            User user = Rss.getInstance().getUserById(userId);
             session.setCurrentUser(user);
 
             // load driver or passenger dashboard
             if (user instanceof Driver) {
 
-                /*Driver oldDriver = (Driver)user;
-                Driver newDriver = new Driver(oldDriver);
-                Licence oldLicence = oldDriver.getLicence();
-                Licence newLicence = new Licence(oldLicence.getType(), oldLicence.getNumber(), oldLicence.getIssueDate(), oldLicence.getExpiryDate());
-                newDriver.setLicence(newLicence);
-                newLicence.addObserver(newDriver);
-
-                //TODO this fixes the other problem but ends up in infinite loop because "changed" and "obs" fields of Licence aren't transient
-
-                checkExpiry(newDriver);*/
-
-
+                checkExpiry((Driver)user);
 
                 fxml.loadScene(driverDashboard);
             } else {
@@ -145,7 +134,7 @@ public class LoginController {
     }
 
     private boolean hasCorrectPassword(String userId, String password) {
-        User rssUser = session.getRss().getUserById(userId);
+        User rssUser = Rss.getInstance().getUserById(userId);
         if (rssUser != null) {
             String rssPassword = rssUser.getPassword();
             return password.equals(rssPassword);

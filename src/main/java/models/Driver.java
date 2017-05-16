@@ -12,24 +12,13 @@ import static controllers.Serializer.saveRss;
 /**
  * Created 21/03/2017.
  */
-public class Driver extends User implements Observer {
+public class Driver extends User {
 
     private Licence licence;
     private List<Vehicle> vehicles;
     private List<StopPoint> stopPoints;
     private List<Route> routes;
     private List<UUID> myRideIds;
-
-    private transient Rss rss = SessionManager.getInstance().getRss(); // TODO this doesn't work
-
-    public Driver(Driver driver) {
-        super(driver.getFirstName(), driver.getLastName(), true, driver.getUniID(), driver.getPassword(), driver.getEmail(), driver.getAddress(), driver.getHomeNumber(), driver.getMobileNumber(), driver.getPhoto());
-        this.vehicles = driver.getVehicles();
-        this.stopPoints = driver.getStopPoints();
-        this.routes = driver.getRoutes();
-        this.myRideIds = driver.myRideIds;
-        this.rss = SessionManager.getInstance().getRss();
-    }
 
     // TODO remove this constructor is only used in tests
     public Driver(String firstName, String lastName) {
@@ -39,7 +28,7 @@ public class Driver extends User implements Observer {
         this.routes = new ArrayList<>();
         this.myRideIds = new ArrayList<>();
 
-        rss.addUser(this);
+        Rss.getInstance().addUser(this);
     }
 
     public Driver(String firstName, String lastName, String uniID, String password, String email, String address, String homeNumber, String mobileNumber, File photo) {
@@ -49,7 +38,7 @@ public class Driver extends User implements Observer {
         this.routes = new ArrayList<>();
         this.myRideIds = new ArrayList<>();
 
-        rss.addUser(this);
+        Rss.getInstance().addUser(this);
     }
 
     public List<Vehicle> getVehicles() {
@@ -60,7 +49,7 @@ public class Driver extends User implements Observer {
     public List<Ride> getMyRides() {
         List<Ride> rides = new ArrayList<>();
         for (UUID id : myRideIds) {
-            rides.add(rss.getRideById(id));
+            rides.add(Rss.getInstance().getRideById(id));
         }
         return rides;
     }
@@ -68,37 +57,30 @@ public class Driver extends User implements Observer {
         return licence;
     }
 
-    public void update(Observable obs, Object obj)
-    {
-        rss.updateUser(this);
-        // TODO find a different way to add observer
-    }
-
     public void setLicence(Licence licence) {
         this.licence = licence;
-        rss.updateUser(this);
+        //rss.updateUser(this);
     }
 
     public void addVehicle(Vehicle v) {
         vehicles.add(v);
-        rss.updateUser(this);
+        //rss.updateUser(this);
     }
 
     public void addStopPoint(StopPoint p) {
         stopPoints.add(p);
-        rss.updateUser(this);
-        rss.addStopPoint(p);
+        //rss.updateUser(this);
+        Rss.getInstance().addStopPoint(p);
     }
 
     public void addRoute(Route route) {
         routes.add(route);
-        rss.updateUser(this);
+        //rss.updateUser(this);
     }
 
     public void addRide(Ride ride) {
         myRideIds.add(ride.getId());
-        System.out.println("RSS " + rss); // TODO rss is null
-        SessionManager.getInstance().getRss().updateUser(this);
-        saveRss(SessionManager.getInstance().getRss());
+        //Rss.getInstance().updateUser(this);
+        //saveRss();
     }
 }

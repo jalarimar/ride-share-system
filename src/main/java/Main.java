@@ -21,6 +21,7 @@ import java.time.LocalDate;
 
 import static controllers.Converter.getDayOfDate;
 import static controllers.Serializer.loadRss;
+import static controllers.Serializer.saveRss;
 
 
 /**
@@ -28,20 +29,14 @@ import static controllers.Serializer.loadRss;
  */
 public class Main extends Application {
 
+    @Override
     public void start(Stage stage) throws Exception {
 
-        Rss rss = loadRss();
-        if (rss == null) {
-            System.out.println("not found");
-            rss = new Rss();
-        }
+        Rss rss = Rss.getInstance();
         System.out.println(rss.getAllUsers().toString());
-
-
 
         SessionManager session = SessionManager.getInstance();
         session.setStage(stage);
-        session.setRss(rss);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
         Parent root = loader.load();
@@ -53,5 +48,10 @@ public class Main extends Application {
 
         // For testing only
         String h = getDayOfDate(LocalDate.now());
+    }
+
+    @Override
+    public void stop() {
+        saveRss();
     }
 }
