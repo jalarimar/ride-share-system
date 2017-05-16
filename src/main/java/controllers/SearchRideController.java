@@ -32,24 +32,11 @@ public class SearchRideController implements Initializable {
 
     private ObservableList<RideStopPoint> visibleRidesForThisStopPoint = FXCollections.observableArrayList();
 
-    @FXML
-    Button dashboardButton;
-    @FXML
-    Button backButton;
-    @FXML
-    Button bookButton;
-    @FXML
-    Button viewButton;
-    @FXML
-    TableView rideTable;
-    @FXML
-    TableColumn dayCol;
-    @FXML
-    TableColumn timeCol;
-    @FXML
-    TableColumn directionCol;
-    @FXML
-    TableColumn seatCol;
+    @FXML TableView rideTable;
+    @FXML TableColumn dayCol;
+    @FXML TableColumn timeCol;
+    @FXML TableColumn directionCol;
+    @FXML TableColumn seatCol;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -96,6 +83,7 @@ public class SearchRideController implements Initializable {
             Ride ride = rideStopPoint.getRide();
             if (ride.getStatus() == AVAILABLE) {
                 ride.addPassenger(session.getCurrentUser());
+                fxml.backToDashboard(event);
             } else {
                 // TODO error message
             }

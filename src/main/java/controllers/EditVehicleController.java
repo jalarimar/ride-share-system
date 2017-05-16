@@ -38,15 +38,12 @@ public class EditVehicleController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Vehicle vehicle = session.getFocusedVehicle();
-        vehicleType.setPromptText(vehicle.getType());
-        vehicleModel.setPromptText(vehicle.getModel());
-        vehicleColour.setPromptText(vehicle.getColour());
-        vehicleLp.setPromptText(vehicle.getLicensePlate());
-        vehicleYear.setPromptText(Integer.toString(vehicle.getYear()));
-        vehicleNos.setPromptText(Integer.toString(vehicle.getPhysicalSeats()));
-        vehiclePerformance.setPromptText(Integer.toString(vehicle.getPerformance()));
-        regPicker.setPromptText(vehicle.getRegExpiry().toString());
-        wofPicker.setPromptText(vehicle.getWofExpiry().toString());
+        vehicleType.setText(vehicle.getType());
+        vehicleModel.setText(vehicle.getModel());
+        vehicleColour.setText(vehicle.getColour());
+        vehicleLp.setText(vehicle.getLicensePlate());
+        vehicleYear.setText(Integer.toString(vehicle.getYear()));
+        vehicleNos.setText(Integer.toString(vehicle.getPhysicalSeats()));
 
         vehicleType.setDisable(true);
         vehicleModel.setDisable(true);
@@ -55,6 +52,11 @@ public class EditVehicleController implements Initializable {
         vehicleYear.setDisable(true);
         vehicleNos.setDisable(true);
         // only performance, WOF and registration expiry can be updated
+
+        vehiclePerformance.setPromptText(Integer.toString(vehicle.getPerformance()));
+        regPicker.setPromptText(vehicle.getRegExpiry().toString());
+        wofPicker.setPromptText(vehicle.getWofExpiry().toString());
+
     }
 
     @FXML

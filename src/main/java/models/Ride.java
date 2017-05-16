@@ -116,7 +116,6 @@ public class Ride {
 
     public void setStatus(RideStatus status) {
         this.status = status;
-        //rss.updateRide(this);
     }
 
     public void setAvailableSeats(int availableSeats) {
@@ -128,13 +127,10 @@ public class Ride {
         if (availableSeats == 0) {
             status = FULL;
         }
-
-        //rss.updateRide(this);
     }
 
     public void addStopPoint(RideStopPoint stopPoint) {
         rideStopPoints.add(stopPoint);
-        //rss.updateRide(this);
     }
 
     public void addPassenger(User passenger) {
@@ -144,8 +140,6 @@ public class Ride {
         if (availableSeats < 1) {
             status = FULL;
         }
-
-        //rss.updateRide(this);
     }
 
     public void removePassenger(User passenger) {
@@ -155,8 +149,5 @@ public class Ride {
         if (availableSeats == 1 && status == FULL) {
             status = AVAILABLE;
         }
-
-        //rss.updateRide(this);
     }
-
 }

@@ -18,7 +18,7 @@ public class User {
     private String uniID;
     private String password;
     private String email;
-    private String address;
+    private StopPoint address;
     private String homeNumber;
     private String mobileNumber;
     private File photo;
@@ -32,7 +32,7 @@ public class User {
         Rss.getInstance().addUser(this);
     }
 
-    public User(String firstName, String lastName, boolean isDriver, String uniID, String password, String email, String address, String homeNumber, String mobileNumber, File photo) {
+    public User(String firstName, String lastName, boolean isDriver, String uniID, String password, String email, StopPoint address, String homeNumber, String mobileNumber, File photo) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.isDriver = isDriver;
@@ -67,64 +67,47 @@ public class User {
     public String getPassword() {
         return password;
     }
-
+    public String getEmail() {
+        return email;
+    }
+    public String getHomeNumber() {
+        return homeNumber;
+    }
+    public StopPoint getAddress() {
+        return address;
+    }
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+    public File getPhoto() {
+        return photo;
+    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
         //rss.updateUser(this);
     }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
-        //rss.updateUser(this);
     }
-
     public void setIsDriver(boolean driver) {
         isDriver = driver;
-        //rss.updateUser(this);
     }
-
     public void setPassword(String password) {
         this.password = password;
-        //rss.updateUser(this);
     }
-
-    public String getEmail() {
-        return email;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getHomeNumber() {
-        return homeNumber;
-    }
-
     public void setHomeNumber(String homeNumber) {
         this.homeNumber = homeNumber;
     }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
-
-    public File getPhoto() {
-        return photo;
+    public void setAddress(StopPoint address) {
+        this.address = address;
     }
-
     public void setPhoto(File photo) {
         this.photo = photo;
     }

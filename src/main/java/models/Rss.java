@@ -56,25 +56,24 @@ public class Rss {
         if (user instanceof Driver) {
             allDrivers.put(user.getUniID(), (Driver)user);
         }
+    }
 
-        saveRss();
+    public void addDriver(Driver driver) {
+        allDrivers.put(driver.getUniID(), driver);
     }
 
     public void removeDriver(String id) {
         if (allDrivers.containsKey(id)) {
             allDrivers.remove(id);
         }
-
-        saveRss();
     }
 
     public void addStopPoint(StopPoint stopPoint) {
         allStopPoints.add(stopPoint);
-        saveRss();
     }
+
     public void addRide(Ride ride) {
         allRides.put(ride.getId(), ride);
-        saveRss();
     }
 
     public User getUserById(String id) {

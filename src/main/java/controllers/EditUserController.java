@@ -7,6 +7,8 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Driver;
+import models.Rss;
+import models.StopPoint;
 import models.User;
 
 import java.io.File;
@@ -14,6 +16,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static controllers.Navigator.createLicence;
+import static controllers.Navigator.driverDashboard;
 import static controllers.Navigator.passengerDashboard;
 import static controllers.Validator.isAlphanumeric;
 
@@ -45,7 +48,7 @@ public class EditUserController implements Initializable {
     private String lastName;
     private String id;
     private String email;
-    private String address;
+    private StopPoint address;
     private String homeNumber;
     private String mobileNumber;
     private String password1;
@@ -75,11 +78,12 @@ public class EditUserController implements Initializable {
         lastNameField.setPromptText(user.getLastName());
         emailField.setPromptText(user.getEmail());
         idField.setPromptText(user.getUniID());
-        addressNumField.setPromptText(user.getFirstName()); // TODO address
-        addressStreetField.setPromptText(user.getFirstName()); // TODO address
-        addressSuburbField.setPromptText(user.getAddress()); // TODO address
+        addressNumField.setPromptText(user.getAddress().getStreetNumber());
+        addressStreetField.setPromptText(user.getAddress().getStreetName());
+        addressSuburbField.setPromptText(user.getAddress().getSuburb());
         homeNumberField.setPromptText(user.getHomeNumber());
         mobileNumberField.setPromptText(user.getMobileNumber());
+        fileNameLabel.setText(user.getPhoto().getName());
 
         if (user instanceof Driver) {
             driverRadio.setSelected(true);
@@ -91,16 +95,23 @@ public class EditUserController implements Initializable {
     }
 
     private void collectInputFromFields() {
-        firstName = firstNameField.getText();
-        lastName = lastNameField.getText();
-        id = idField.getText();
-        email = emailField.getText();
-        address = addressNumField.getText() + " " + addressStreetField.getText() + ", " + addressSuburbField.getText();
-        // TODO change StopPoint to Address and use it here
-        homeNumber = homeNumberField.getText();
-        mobileNumber = mobileNumberField.getText();
-        password1 = password1Field.getText();
-        password2 = password2Field.getText();
+        User user = session.getCurrentUser();
+
+        firstName = !firstNameField.getText().equals("") ? firstNameField.getText() : user.getFirstName();
+        lastName = !lastNameField.getText().equals("") ? lastNameField.getText() : user.getLastName();
+        id = user.getUniID();
+        email = !emailField.getText().equals("") ? emailField.getText() : user.getEmail();
+        address = user.getAddress();
+        if (!addressNumField.getText().equals("") && !addressStreetField.getText().equals("") && !addressSuburbField.getText().equals("")) {
+            address = new StopPoint(addressNumField.getText(), addressStreetField.getText(), addressSuburbField.getText());
+        }
+        System.out.println(address);
+        System.out.println(user.getAddress());
+        homeNumber = !homeNumberField.getText().equals("") ? homeNumberField.getText() : user.getHomeNumber();
+        mobileNumber = !mobileNumberField.getText().equals("") ? mobileNumberField.getText() : user.getMobileNumber();
+        password1 = !password1Field.getText().equals("") ? password1Field.getText() : user.getPassword();
+        password2 = !password2Field.getText().equals("") ? password2Field.getText() : user.getPassword();
+        photo = user.getPhoto();
     }
 
     private boolean isValidPhoto() {
@@ -150,16 +161,37 @@ public class EditUserController implements Initializable {
 
         collectInputFromFields();
 
-        // TODO check this works with serialisation
-
         if (isValidInput()) {
             if (driverRadio.isSelected()) {
-                Driver driver = new Driver(firstName, lastName, id, password1, email, address, homeNumber, mobileNumber, photo);
-                session.setCurrentUser(driver);
-                fxml.loadScene(createLicence);
+
+                Driver driver = SessionManager.getInstance().getCurrentDriver();
+                if (driver == null) {
+                    // user used to be a passenger
+                    driver = new Driver(firstName, lastName, id, password1, email, address, homeNumber, mobileNumber, photo);
+                    Rss.getInstance().addDriver(driver);
+                    SessionManager.getInstance().setCurrentUser(driver);
+                    fxml.loadScene(createLicence);
+
+                } else {
+                    driver.setFirstName(firstName);
+                    driver.setLastName(lastName);
+                    driver.setPassword(password1);
+                    driver.setEmail(email);
+                    driver.setAddress(address);
+                    driver.setHomeNumber(homeNumber);
+                    driver.setMobileNumber(mobileNumber);
+                    driver.setPhoto(photo);
+                    fxml.loadScene(driverDashboard);
+                }
+
             } else if (passengerRadio.isSelected()){
-                User user = new User(firstName, lastName, false, id, password1, email, address, homeNumber, mobileNumber, photo);
-                session.setCurrentUser(user);
+
+                User user = SessionManager.getInstance().getCurrentUser();
+                if (user.isDriver()) {
+                    // user used to be a driver
+                    Rss.getInstance().removeDriver(user.getUniID());
+                    user.setIsDriver(false);
+                }
                 fxml.loadScene(passengerDashboard);
             } else {
                 errorMessageLabel.setText("Please select an account type.");

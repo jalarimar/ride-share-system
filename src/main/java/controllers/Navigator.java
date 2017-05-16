@@ -34,14 +34,18 @@ public class Navigator {
     public Navigator() {
     }
 
-    public void loadScene(String path) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
-        Parent root = loader.load();
-        Scene scene = new Scene(root, 600, 500);
-        Stage stage = session.getStage();
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+    public void loadScene(String path) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+            Parent root = loader.load();
+            Scene scene = new Scene(root, 600, 500);
+            Stage stage = session.getStage();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Load Scene Failed");
+        }
     }
 
     public void backToDashboard(ActionEvent event) throws Exception {

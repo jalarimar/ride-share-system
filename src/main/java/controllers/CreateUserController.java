@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Driver;
+import models.StopPoint;
 import models.User;
 
 import java.io.File;
@@ -46,7 +47,7 @@ public class CreateUserController implements Initializable {
     private String lastName;
     private String id;
     private String email;
-    private String address;
+    private StopPoint address;
     private String homeNumber;
     private String mobileNumber;
     private String password1;
@@ -68,7 +69,7 @@ public class CreateUserController implements Initializable {
         lastName = lastNameField.getText();
         id = idField.getText();
         email = emailField.getText();
-        address = addressNumField.getText() + " " + addressStreetField.getText() + ", " + addressSuburbField.getText();
+        address = new StopPoint(addressNumField.getText(),addressStreetField.getText(), addressSuburbField.getText());
         // TODO change StopPoint to Address and use it here
         homeNumber = homeNumberField.getText();
         mobileNumber = mobileNumberField.getText();

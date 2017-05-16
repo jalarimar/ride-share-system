@@ -47,27 +47,22 @@ public class Licence {
 
     public void setType(String type) {
         this.type = type;
-        saveRss();
     }
 
     public void setNumber(String number) {
         this.number = number;
-        saveRss();
     }
 
     public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
-        saveRss();
     }
 
     public void setExpiryDate(LocalDate newExpiry) {
         this.expiryDate = newExpiry;
         lastSeenNotification = NONE;
-        saveRss();
     }
 
     public void setLastSeenNotification(NotificationStatus lastSeenNotification) {
         this.lastSeenNotification = lastSeenNotification;
-        saveRss();
     }
 }

@@ -19,7 +19,7 @@ public class StopPointTests {
     @Test
     public void testStreetNumberNonNegative() {
         StopPoint stopPoint = new StopPoint(-2, "Mulberry Grove", "Warwickville");
-        Assert.assertTrue(stopPoint.getStreetNumAsInt() == 0);
+        Assert.assertTrue(stopPoint.getStreetNumber().equals("0"));
         // TODO
     }
 }

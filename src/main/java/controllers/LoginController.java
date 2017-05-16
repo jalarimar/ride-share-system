@@ -23,8 +23,6 @@ public class LoginController {
     @FXML TextField usernameField;
     @FXML PasswordField passwordField;
     @FXML Label errorMessageLabel;
-    @FXML Button loginButton;
-    @FXML Button registerButton;
 
     private NotificationStatus getTimeUntilExpiry(LocalDate expiryDate) {
         LocalDate now = LocalDate.now();
@@ -41,7 +39,7 @@ public class LoginController {
         }
     }
 
-    private void checkExpiry(Driver driver) {
+    private void checkExpiries(Driver driver) {
 
         LocalDate licenceExpiry = driver.getLicence().getExpiryDate();
         NotificationStatus timeUntilLicenceExpiry = getTimeUntilExpiry(licenceExpiry);
@@ -54,21 +52,26 @@ public class LoginController {
         NotificationStatus timeUntilWofExpiry = NONE;
         NotificationStatus timeUntilRegExpiry = NONE;
 
+        String wofVehicleId = null;
+        String regVehicleId = null;
+
         List<Vehicle> vehicles = driver.getVehicles();
         for (Vehicle vehicle : vehicles) {
-            LocalDate wofExpiry = vehicle.getWofExpiry();
-            LocalDate regExpiry = vehicle.getRegExpiry();
 
-            NotificationStatus wofNotification = getTimeUntilExpiry(wofExpiry);
-            NotificationStatus regNotification = getTimeUntilExpiry(regExpiry);
+            NotificationStatus wofNotification = getTimeUntilExpiry(vehicle.getWofExpiry());
+            NotificationStatus regNotification = getTimeUntilExpiry(vehicle.getRegExpiry());
 
+            // find vehicle with most urgent expiry
             if (wofNotification.ordinal() < timeUntilWofExpiry.ordinal()) {
                 timeUntilWofExpiry = wofNotification;
+                wofVehicleId = vehicle.getLicensePlate();
             }
             if (regNotification.ordinal() < timeUntilRegExpiry.ordinal()) {
                 timeUntilRegExpiry = regNotification;
+                regVehicleId = vehicle.getLicensePlate();
             }
 
+            // determine if the notification for this vehicle has already been seen
             NotificationStatus lastSeenWof = vehicle.getLastSeenWofNotification();
             NotificationStatus lastSeenReg = vehicle.getLastSeenRegNotification();
 
@@ -85,23 +88,28 @@ public class LoginController {
                 warning += "Your driver's licence expires in less than " + timeUntilLicenceExpiry + "\n";
                 content += "Update your driver's licence from the edit account screen.\n";
                 driver.getLicence().setLastSeenNotification(timeUntilLicenceExpiry);
-                // TODO make Licence etc observable so licence info is saved to rss when it is changed
             }
             if (notifyReg) {
                 warning += "Your vehicle's registration expires in less than " + timeUntilRegExpiry + "\n";
                 content += "Update your vehicle's licence from the edit vehicle screen.\n";
+                driver.getVehicleById(regVehicleId).setLastSeenRegNotification(timeUntilRegExpiry);
             }
             if (notifyWof) {
                 warning += "Your vehicle's WOF expires in less than " + timeUntilWofExpiry + "\n";
                 content += "Update your WOF from the edit vehicle screen.\n";
+                driver.getVehicleById(wofVehicleId).setLastSeenWofNotification(timeUntilWofExpiry);
             }
 
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Notifications");
+            alert.setTitle("Warning Notifications");
             alert.setHeaderText(warning);
             alert.setContentText(content);
             alert.showAndWait();
         }
+    }
+
+    private void checkPassengerNotifications(User user) {
+        boolean notify = false;
     }
 
     @FXML
@@ -114,10 +122,12 @@ public class LoginController {
             User user = Rss.getInstance().getUserById(userId);
             session.setCurrentUser(user);
 
+            checkPassengerNotifications(user);
+
             // load driver or passenger dashboard
             if (user instanceof Driver) {
 
-                checkExpiry((Driver)user);
+                checkExpiries((Driver)user);
 
                 fxml.loadScene(driverDashboard);
             } else {

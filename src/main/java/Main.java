@@ -33,10 +33,10 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
 
         Rss rss = Rss.getInstance();
-        System.out.println(rss.getAllUsers().toString());
-
         SessionManager session = SessionManager.getInstance();
         session.setStage(stage);
+
+        System.out.println(rss.getAllUsers().toString());
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
         Parent root = loader.load();

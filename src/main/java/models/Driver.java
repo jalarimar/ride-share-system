@@ -31,7 +31,7 @@ public class Driver extends User {
         Rss.getInstance().addUser(this);
     }
 
-    public Driver(String firstName, String lastName, String uniID, String password, String email, String address, String homeNumber, String mobileNumber, File photo) {
+    public Driver(String firstName, String lastName, String uniID, String password, String email, StopPoint address, String homeNumber, String mobileNumber, File photo) {
         super(firstName, lastName, true, uniID, password, email, address, homeNumber, mobileNumber, photo);
         this.vehicles = new ArrayList<>();
         this.stopPoints = new ArrayList<>();
@@ -59,28 +59,31 @@ public class Driver extends User {
 
     public void setLicence(Licence licence) {
         this.licence = licence;
-        //rss.updateUser(this);
     }
 
     public void addVehicle(Vehicle v) {
         vehicles.add(v);
-        //rss.updateUser(this);
     }
 
     public void addStopPoint(StopPoint p) {
         stopPoints.add(p);
-        //rss.updateUser(this);
         Rss.getInstance().addStopPoint(p);
     }
 
     public void addRoute(Route route) {
         routes.add(route);
-        //rss.updateUser(this);
     }
 
     public void addRide(Ride ride) {
         myRideIds.add(ride.getId());
-        //Rss.getInstance().updateUser(this);
-        //saveRss();
+    }
+
+    public Vehicle getVehicleById(String id) {
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.getLicensePlate().equals(id)) {
+                return vehicle;
+            }
+        }
+        return null;
     }
 }

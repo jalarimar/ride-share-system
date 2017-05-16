@@ -45,8 +45,7 @@ public class EditLicenceController implements Initializable {
 
         fullRadio.setSelected(true);
 
-        Driver driver = session.getCurrentDriver();
-        Licence licence = driver.getLicence();
+        Licence licence = session.getCurrentDriver().getLicence();
         numberField.setPromptText(licence.getNumber());
         issuePicker.setPromptText(licence.getIssueDate().toString());
         expiryPicker.setPromptText(licence.getExpiryDate().toString());
@@ -58,9 +57,11 @@ public class EditLicenceController implements Initializable {
     }
 
     private void collectInputFromFields() {
-        number = numberField.getText();
-        issueDate = issuePicker.getValue();
-        expiryDate = expiryPicker.getValue();
+        Licence licence = SessionManager.getInstance().getCurrentDriver().getLicence();
+
+        number = !numberField.getText().equals("") ? numberField.getText() : licence.getNumber();
+        issueDate = issuePicker.getValue() != null ? issuePicker.getValue() : licence.getIssueDate();
+        expiryDate = expiryPicker.getValue() != null ? expiryPicker.getValue() : licence.getExpiryDate();
     }
 
     private boolean isValidInput() {
@@ -79,10 +80,12 @@ public class EditLicenceController implements Initializable {
 
         if (isValidInput()) {
             if (fullRadio.isSelected()) {
-                // TODO update instead of create
-                Licence licence = new Licence("Full", number, issueDate, expiryDate);
-                session.getCurrentDriver().setLicence(licence);
-                //
+
+                Licence licence = SessionManager.getInstance().getCurrentDriver().getLicence();
+                licence.setNumber(number);
+                licence.setIssueDate(issueDate);
+                licence.setExpiryDate(expiryDate);
+
                 fxml.loadScene(driverDashboard);
             } else {
                 errorMessageLabel.setText("You can only be a driver if you have a full licence.");
