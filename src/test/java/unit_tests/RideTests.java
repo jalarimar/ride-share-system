@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class RideTests {
-
+/*
     @Test
     public void testAvailableSeatsLessThanPhysical() {
         Vehicle v = new Vehicle("Ford", "Fiesta", "White", "ABC456", 0, 2001, 3, LocalDate.now(), LocalDate.now());
@@ -47,5 +47,5 @@ public class RideTests {
         Ride ride = new Ride(v, d, new ArrayList<>(), false, false, new ArrayList<>(), LocalDate.now(), LocalDate.now());
         ride.setAvailableSeats(1);
         Assert.assertFalse(ride.getStatus() == RideStatus.FULL);
-    }
+    }*/
 }

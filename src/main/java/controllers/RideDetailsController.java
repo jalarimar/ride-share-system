@@ -37,6 +37,7 @@ public class RideDetailsController implements Initializable {
         Ride ride = session.getFocusedRide();
         Driver driver = ride.getDriver();
         Vehicle vehicle = ride.getVehicle();
+
         RideStopPoint rideStopPoint = ride.getRideStopPoints().get(0); // initialise default
         for (RideStopPoint rsp : ride.getRideStopPoints()) {
             if (rsp.toString().equals(session.getFocusedStopPoint().toString())) {

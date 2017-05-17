@@ -3,6 +3,8 @@ package models;
 
 import controllers.SessionManager;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -11,15 +13,15 @@ import java.util.UUID;
 public class RideStopPoint {
     private UUID rideId;
     private StopPoint stopPoint;
-    private String time;
-    private String day;
+    private LocalDateTime time;
+    private LocalDate date;
     private double price;
 
-    public RideStopPoint(StopPoint sp, String time, String day) {
+    public RideStopPoint(StopPoint sp, LocalDateTime time, LocalDate date) {
         this.rideId = null;
         this.stopPoint = sp;
         this.time = time;
-        this.day = day;
+        this.date = date;
     }
 
     @Override
@@ -42,14 +44,14 @@ public class RideStopPoint {
         this.stopPoint = stopPoint;
     }
 
-    public String getTime() {return time; }
-    public void setTime(String time) {
+    public LocalDateTime getTime() {return time; }
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
-    public String getDay() {return day; }
-    public void setDay(String day) {
-        this.day = day;
+    public LocalDate getDate() {return date; }
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public double getPrice() {return price;}

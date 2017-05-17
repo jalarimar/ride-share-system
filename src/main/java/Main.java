@@ -4,23 +4,15 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
 import javafx.stage.Stage;
-import models.Driver;
-import models.Licence;
 import models.Rss;
-import models.User;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-import static controllers.Converter.getDayOfDate;
-import static controllers.Serializer.loadRss;
+import static controllers.Converter.getReadableDate;
+import static controllers.Converter.getShortDayOfDate;
+import static controllers.Converter.getTimeFromString;
 import static controllers.Serializer.saveRss;
 
 
@@ -47,7 +39,7 @@ public class Main extends Application {
         stage.show();
 
         // For testing only
-        String h = getDayOfDate(LocalDate.now());
+        String h = getShortDayOfDate(LocalDate.now());
     }
 
     @Override

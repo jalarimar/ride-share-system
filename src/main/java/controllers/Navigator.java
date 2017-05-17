@@ -30,6 +30,7 @@ public class Navigator {
     public static final String spSearch = "/stoppointsearch.fxml";
     public static final String rideSearch = "/ridesearch.fxml";
     public static final String viewRide = "/viewride.fxml";
+    public static final String bookedRides = "/bookedrides.fxml";
 
     public Navigator() {
     }

@@ -1,5 +1,7 @@
 package controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,10 +13,13 @@ import models.*;
 import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static controllers.Converter.getReadableDate;
+import static controllers.Converter.getTimeFromString;
 import static controllers.Validator.tryParseInt;
 
 /**
@@ -25,38 +30,23 @@ public class CreateRideController implements Initializable {
     private SessionManager session = SessionManager.getInstance();
     private Navigator fxml = new Navigator();
 
-    @FXML
-    Button dashboardButton;
-    @FXML
-    Button createButton;
-    @FXML
-    ChoiceBox carChoice;
-    @FXML
-    ChoiceBox directionChoice;
-    @FXML
-    ChoiceBox routeChoice;
-    @FXML
-    TextField timesField;
-    @FXML
-    CheckBox mon;
-    @FXML
-    CheckBox tue;
-    @FXML
-    CheckBox wed;
-    @FXML
-    CheckBox thu;
-    @FXML
-    CheckBox fri;
-    @FXML
-    CheckBox sat;
-    @FXML
-    CheckBox sun;
-    @FXML
-    DatePicker startDatePicker;
-    @FXML
-    DatePicker endDatePicker;
-    @FXML
-    Label nStops;
+    @FXML ChoiceBox carChoice;
+    @FXML ChoiceBox directionChoice;
+    @FXML ChoiceBox routeChoice;
+    @FXML TextField timesField;
+    @FXML CheckBox recurrentCheck;
+    @FXML CheckBox mon;
+    @FXML CheckBox tue;
+    @FXML CheckBox wed;
+    @FXML CheckBox thu;
+    @FXML CheckBox fri;
+    @FXML CheckBox sat;
+    @FXML CheckBox sun;
+    @FXML DatePicker startDatePicker;
+    @FXML Label startLabel;
+    @FXML DatePicker endDatePicker;
+    @FXML Label endLabel;
+    @FXML Label nStops;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -76,6 +66,30 @@ public class CreateRideController implements Initializable {
                 String nStopPoints = Integer.toString(route.getRoute().size());
 
                 nStops.setText("Stop points: " + nStopPoints);
+            }
+        });
+        mon.setVisible(false);
+        tue.setVisible(false);
+        wed.setVisible(false);
+        thu.setVisible(false);
+        fri.setVisible(false);
+        sat.setVisible(false);
+        sun.setVisible(false);
+        endDatePicker.setVisible(false);
+        endLabel.setVisible(false);
+
+        recurrentCheck.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                mon.setVisible(newValue);
+                tue.setVisible(newValue);
+                wed.setVisible(newValue);
+                thu.setVisible(newValue);
+                fri.setVisible(newValue);
+                sat.setVisible(newValue);
+                sun.setVisible(newValue);
+                endDatePicker.setVisible(newValue);
+                endLabel.setVisible(newValue);
             }
         });
     }
@@ -111,29 +125,28 @@ public class CreateRideController implements Initializable {
         return days;
     }
 
-    private List<RideStopPoint> mapTimesToStopPoints(Route route) {
-        List<String> times = new ArrayList<>();
+    private List<RideStopPoint> mapTimesToStopPoints(Route route, LocalDate date) {
+        List<StopPoint> stopPoints = route.getRoute();
+        LocalDateTime earliestTime = LocalDateTime.now().plusHours(1);
         String rawInput = timesField.getText();
+
+        List<LocalDateTime> times = new ArrayList<>();
         for (String time : rawInput.split(",")) {
-            String trimmedTime = time.trim();
-            if (tryParseInt(trimmedTime) > -1 && trimmedTime.length() == 4) {
-                times.add(trimmedTime);
+            LocalDateTime thyme = getTimeFromString(getReadableDate(date) + time.trim());
+            if (thyme != null && (date != LocalDate.now() || thyme.compareTo(earliestTime) > 0)) {
+                times.add(thyme);
             }
         }
 
-        List<StopPoint> stopPoints = route.getRoute();
         if (times.size() == stopPoints.size()) {
 
             List<RideStopPoint> rsps = new ArrayList<>();
 
             for (int i = 0; i < stopPoints.size(); i++) {
                 StopPoint stopPoint = stopPoints.get(i);
-                String time = times.get(i);
+                LocalDateTime time = times.get(i);
 
-                // TODO find day
-                String day = "Mon";
-
-                RideStopPoint rideStopPoint = new RideStopPoint(stopPoint, time, day);
+                RideStopPoint rideStopPoint = new RideStopPoint(stopPoint, time, date);
                 rsps.add(rideStopPoint);
             }
             return rsps;
@@ -145,34 +158,47 @@ public class CreateRideController implements Initializable {
     @FXML
     protected void createRide(ActionEvent event) throws Exception {
         // TODO needs testing
-
+        Driver driver = session.getCurrentDriver();
         Vehicle vehicle = (Vehicle)carChoice.getSelectionModel().getSelectedItem();
-
         String direction = directionChoice.getSelectionModel().getSelectedItem().toString();
+        Route route = (Route)routeChoice.getSelectionModel().getSelectedItem();
+        LocalDate startDate = startDatePicker.getValue() != null ? startDatePicker.getValue() : LocalDate.now();
+        LocalDate endDate = endDatePicker.getValue();
+        List<DayOfWeek> days = getSelectedDays();
+        boolean isRecurrent = recurrentCheck.isSelected() && endDate != null && startDate.compareTo(endDate) < 0 && days.size() > 0;
+
         boolean isFromUni;
-        if (direction == "From University") {
+        if (direction.equals("From University")) {
             isFromUni = true;
         } else {
             isFromUni = false;
         }
+        TripDetails trip = new TripDetails(vehicle, driver, isFromUni, isRecurrent, days, endDate);
 
-        List<DayOfWeek> days = getSelectedDays();
 
-        Route route = (Route)routeChoice.getSelectionModel().getSelectedItem();
-        List<RideStopPoint> spWithTimes = mapTimesToStopPoints(route);
+        if (isRecurrent) {
 
-        if (spWithTimes != null) {
+            // generate rides
+            while (startDate.compareTo(endDate) <= 0) {
+                if (days.contains(startDate.getDayOfWeek())) {
+                    List<RideStopPoint> spWithTimes = mapTimesToStopPoints(route, startDate);
+                    if (spWithTimes != null) {
+                        Ride ride = new Ride(trip, spWithTimes);
+                        driver.addRide(ride);
+                    }
+                }
+                startDate = startDate.plusDays(1);
+            }
 
-            LocalDate start = startDatePicker.getValue();
-            LocalDate end = endDatePicker.getValue();
-            boolean isRecurrent = start != end && start != null && end != null && days.size() > 0;
-
-            Driver driver = session.getCurrentDriver();
-            Ride ride = new Ride(vehicle, driver, spWithTimes, isFromUni, isRecurrent, days, start, end);
-            driver.addRide(ride);
-
-            fxml.backToDashboard(event);
+        } else {
+            List<RideStopPoint> spWithTimes = mapTimesToStopPoints(route, startDate);
+            if (spWithTimes != null) {
+                Ride ride = new Ride(trip, spWithTimes);
+                driver.addRide(ride);
+            }
         }
+
+        fxml.backToDashboard(event);
 
     }
 

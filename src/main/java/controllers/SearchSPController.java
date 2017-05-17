@@ -91,6 +91,7 @@ public class SearchSPController implements Initializable {
             System.out.println("Could not connect.");
         }
 
+        // TODO show user's photo somewhere
         //String url = "C:\\Users\\Jay\\Pictures\\2016sem1\\IMG_20160212_103748391.jpg";
         //Image map = new Image("file:" + url);
 

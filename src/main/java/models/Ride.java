@@ -4,6 +4,7 @@ import controllers.SessionManager;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -18,51 +19,41 @@ import static models.RideStatus.FULL;
 public class Ride {
 
     private UUID id;
+    private TripDetails tripDetails;
     private List<RideStopPoint> rideStopPoints;
-    private boolean isFromUni;
-    private String direction;
-    private boolean isRecurrent;
-    private List<DayOfWeek> days;
-    private LocalDate startDate;
-    private LocalDate expiryDate;
-    private Vehicle vehicle;
     private RideStatus status;
     private int availableSeats;
-    private String driverId;
     private List<String> passengerIds;
+    private LocalDate date;
+    private LocalDateTime time; // first stop time
 
-    public Ride(Vehicle vehicle, Driver driver, List<RideStopPoint> rsps, boolean isFromUni, boolean isRecurrent, List<DayOfWeek> days, LocalDate startDate, LocalDate endDate) {
+    public Ride(TripDetails trip, List<RideStopPoint> rsps) {
         this.id = UUID.randomUUID();
-        this.vehicle = vehicle;
-        this.driverId = driver.getUniID();
-        this.rideStopPoints = rsps;
-        this.isFromUni = isFromUni;
-        this.isRecurrent = isRecurrent;
-        this.days = days;
-        this.startDate = startDate;
-        this.expiryDate = endDate;
+        this.tripDetails = trip;
 
-        if (isFromUni) {
-            this.direction = "From University";
-        } else {
-            this.direction = "To University";
-        }
+        this.rideStopPoints = rsps;
         for (RideStopPoint rsp : rsps) {
             rsp.setRide(this);
         }
         this.status = RideStatus.UNSHARED;
         this.availableSeats = 0;
         this.passengerIds = new ArrayList<>();
+        this.date = rsps.get(0).getDate();
+        this.time = rsps.get(0).getTime();
 
         Rss.getInstance().addRide(this);
     }
 
     @Override
     public String toString() {
-        if (rideStopPoints.size() > 1) {
-            return rideStopPoints.get(0) + " to " + rideStopPoints.get(rideStopPoints.size() - 1);
+        if (rideStopPoints.size() > 0) {
+            if (tripDetails.isFromUni()) {
+                return "University to " + rideStopPoints.get(rideStopPoints.size() - 1);
+            } else {
+                return rideStopPoints.get(0) + " to University";
+            }
         } else {
-            return "Short Ride";
+            return "Empty Ride";
         }
     }
 
@@ -70,24 +61,8 @@ public class Ride {
     public List<RideStopPoint> getRideStopPoints() {
         return rideStopPoints;
     }
-    public boolean isFromUni() {
-        return isFromUni;
-    }
-    public String getDirection() { return direction; }
-    public boolean isRecurrent() {
-        return isRecurrent;
-    }
-    public List<DayOfWeek> getDays() {
-        return days;
-    }
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-    public LocalDate getExpiryDate() {
-        return expiryDate;
-    }
     public Vehicle getVehicle() {
-        return vehicle;
+        return tripDetails.getVehicle();
     }
     public RideStatus getStatus() {
         return status;
@@ -95,9 +70,11 @@ public class Ride {
     public int getAvailableSeats() {
         return availableSeats;
     }
+    public LocalDate getDate() {return date; }
+    public LocalDateTime getTime() { return time; }
 
     public Driver getDriver() {
-        return Rss.getInstance().getDriverById(driverId);
+        return Rss.getInstance().getDriverById(tripDetails.getDriverId());
     }
     public List<User> getPassengers() {
         List<User> passengers = new ArrayList<>();
@@ -106,10 +83,7 @@ public class Ride {
         }
         return passengers;
     }
-    public int getRouteLength() {
-        // TODO for story 2.8
-        return 0;
-    }
+
     public int getNumberOfStops() {
         return rideStopPoints.size();
     }
@@ -119,10 +93,11 @@ public class Ride {
     }
 
     public void setAvailableSeats(int availableSeats) {
-        if (availableSeats <= vehicle.getPhysicalSeats() && availableSeats >= 0) {
+        int physicalSeats = tripDetails.getVehicle().getPhysicalSeats();
+        if (availableSeats <= physicalSeats && availableSeats >= 0) {
             this.availableSeats = availableSeats;
         } else {
-            this.availableSeats = vehicle.getPhysicalSeats();
+            this.availableSeats = physicalSeats;
         }
         if (availableSeats == 0) {
             status = FULL;
@@ -139,6 +114,7 @@ public class Ride {
 
         if (availableSeats < 1) {
             status = FULL;
+            availableSeats = 0;
         }
     }
 
