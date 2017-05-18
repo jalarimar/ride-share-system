@@ -168,6 +168,7 @@ public class EditUserController implements Initializable {
                 if (driver == null) {
                     // user used to be a passenger
                     driver = new Driver(firstName, lastName, id, password1, email, address, homeNumber, mobileNumber, photo);
+                    driver.setBookedRideIds(SessionManager.getInstance().getCurrentUser().getBookedRideIds());
                     Rss.getInstance().addDriver(driver);
                     SessionManager.getInstance().setCurrentUser(driver);
                     fxml.loadScene(createLicence);
@@ -192,6 +193,15 @@ public class EditUserController implements Initializable {
                     Rss.getInstance().removeDriver(user.getUniID());
                     user.setIsDriver(false);
                 }
+                user.setFirstName(firstName);
+                user.setLastName(lastName);
+                user.setPassword(password1);
+                user.setEmail(email);
+                user.setAddress(address);
+                user.setHomeNumber(homeNumber);
+                user.setMobileNumber(mobileNumber);
+                user.setPhoto(photo);
+
                 fxml.loadScene(passengerDashboard);
             } else {
                 errorMessageLabel.setText("Please select an account type.");

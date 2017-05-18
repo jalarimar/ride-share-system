@@ -15,6 +15,8 @@ import models.Rss;
 import models.StopPoint;
 
 import java.net.URL;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -33,6 +35,7 @@ public class SearchRideController implements Initializable {
     private ObservableList<RideStopPoint> visibleRidesForThisStopPoint = FXCollections.observableArrayList();
 
     @FXML TableView rideTable;
+    @FXML TableColumn dateCol;
     @FXML TableColumn dayCol;
     @FXML TableColumn timeCol;
     @FXML TableColumn directionCol;
@@ -52,17 +55,17 @@ public class SearchRideController implements Initializable {
             }
         }
 
-        // TODO sort by day and time
-        //Collections.sort(visibleRides, (Ride r1, Ride r2) -> r1.?.compareTo(r2.?));
+        Collections.sort(visibleRidesForThisStopPoint, Comparator.comparing(RideStopPoint::getRawTime));
 
         rideTable.setItems(visibleRidesForThisStopPoint);
 
+        dateCol.setCellValueFactory(new PropertyValueFactory<RideStopPoint,String>("humanDate"));
         dayCol.setCellValueFactory(new PropertyValueFactory<RideStopPoint,String>("day"));
         timeCol.setCellValueFactory(new PropertyValueFactory<RideStopPoint,String>("time"));
         directionCol.setCellValueFactory(new PropertyValueFactory<RideStopPoint,String>("direction"));
         seatCol.setCellValueFactory(new PropertyValueFactory<RideStopPoint,Integer>("availableSeats"));
 
-        rideTable.getColumns().setAll(dayCol, timeCol, directionCol, seatCol);
+        rideTable.getColumns().setAll(dateCol, dayCol, timeCol, directionCol, seatCol);
 
     }
 
@@ -82,6 +85,7 @@ public class SearchRideController implements Initializable {
         if (rideStopPoint != null) {
             Ride ride = rideStopPoint.getRide();
             if (ride.getStatus() == AVAILABLE) {
+                session.getCurrentUser().addBooking(ride);
                 ride.addPassenger(session.getCurrentUser());
                 fxml.backToDashboard(event);
             } else {

@@ -7,6 +7,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static controllers.Converter.getLongDayOfDate;
+import static controllers.Converter.getReadableDate;
+import static controllers.Converter.getReadableTime;
+
 /**
  * Created 04/04/2017.
  */
@@ -44,7 +48,10 @@ public class RideStopPoint {
         this.stopPoint = stopPoint;
     }
 
-    public LocalDateTime getTime() {return time; }
+    public LocalDateTime getRawTime() {
+        return time;
+    }
+    public String getTime() {return getReadableTime(time); }
     public void setTime(LocalDateTime time) {
         this.time = time;
     }
@@ -63,4 +70,25 @@ public class RideStopPoint {
 
         this.price = fuelPrice * performance * (distance / 100); // $
     }
+
+    public String getDay() {
+        // used by PropertyValueFactory
+        return getLongDayOfDate(date);
+    }
+
+    public String getHumanDate() {
+        // used by PropertyValueFactory
+        return getReadableDate(date);
+    }
+
+    public String getDirection() {
+        // used by PropertyValueFactory
+        return getRide().getDirection();
+    }
+
+    public String getAvailableSeats() {
+        // used by PropertyValueFactory
+        return Integer.toString(getRide().getAvailableSeats());
+    }
+
 }

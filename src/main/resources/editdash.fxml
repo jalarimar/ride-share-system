@@ -36,6 +36,6 @@
          </GridPane.margin>
       </ListView>
       <Button mnemonicParsing="false" onAction="#loadEditPersonal" text="Edit Personal Details" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-      <Button mnemonicParsing="false" onAction="#loadEditLicence" text="Edit Licence Details" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <Button fx:id="licenceButton" mnemonicParsing="false" onAction="#loadEditLicence" text="Edit Licence Details" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
     </children>
 </GridPane>

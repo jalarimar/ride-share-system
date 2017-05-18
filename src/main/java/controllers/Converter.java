@@ -1,5 +1,7 @@
 package controllers;
 
+import models.RideStatus;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,8 +35,13 @@ public final class Converter {
         return date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
-    public static String getTimeOfDate(LocalDateTime time) {
-        return time.format(DateTimeFormatter.ofPattern("hh:mma"));
+    public static String getReadableTime(LocalDateTime time) {
+        String formatted = time.format(DateTimeFormatter.ofPattern("h:mma"));
+        if (formatted.substring(formatted.length() - 2).equals("PM")) {
+            return formatted.substring(0, formatted.length() - 2) + "pm";
+        } else {
+            return formatted.substring(0, formatted.length() - 2) + "am";
+        }
     }
 
     public static LocalDateTime getTimeFromString(String input) {
@@ -43,6 +50,22 @@ public final class Converter {
         } catch (DateTimeParseException d){
             return null;
         }
+    }
 
+    public static String getRideStatusAsString(RideStatus status) {
+        switch (status) {
+            case UNSHARED:
+                return "Unshared";
+            case AVAILABLE:
+                return "Available";
+            case FULL:
+                return "Full";
+            case DONE:
+                return "Done";
+            case CANCELLED:
+                return "Cancelled";
+            default:
+                return null;
+        }
     }
 }

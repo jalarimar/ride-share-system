@@ -21,7 +21,6 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
         <Label text="Driver Dashboard" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
@@ -29,12 +28,13 @@
                 <Font size="22.0" />
             </font>
         </Label>
-        <Button fx:id="searchScreenButton" onAction="#loadSearchScreen" text="Search for Stop Points" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-      <Button fx:id="stopPointButton" layoutX="243.0" layoutY="161.0" onAction="#loadCreateSp" text="Create Stop Point" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+        <Button fx:id="searchScreenButton" onAction="#loadSearchScreen" text="Search for Stop Points" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+      <Button fx:id="stopPointButton" layoutX="243.0" layoutY="161.0" onAction="#loadCreateSp" text="Create Stop Point" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
       <Button fx:id="registerCarButton" mnemonicParsing="false" onAction="#loadCreateCar" text="Register Car" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-      <Button fx:id="routeButton" mnemonicParsing="false" onAction="#loadCreateRoute" text="Create Route" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-      <Button fx:id="rideButton" mnemonicParsing="false" onAction="#loadCreateRide" text="Create Ride" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-      <Button fx:id="myRidesButton" layoutX="271.0" layoutY="239.0" mnemonicParsing="false" onAction="#loadDriverRides" text="Manage My Rides" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+      <Button fx:id="routeButton" mnemonicParsing="false" onAction="#loadCreateRoute" text="Create Route" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <Button fx:id="rideButton" mnemonicParsing="false" onAction="#loadCreateRide" text="Create Ride" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <Button fx:id="myRidesButton" layoutX="271.0" layoutY="239.0" mnemonicParsing="false" onAction="#loadDriverRides" text="Manage My Rides" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
       <Button mnemonicParsing="false" onAction="#loadEditDashboard" text="Edit Account" />
+      <Button mnemonicParsing="false" onAction="#viewBookedRides" text="View Booked Rides" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
     </children>
 </GridPane>

@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import models.Vehicle;
 
@@ -25,14 +26,25 @@ public class EditDashController implements Initializable {
 
     @FXML
     ListView vehicleList;
+    @FXML
+    Button licenceButton;
+    @FXML
+    Button vehicleButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<Vehicle> vehicles = FXCollections.observableArrayList();
-        vehicles.addAll(session.getCurrentDriver().getVehicles());
-        if (vehicles.size() > 0) {
-            vehicleList.setItems(vehicles);
+        if (session.getCurrentDriver() != null) {
+            vehicles.addAll(session.getCurrentDriver().getVehicles());
+            if (vehicles.size() > 0) {
+                vehicleList.setItems(vehicles);
+            }
+        } else {
+            licenceButton.setVisible(false);
+            vehicleButton.setVisible(false);
+            vehicleList.setVisible(false);
         }
+
     }
 
     @FXML

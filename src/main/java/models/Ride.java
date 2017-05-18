@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static controllers.Converter.getReadableDate;
+import static controllers.Converter.getRideStatusAsString;
 import static controllers.Serializer.saveRss;
 import static models.RideStatus.AVAILABLE;
 import static models.RideStatus.FULL;
@@ -39,7 +41,7 @@ public class Ride {
         this.availableSeats = 0;
         this.passengerIds = new ArrayList<>();
         this.date = rsps.get(0).getDate();
-        this.time = rsps.get(0).getTime();
+        this.time = rsps.get(0).getRawTime();
 
         Rss.getInstance().addRide(this);
     }
@@ -72,6 +74,14 @@ public class Ride {
     }
     public LocalDate getDate() {return date; }
     public LocalDateTime getTime() { return time; }
+
+    public String getDirection() {
+        if (tripDetails.isFromUni()) {
+            return "From University";
+        } else {
+            return "To University";
+        }
+    }
 
     public Driver getDriver() {
         return Rss.getInstance().getDriverById(tripDetails.getDriverId());
@@ -124,6 +134,38 @@ public class Ride {
 
         if (availableSeats == 1 && status == FULL) {
             status = AVAILABLE;
+        }
+    }
+
+    public String getHumanDate() {
+        // used by PropertyValueFactory
+        return getReadableDate(date);
+    }
+
+    public String getName() {
+        // used by PropertyValueFactory
+        return this.toString();
+    }
+
+    public String getDriverId() {
+        // used by PropertyValueFactory
+        return getDriver().getUniID();
+    }
+
+    public String getBookingStatus() {
+        // used by PropertyValueFactory
+        User user = SessionManager.getInstance().getCurrentUser();
+        if (LocalDateTime.now().compareTo(time) > 0) {
+            return "Done";
+        } else {
+            if (getDriverId().equals(user.getUniID())) {
+                return getRideStatusAsString(status);
+            }
+            if (passengerIds.contains(user.getUniID())) {
+                return "Booked";
+            } else {
+                return "Cancelled";
+            }
         }
     }
 }

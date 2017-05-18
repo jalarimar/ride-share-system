@@ -12,6 +12,7 @@ import models.Vehicle;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static controllers.Navigator.bookedRides;
 import static controllers.Navigator.rideSearch;
 import static models.RideStatus.AVAILABLE;
 
@@ -22,6 +23,7 @@ public class RideDetailsController implements Initializable {
 
     private SessionManager session = SessionManager.getInstance();
     private Navigator fxml = new Navigator();
+    private boolean cameFromBookedRidesPage;
 
     @FXML Label nameText;
     @FXML Label modelText;
@@ -40,8 +42,12 @@ public class RideDetailsController implements Initializable {
 
         RideStopPoint rideStopPoint = ride.getRideStopPoints().get(0); // initialise default
         for (RideStopPoint rsp : ride.getRideStopPoints()) {
-            if (rsp.toString().equals(session.getFocusedStopPoint().toString())) {
+            if (session.getFocusedStopPoint() != null && rsp.toString().equals(session.getFocusedStopPoint().toString())) {
                 rideStopPoint = rsp;
+            } else if (session.getFocusedRide() != null) {
+                // TODO should probably be the ridestoppoint the user has booked for price
+                rideStopPoint = session.getFocusedRide().getRideStopPoints().get(0);
+                cameFromBookedRidesPage = true;
             }
         }
 
@@ -62,13 +68,18 @@ public class RideDetailsController implements Initializable {
 
     @FXML
     protected void backToRideSearch(ActionEvent event) throws Exception {
-        fxml.loadScene(rideSearch);
+        if (cameFromBookedRidesPage) {
+            fxml.loadScene(bookedRides);
+        } else {
+            fxml.loadScene(rideSearch);
+        }
     }
 
     @FXML
     protected void bookRide(ActionEvent event) throws Exception {
         Ride ride = session.getFocusedRide();
         if (ride.getStatus() == AVAILABLE) {
+            session.getCurrentUser().addBooking(ride);
             ride.addPassenger(session.getCurrentUser());
             fxml.backToDashboard(event);
         } else {

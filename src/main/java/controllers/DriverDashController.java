@@ -47,4 +47,9 @@ public class DriverDashController {
         fxml.loadScene(editDashboard);
     }
 
+    @FXML
+    protected void viewBookedRides(ActionEvent event) throws Exception {
+        fxml.loadScene(bookedRides);
+    }
+
 }

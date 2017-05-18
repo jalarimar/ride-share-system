@@ -7,5 +7,6 @@ public enum RideStatus {
     UNSHARED,
     AVAILABLE,
     FULL,
-    EXPIRED
+    DONE,
+    CANCELLED
 }

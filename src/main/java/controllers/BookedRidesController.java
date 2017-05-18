@@ -5,15 +5,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
-import models.Ride;
-import models.RideStatus;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import models.*;
 
 import java.net.URL;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.ResourceBundle;
+import java.util.UUID;
+
+import static controllers.Navigator.viewRide;
 
 /**
  * Created 22/03/2017.
@@ -22,34 +24,32 @@ public class BookedRidesController implements Initializable {
 
     private SessionManager session = SessionManager.getInstance();
     private Navigator fxml = new Navigator();
-    ObservableList<Integer> availableSeats;
 
     @FXML TableView<Ride> bookedRidesTable;
-    @FXML ChoiceBox availableSeatsChoice;
-
+    @FXML TableColumn dateCol;
+    @FXML TableColumn nameCol;
+    @FXML TableColumn driverCol;
+    @FXML TableColumn statusCol;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<Ride> unsharedRides = FXCollections.observableArrayList();
-        for (Ride ride : session.getCurrentDriver().getMyRides()) {
-            if (ride.getStatus() == RideStatus.UNSHARED) {
-                unsharedRides.add(ride);
-            }
+
+        User user = SessionManager.getInstance().getCurrentUser();
+        ObservableList<Ride> bookedRides = FXCollections.observableArrayList();
+        for (UUID rideId : user.getBookedRideIds()) {
+            bookedRides.add(Rss.getInstance().getRideById(rideId));
         }
-        bookedRidesTable.setItems(unsharedRides);
 
-        bookedRidesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                Ride ride = newSelection;
-                int maxSeats = ride.getVehicle().getPhysicalSeats();
+        Collections.sort(bookedRides, Comparator.comparing(Ride::getTime));
+        bookedRidesTable.setItems(bookedRides);
 
-                availableSeats = FXCollections.observableArrayList();
-                for (int i = 1; i <= maxSeats; i++) {
-                    availableSeats.add(i);
-                }
-                availableSeatsChoice.setItems(availableSeats);
-            }
-        });
+        dateCol.setCellValueFactory(new PropertyValueFactory<Ride,String>("humanDate"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<Ride,String>("name"));
+        driverCol.setCellValueFactory(new PropertyValueFactory<Ride,String>("driverId"));
+        statusCol.setCellValueFactory(new PropertyValueFactory<Ride,String>("bookingStatus"));
+
+        bookedRidesTable.getColumns().setAll(dateCol, nameCol, driverCol, statusCol);
+
     }
 
     @FXML
@@ -68,5 +68,12 @@ public class BookedRidesController implements Initializable {
         */
     }
 
-
+    @FXML
+    protected void viewRide(ActionEvent event) throws Exception {
+        Ride ride = bookedRidesTable.getSelectionModel().getSelectedItem();
+        if (ride != null) {
+            session.setFocusedRide(ride);
+            fxml.loadScene(viewRide);
+        }
+    }
 }

@@ -4,6 +4,9 @@ package models;
 import controllers.SessionManager;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import static controllers.Serializer.saveRss;
 
@@ -22,6 +25,7 @@ public class User {
     private String homeNumber;
     private String mobileNumber;
     private File photo;
+    private List<UUID> bookedRideIds;
 
     // TODO remove only used by Driver
     public User(String firstName, String lastName, boolean isDriver) {
@@ -43,6 +47,7 @@ public class User {
         this.homeNumber = homeNumber;
         this.mobileNumber = mobileNumber;
         this.photo = photo;
+        this.bookedRideIds = new ArrayList<>();
 
         Rss.getInstance().addUser(this);
     }
@@ -110,5 +115,18 @@ public class User {
     }
     public void setPhoto(File photo) {
         this.photo = photo;
+    }
+
+    public void addBooking(Ride ride) {
+        bookedRideIds.add(ride.getId());
+    }
+    public List<UUID> getBookedRideIds() {
+        return bookedRideIds;
+    }
+    public void setBookedRideIds(List<UUID> bookedRides) {
+        // used when user becomes driver
+        for (UUID id : bookedRides) {
+            bookedRideIds.add(id);
+        }
     }
 }
