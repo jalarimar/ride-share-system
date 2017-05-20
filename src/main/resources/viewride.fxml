@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RideDetailsController">
-    <padding><Insets bottom="100" left="25" right="25" top="25" /></padding>
+    <padding><Insets bottom="25.0" left="25.0" right="25.0" top="25.0" /></padding>
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="332.0" minWidth="10.0" percentWidth="25.0" prefWidth="218.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="332.0" minWidth="10.0" percentWidth="25.0" prefWidth="218.0" />
@@ -20,6 +20,7 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -76,5 +77,6 @@
          </GridPane.margin>
       </Label>
       <Label fx:id="priceText" text="{price}" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+      <Label fx:id="errorMessage" textFill="#c93504" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6" />
     </children>
 </GridPane>

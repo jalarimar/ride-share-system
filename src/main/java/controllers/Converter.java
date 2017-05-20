@@ -51,21 +51,4 @@ public final class Converter {
             return null;
         }
     }
-
-    public static String getRideStatusAsString(RideStatus status) {
-        switch (status) {
-            case UNSHARED:
-                return "Unshared";
-            case AVAILABLE:
-                return "Available";
-            case FULL:
-                return "Full";
-            case DONE:
-                return "Done";
-            case CANCELLED:
-                return "Cancelled";
-            default:
-                return null;
-        }
-    }
 }

@@ -21,7 +21,8 @@
         <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
         <Label text="Available Rides" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
@@ -42,5 +43,6 @@
       <Button fx:id="bookButton" mnemonicParsing="false" onAction="#bookRide" text="Book Ride" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Button fx:id="viewButton" mnemonicParsing="false" onAction="#viewRide" text="View Details" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
       <Button fx:id="backButton" mnemonicParsing="false" onAction="#backToSpSearch" text="Back" GridPane.rowIndex="4" />
+      <Label fx:id="errorMessage" textFill="#c93504" GridPane.columnIndex="1" GridPane.rowIndex="5" />
     </children>
 </GridPane>

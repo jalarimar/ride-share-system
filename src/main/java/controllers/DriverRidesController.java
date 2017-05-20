@@ -23,14 +23,8 @@ public class DriverRidesController implements Initializable {
     private Navigator fxml = new Navigator();
     ObservableList<Integer> availableSeats;
 
-    @FXML
-    Button dashboardButton;
-    @FXML
-    Button shareButton;
-    @FXML
-    ListView unsharedRideList;
-    @FXML
-    ChoiceBox availableSeatsChoice;
+    @FXML ListView unsharedRideList;
+    @FXML ChoiceBox availableSeatsChoice;
 
 
     @Override
@@ -41,6 +35,7 @@ public class DriverRidesController implements Initializable {
                 unsharedRides.add(ride);
             }
         }
+        // TODO make this a table with status and allow cancelling
         unsharedRideList.setItems(unsharedRides);
 
         unsharedRideList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -64,7 +59,7 @@ public class DriverRidesController implements Initializable {
 
     @FXML
     protected void shareRide(ActionEvent event) throws Exception {
-        // TODO
+        // TODO check acceptance criteria
         Ride ride = (Ride)unsharedRideList.getSelectionModel().getSelectedItem();
         ride.setAvailableSeats((int)availableSeatsChoice.getSelectionModel().getSelectedItem());
         ride.setStatus(RideStatus.AVAILABLE);

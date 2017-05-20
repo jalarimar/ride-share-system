@@ -23,8 +23,6 @@ public class CreateVehicleController {
     private SessionManager main = SessionManager.getInstance();
     private Navigator fxml = new Navigator();
 
-    private final String vehicleFilePath = "vehicle.ser"; // TODO make name based on license plate?
-
     @FXML Button dashboardButton;
     @FXML Button createButton;
     @FXML TextField vehicleType;

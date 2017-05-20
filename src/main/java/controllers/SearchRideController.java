@@ -6,13 +6,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import models.Ride;
-import models.RideStopPoint;
-import models.Rss;
-import models.StopPoint;
+import models.*;
 
 import java.net.URL;
 import java.util.Collections;
@@ -40,6 +38,7 @@ public class SearchRideController implements Initializable {
     @FXML TableColumn timeCol;
     @FXML TableColumn directionCol;
     @FXML TableColumn seatCol;
+    @FXML Label errorMessage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -79,17 +78,28 @@ public class SearchRideController implements Initializable {
         fxml.loadScene(spSearch);
     }
 
+    private boolean userIsAllowedToBookRide(User user, Ride ride) {
+        boolean hasSeatsAvailable = ride.getStatus() == AVAILABLE;
+        boolean isAlreadyBooked = ride.getBookingStatus().equals(BookingStatus.BOOKED.toString());
+        boolean isFinished = ride.getBookingStatus().equals(BookingStatus.DONE.toString());
+        boolean isDriver = ride.getDriver().getUniID().equals(user.getUniID());
+        return hasSeatsAvailable && !isAlreadyBooked && !isFinished && !isDriver;
+    }
+
     @FXML
     protected void bookRide(ActionEvent event) throws Exception {
         RideStopPoint rideStopPoint = (RideStopPoint)rideTable.getSelectionModel().getSelectedItem();
+        User user = session.getCurrentUser();
         if (rideStopPoint != null) {
             Ride ride = rideStopPoint.getRide();
-            if (ride.getStatus() == AVAILABLE) {
-                session.getCurrentUser().addBooking(ride);
-                ride.addPassenger(session.getCurrentUser());
+            if (userIsAllowedToBookRide(user, ride)) {
+                if (!user.getBookedRideIds().contains(ride.getId())) {
+                    user.addBooking(ride);
+                }
+                ride.addPassenger(user);
                 fxml.backToDashboard(event);
             } else {
-                // TODO error message
+                errorMessage.setText("You cannot book this ride.");
             }
         }
     }

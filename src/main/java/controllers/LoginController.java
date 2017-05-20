@@ -108,8 +108,17 @@ public class LoginController {
         }
     }
 
-    private void checkPassengerNotifications(User user) {
-        boolean notify = false;
+    private void checkRideNotifications(User user) {
+        List<String> notifications = user.getUnseenRideNotifications();
+        if (notifications != null && notifications.size() > 0) {
+            for (String notification : notifications) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Ride Notification");
+                alert.setHeaderText(notification);
+                alert.showAndWait();
+            }
+            notifications.clear();
+        }
     }
 
     @FXML
@@ -122,7 +131,7 @@ public class LoginController {
             User user = Rss.getInstance().getUserById(userId);
             session.setCurrentUser(user);
 
-            checkPassengerNotifications(user);
+            checkRideNotifications(user);
 
             // load driver or passenger dashboard
             if (user instanceof Driver) {

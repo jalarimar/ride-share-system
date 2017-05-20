@@ -26,6 +26,7 @@ public class User {
     private String mobileNumber;
     private File photo;
     private List<UUID> bookedRideIds;
+    private List<String> unseenRideNotifications;
 
     // TODO remove only used by Driver
     public User(String firstName, String lastName, boolean isDriver) {
@@ -87,6 +88,7 @@ public class User {
     public File getPhoto() {
         return photo;
     }
+    public List<String> getUnseenRideNotifications() {return unseenRideNotifications; }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -116,6 +118,7 @@ public class User {
     public void setPhoto(File photo) {
         this.photo = photo;
     }
+    public void setUnseenRideNotification(String notification) {this.unseenRideNotifications.add(notification); }
 
     public void addBooking(Ride ride) {
         bookedRideIds.add(ride.getId());

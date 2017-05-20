@@ -10,10 +10,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import models.*;
 
 import java.net.URL;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.ResourceBundle;
-import java.util.UUID;
+import java.time.LocalDateTime;
+import java.util.*;
 
 import static controllers.Navigator.viewRide;
 
@@ -30,6 +28,14 @@ public class BookedRidesController implements Initializable {
     @FXML TableColumn nameCol;
     @FXML TableColumn driverCol;
     @FXML TableColumn statusCol;
+    @FXML Button detailsButton;
+    @FXML Button cancelButton;
+    @FXML Button backButton;
+    @FXML Button confirmButton;
+    @FXML Label reasonLabel;
+    @FXML Label warningLabel;
+    @FXML TextField reasonField;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -50,6 +56,11 @@ public class BookedRidesController implements Initializable {
 
         bookedRidesTable.getColumns().setAll(dateCol, nameCol, driverCol, statusCol);
 
+        reasonLabel.setVisible(false);
+        reasonField.setVisible(false);
+        warningLabel.setVisible(false);
+        confirmButton.setVisible(false);
+        backButton.setVisible(false);
     }
 
     @FXML
@@ -57,15 +68,69 @@ public class BookedRidesController implements Initializable {
         fxml.backToDashboard(event);
     }
 
+    // TODO should be in model
+    private boolean isCancellable(Ride ride) {
+        boolean isDone = ride.getBookingStatus().equals(BookingStatus.DONE.toString());
+        boolean isCancelled = ride.getBookingStatus().equals(BookingStatus.CANCELLED.toString());
+        return !isDone && !isCancelled;
+    }
+
+    @FXML
+    protected void askForReason(ActionEvent event) throws Exception {
+        Ride ride = bookedRidesTable.getSelectionModel().getSelectedItem();
+        if (!isCancellable(ride)) {
+            warningLabel.setText("This ride cannot be cancelled.");
+            warningLabel.setVisible(true);
+        } else {
+            detailsButton.setDisable(true);
+            cancelButton.setDisable(true);
+            reasonLabel.setVisible(true);
+            reasonField.setVisible(true);
+            confirmButton.setVisible(true);
+            backButton.setVisible(true);
+
+            if (ride.getTime().compareTo(LocalDateTime.now().plusHours(2)) < 0) {
+                warningLabel.setText("Less than 2 hours before ride. You may not be well evaluated.");
+                warningLabel.setVisible(true);
+            } else {
+                warningLabel.setVisible(false);
+            }
+        }
+    }
+
+    @FXML
+    protected void cancelCancel(ActionEvent event) throws Exception {
+        detailsButton.setDisable(false);
+        cancelButton.setDisable(false);
+        reasonLabel.setVisible(false);
+        reasonField.setVisible(false);
+        confirmButton.setVisible(false);
+        warningLabel.setVisible(false);
+        backButton.setVisible(false);
+    }
+
     @FXML
     protected void cancelRide(ActionEvent event) throws Exception {
-        /* TODO turn into cancel ride
-        Ride ride = (Ride)unsharedRideList.getSelectionModel().getSelectedItem();
-        ride.setAvailableSeats((int)availableSeatsChoice.getSelectionModel().getSelectedItem());
-        ride.setStatus(RideStatus.AVAILABLE);
+        Ride ride = bookedRidesTable.getSelectionModel().getSelectedItem();
+        User user = session.getCurrentUser();
+        if (user instanceof Driver) {
+            ride.setStatus(RideStatus.CANCELLED);
+            System.out.println("driver");
+
+            for (User passenger : ride.getPassengers()) {
+                String notification = "Ride: " + ride.getName() + " has been cancelled with reason: " + reasonField.getText();
+                passenger.setUnseenRideNotification(notification);
+            }
+        } else {
+            if (ride.getPassengers().contains(user)) {
+                ride.removePassenger(user);
+
+                String notification = "A passenger has cancelled their booking for ride: " + ride.getName() + " with reason: " + reasonField.getText();
+                ride.getDriver().setUnseenRideNotification(notification);
+            }
+        }
 
         fxml.backToDashboard(event);
-        */
     }
 
     @FXML

@@ -28,43 +28,10 @@ public class CreateRouteController implements Initializable {
     private ObservableList<StopPoint> route = FXCollections.observableArrayList();
     private ObservableList<StopPoint> availablePoints = FXCollections.observableArrayList();
 
-    @FXML
-    Button dashboardButton;
-    @FXML
-    Button addButton;
-    @FXML
-    Button removeButton;
-    @FXML
-    Button createButton;
-    @FXML
-    TextField nameField;
-    @FXML
-    ListView<StopPoint> includedStopPointList;
-    @FXML
-    ListView<StopPoint> excludedStopPointList;
+    @FXML TextField nameField;
+    @FXML ListView<StopPoint> includedStopPointList;
+    @FXML ListView<StopPoint> excludedStopPointList;
 
-    /*
-    //TODO REMOVE
-    public CreateRouteController() {
-        Driver d = main.getDriver();
-        d.addVehicle(new Vehicle("Ford", "Taurus", "Blue", "EXM566", "", 2003, 5));
-        d.addVehicle(new Vehicle("Toyota", "Hilux", "Red", "ALB80", "", 2008, 7));
-
-        StopPoint w = new StopPoint(42, "Wallaby Way", "Sydney");
-        StopPoint s = new StopPoint(12, "Grimmauld Place", "London");
-        StopPoint a = new StopPoint(2, "Weld St", "Wadestown");
-        StopPoint f = new StopPoint(20, "Kirkwood Ave", "Upper Riccarton");
-
-        d.addStopPoint(w);
-        d.addStopPoint(s);
-        d.addStopPoint(a);
-        d.addStopPoint(f);
-
-        main.addStopPoint(w);
-        main.addStopPoint(s);
-        main.addStopPoint(a);
-        main.addStopPoint(f);
-    }*/
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -2,7 +2,6 @@ package models;
 
 import controllers.SessionManager;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,8 +9,6 @@ import java.util.List;
 import java.util.UUID;
 
 import static controllers.Converter.getReadableDate;
-import static controllers.Converter.getRideStatusAsString;
-import static controllers.Serializer.saveRss;
 import static models.RideStatus.AVAILABLE;
 import static models.RideStatus.FULL;
 
@@ -156,15 +153,12 @@ public class Ride {
         // used by PropertyValueFactory
         User user = SessionManager.getInstance().getCurrentUser();
         if (LocalDateTime.now().compareTo(time) > 0) {
-            return "Done";
+            return BookingStatus.DONE.toString();
         } else {
-            if (getDriverId().equals(user.getUniID())) {
-                return getRideStatusAsString(status);
-            }
             if (passengerIds.contains(user.getUniID())) {
-                return "Booked";
+                return BookingStatus.BOOKED.toString();
             } else {
-                return "Cancelled";
+                return BookingStatus.CANCELLED.toString();
             }
         }
     }

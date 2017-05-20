@@ -4,10 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import models.Driver;
-import models.Ride;
-import models.RideStopPoint;
-import models.Vehicle;
+import models.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,6 +30,7 @@ public class RideDetailsController implements Initializable {
     @FXML Label lengthText;
     @FXML Label stopsText;
     @FXML Label priceText;
+    @FXML Label errorMessage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -75,15 +73,27 @@ public class RideDetailsController implements Initializable {
         }
     }
 
+    // TODO should be in the model
+    private boolean userIsAllowedToBookRide(User user, Ride ride) {
+        boolean hasSeatsAvailable = ride.getStatus() == AVAILABLE;
+        boolean isAlreadyBooked = ride.getBookingStatus().equals(BookingStatus.BOOKED.toString());
+        boolean isFinished = ride.getBookingStatus().equals(BookingStatus.DONE.toString());
+        boolean isDriver = ride.getDriver().getUniID().equals(user.getUniID());
+        return hasSeatsAvailable && !isAlreadyBooked && !isFinished && !isDriver;
+    }
+
     @FXML
     protected void bookRide(ActionEvent event) throws Exception {
         Ride ride = session.getFocusedRide();
-        if (ride.getStatus() == AVAILABLE) {
-            session.getCurrentUser().addBooking(ride);
-            ride.addPassenger(session.getCurrentUser());
+        User user = session.getCurrentUser();
+        if (userIsAllowedToBookRide(user, ride)) {
+            if (!user.getBookedRideIds().contains(ride.getId())) {
+                user.addBooking(ride);
+            }
+            ride.addPassenger(user);
             fxml.backToDashboard(event);
         } else {
-            // TODO error message
+            errorMessage.setText("You cannot book this ride.");
         }
     }
 }
