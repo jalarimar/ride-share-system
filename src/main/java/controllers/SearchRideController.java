@@ -18,6 +18,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static controllers.Navigator.rideSearch;
 import static controllers.Navigator.spSearch;
 import static controllers.Navigator.viewRide;
 import static models.RideStatus.AVAILABLE;
@@ -96,7 +97,7 @@ public class SearchRideController implements Initializable {
                 if (!user.getBookedRideIds().contains(ride.getId())) {
                     user.addBooking(ride);
                 }
-                ride.addPassenger(user);
+                ride.addPassenger(user, rideStopPoint);
                 fxml.backToDashboard(event);
             } else {
                 errorMessage.setText("You cannot book this ride.");
@@ -109,11 +110,8 @@ public class SearchRideController implements Initializable {
         RideStopPoint rideStopPoint = (RideStopPoint)rideTable.getSelectionModel().getSelectedItem();
         if (rideStopPoint != null) {
             session.setFocusedRide(rideStopPoint.getRide());
-            try {
-                fxml.loadScene(viewRide);
-            } catch (Exception ex) {
-                System.out.println("Load Scene Failed");
-            }
+            session.setPreviousScene(rideSearch);
+            fxml.loadScene(viewRide);
         }
     }
 

@@ -5,16 +5,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import models.Driver;
 import models.Vehicle;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import static controllers.Validator.isAlphanumeric;
+import static controllers.Validator.tryParseDouble;
 import static controllers.Validator.tryParseInt;
 
 /**
@@ -35,9 +32,14 @@ public class EditVehicleController implements Initializable {
     @FXML DatePicker regPicker;
     @FXML DatePicker wofPicker;
 
+    private Vehicle vehicle;
+    private String performanceString;
+    private LocalDate regExpiry;
+    private LocalDate wofExpiry;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Vehicle vehicle = session.getFocusedVehicle();
+        vehicle = session.getFocusedVehicle();
         vehicleType.setText(vehicle.getType());
         vehicleModel.setText(vehicle.getModel());
         vehicleColour.setText(vehicle.getColour());
@@ -53,7 +55,7 @@ public class EditVehicleController implements Initializable {
         vehicleNos.setDisable(true);
         // only performance, WOF and registration expiry can be updated
 
-        vehiclePerformance.setPromptText(Integer.toString(vehicle.getPerformance()));
+        vehiclePerformance.setPromptText(Double.toString(vehicle.getPerformance()));
         regPicker.setPromptText(vehicle.getRegExpiry().toString());
         wofPicker.setPromptText(vehicle.getWofExpiry().toString());
 
@@ -64,48 +66,24 @@ public class EditVehicleController implements Initializable {
         fxml.backToDashboard(event);
     }
 
-    private boolean validateUserInput(List<String> userStrings) {
-        boolean isValid = true;
-        for (String string : userStrings) {
-            isValid = isValid && isAlphanumeric(string);
-        }
-        return isValid;
+    private void collectInputFromFields() {
+
+        performanceString = !vehiclePerformance.getText().equals("") ? vehiclePerformance.getText() : Double.toString(vehicle.getPerformance());
+        regExpiry = regPicker.getValue() != null ? regPicker.getValue() : vehicle.getRegExpiry();
+        wofExpiry = wofPicker.getValue() != null ? wofPicker.getValue() : vehicle.getWofExpiry();
     }
 
     @FXML
     protected void saveVehicle(ActionEvent event) throws Exception {
 
-        // TODO change from create to save
-        // TODO update ride price if performance changes and notify passengers
+        collectInputFromFields();
 
-        String type = vehicleType.getText();
-        String model = vehicleModel.getText();
-        String colour = vehicleColour.getText();
-        String licensePlate = vehicleLp.getText();
-        String performanceString = vehiclePerformance.getText();
-        String yearString = vehicleYear.getText();
-        String numSeatsString = vehicleNos.getText();
+        double performance = tryParseDouble(performanceString);
 
-        List<String> inputStrings = new ArrayList();
-        inputStrings.add(type);
-        inputStrings.add(model);
-        inputStrings.add(colour);
-        inputStrings.add(licensePlate);
-
-        LocalDate regExpiry = regPicker.getValue();
-        LocalDate wofExpiry = wofPicker.getValue();
-
-        boolean isValid = validateUserInput(inputStrings);
-
-        int year = tryParseInt(yearString);
-        int numSeats = tryParseInt(numSeatsString);
-        int performance = tryParseInt(performanceString);
-
-        if (isValid && year > -1 && numSeats > -1 && performance > -1) {
-            Vehicle vehicle = new Vehicle(type, model, colour, licensePlate, performance, year, numSeats, regExpiry, wofExpiry);
-
-            Driver driver = session.getCurrentDriver();
-            driver.addVehicle(vehicle);
+        if (performance > -1) {
+            vehicle.setPerformance(performance);
+            vehicle.setRegExpiry(regExpiry);
+            vehicle.setWofExpiry(wofExpiry);
 
             fxml.backToDashboard(event);
         } else {

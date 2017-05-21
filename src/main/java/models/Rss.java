@@ -102,4 +102,16 @@ public class Rss {
         }
         return availableRides;
     }
+
+    public Vehicle getVehicleByLicencePlate(String licenceNumber) {
+        Vehicle vehicle = null;
+        for (Driver driver : getAllDrivers()) {
+            for (Vehicle v : driver.getVehicles()) {
+                if (v.getLicensePlate().equals(licenceNumber)) {
+                    vehicle = v;
+                }
+            }
+        }
+        return vehicle;
+    }
 }

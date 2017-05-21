@@ -33,6 +33,7 @@ public class SessionManager {
     private StopPoint focusedStopPoint;
     private Ride focusedRide;
     private Vehicle focusedVehicle;
+    private String previousScene;
 
     ////// Getters and Setters
 
@@ -55,6 +56,9 @@ public class SessionManager {
 
     public Vehicle getFocusedVehicle() { return focusedVehicle; }
     public void setFocusedVehicle(Vehicle v) { this.focusedVehicle = v; }
+
+    public String getPreviousScene() { return previousScene;}
+    public void setPreviousScene(String previousScene) { this.previousScene = previousScene; }
 
     public User getCurrentUser() {
         return currentUser;

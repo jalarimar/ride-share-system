@@ -19,11 +19,11 @@ public class TripDetails {
     private boolean isRecurrent;
     private List<DayOfWeek> days;
     private LocalDate expiryDate;
-    private Vehicle vehicle;
+    private String vehicleLicence;
     private String driverId;
 
-    public TripDetails(Vehicle vehicle, Driver driver, boolean isFromUni, boolean isRecurrent, List<DayOfWeek> days, LocalDate endDate) {
-        this.vehicle = vehicle;
+    public TripDetails(String licence, Driver driver, boolean isFromUni, boolean isRecurrent, List<DayOfWeek> days, LocalDate endDate) {
+        this.vehicleLicence = licence;
         this.driverId = driver.getUniID();
         this.isFromUni = isFromUni;
         this.isRecurrent = isRecurrent;
@@ -43,8 +43,8 @@ public class TripDetails {
     public LocalDate getExpiryDate() {
         return expiryDate;
     }
-    public Vehicle getVehicle() {
-        return vehicle;
+    public String getLicenceNumber() {
+        return vehicleLicence;
     }
     public String getDriverId() {
         return driverId;

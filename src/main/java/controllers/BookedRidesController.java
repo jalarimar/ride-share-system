@@ -13,6 +13,7 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static controllers.Navigator.bookedRides;
 import static controllers.Navigator.viewRide;
 
 /**
@@ -40,7 +41,7 @@ public class BookedRidesController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        User user = SessionManager.getInstance().getCurrentUser();
+        User user = session.getCurrentUser();
         ObservableList<Ride> bookedRides = FXCollections.observableArrayList();
         for (UUID rideId : user.getBookedRideIds()) {
             bookedRides.add(Rss.getInstance().getRideById(rideId));
@@ -68,32 +69,30 @@ public class BookedRidesController implements Initializable {
         fxml.backToDashboard(event);
     }
 
-    // TODO should be in model
-    private boolean isCancellable(Ride ride) {
-        boolean isDone = ride.getBookingStatus().equals(BookingStatus.DONE.toString());
-        boolean isCancelled = ride.getBookingStatus().equals(BookingStatus.CANCELLED.toString());
-        return !isDone && !isCancelled;
-    }
-
     @FXML
     protected void askForReason(ActionEvent event) throws Exception {
         Ride ride = bookedRidesTable.getSelectionModel().getSelectedItem();
-        if (!isCancellable(ride)) {
-            warningLabel.setText("This ride cannot be cancelled.");
+        if (ride == null) {
+            warningLabel.setText("Please select a ride.");
             warningLabel.setVisible(true);
         } else {
-            detailsButton.setDisable(true);
-            cancelButton.setDisable(true);
-            reasonLabel.setVisible(true);
-            reasonField.setVisible(true);
-            confirmButton.setVisible(true);
-            backButton.setVisible(true);
-
-            if (ride.getTime().compareTo(LocalDateTime.now().plusHours(2)) < 0) {
-                warningLabel.setText("Less than 2 hours before ride. You may not be well evaluated.");
+            if (!ride.isCancellableByPassenger()) {
+                warningLabel.setText("This booking cannot be cancelled.");
                 warningLabel.setVisible(true);
             } else {
-                warningLabel.setVisible(false);
+                detailsButton.setDisable(true);
+                cancelButton.setDisable(true);
+                reasonLabel.setVisible(true);
+                reasonField.setVisible(true);
+                confirmButton.setVisible(true);
+                backButton.setVisible(true);
+
+                if (ride.getTime().compareTo(LocalDateTime.now().plusHours(2)) < 0) {
+                    warningLabel.setText("Less than 2 hours before ride. You may not be well evaluated.");
+                    warningLabel.setVisible(true);
+                } else {
+                    warningLabel.setVisible(false);
+                }
             }
         }
     }
@@ -113,23 +112,12 @@ public class BookedRidesController implements Initializable {
     protected void cancelRide(ActionEvent event) throws Exception {
         Ride ride = bookedRidesTable.getSelectionModel().getSelectedItem();
         User user = session.getCurrentUser();
-        if (user instanceof Driver) {
-            ride.setStatus(RideStatus.CANCELLED);
-            System.out.println("driver");
+        if (ride.getPassengers().contains(user)) {
+            ride.removePassenger(user);
 
-            for (User passenger : ride.getPassengers()) {
-                String notification = "Ride: " + ride.getName() + " has been cancelled with reason: " + reasonField.getText();
-                passenger.setUnseenRideNotification(notification);
-            }
-        } else {
-            if (ride.getPassengers().contains(user)) {
-                ride.removePassenger(user);
-
-                String notification = "A passenger has cancelled their booking for ride: " + ride.getName() + " with reason: " + reasonField.getText();
-                ride.getDriver().setUnseenRideNotification(notification);
-            }
+            String notification = "A passenger has cancelled their booking for ride: " + ride.getName() + " with reason: " + reasonField.getText();
+            ride.getDriver().setUnseenRideNotification(notification);
         }
-
         fxml.backToDashboard(event);
     }
 
@@ -138,6 +126,7 @@ public class BookedRidesController implements Initializable {
         Ride ride = bookedRidesTable.getSelectionModel().getSelectedItem();
         if (ride != null) {
             session.setFocusedRide(ride);
+            session.setPreviousScene(bookedRides);
             fxml.loadScene(viewRide);
         }
     }

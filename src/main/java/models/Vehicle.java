@@ -13,7 +13,7 @@ public class Vehicle implements Serializable {
     private String model;
     private String colour;
     private String licensePlate;
-    private int performance; // L per 100 km
+    private double performance; // L per 100 km
     private int year;
     private int physicalSeats;
     private LocalDate wofExpiry;
@@ -25,7 +25,7 @@ public class Vehicle implements Serializable {
         this.licensePlate = licensePlate;
     }
 
-    public Vehicle(String type, String model, String colour, String licensePlate, int performance, int year, int physicalSeats, LocalDate regExpiry, LocalDate wofExpiry) {
+    public Vehicle(String type, String model, String colour, String licensePlate, double performance, int year, int physicalSeats, LocalDate regExpiry, LocalDate wofExpiry) {
         this.type = type;
         this.model = model;
         this.colour = colour;
@@ -79,8 +79,16 @@ public class Vehicle implements Serializable {
         return licensePlate;
     }
 
-    public int getPerformance() {
+    public double getPerformance() {
         return performance;
+    }
+    public void setPerformance(double performance) {
+        this.performance = performance;
+        for (Ride ride : Rss.getInstance().getAllRides()) {
+            if (this.equals(ride.getVehicle()) && ride.isCancellableByDriver()) {
+                ride.updatePrices();
+            }
+        }
     }
 
     public int getYear() {

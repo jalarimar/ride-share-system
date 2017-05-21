@@ -33,6 +33,31 @@ public class RideStopPoint {
         return stopPoint.toString();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof RideStopPoint)) {
+            return false;
+        }
+        RideStopPoint rideStopPoint = (RideStopPoint) obj;
+        return this.toString().equals(rideStopPoint.toString())
+                && time.compareTo(rideStopPoint.getRawTime()) == 0
+                && rideId.equals(rideStopPoint.rideId);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + this.toString().hashCode();
+        return result;
+    }
+
+
     public void setRide(Ride ride) {
         this.rideId = ride.getId();
         calculatePrice(ride);
@@ -61,9 +86,9 @@ public class RideStopPoint {
         this.date = date;
     }
 
-    public double getPrice() {return price;}
+    public String getPriceNZD() {return String.format("$%.2fNZD", price); }
 
-    private void calculatePrice(Ride ride) {
+    public void calculatePrice(Ride ride) {
         double performance = ride.getVehicle().getPerformance(); // L/100km
         double distance = this.stopPoint.getDistanceFromUni(); // km
         double fuelPrice = 2.15; // $/L

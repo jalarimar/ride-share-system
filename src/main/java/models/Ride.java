@@ -4,9 +4,7 @@ import controllers.SessionManager;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static controllers.Converter.getReadableDate;
 import static models.RideStatus.AVAILABLE;
@@ -22,7 +20,7 @@ public class Ride {
     private List<RideStopPoint> rideStopPoints;
     private RideStatus status;
     private int availableSeats;
-    private List<String> passengerIds;
+    private Map<String, RideStopPoint> passengerIds;
     private LocalDate date;
     private LocalDateTime time; // first stop time
 
@@ -36,7 +34,7 @@ public class Ride {
         }
         this.status = RideStatus.UNSHARED;
         this.availableSeats = 0;
-        this.passengerIds = new ArrayList<>();
+        this.passengerIds = new HashMap<>();
         this.date = rsps.get(0).getDate();
         this.time = rsps.get(0).getRawTime();
 
@@ -61,7 +59,7 @@ public class Ride {
         return rideStopPoints;
     }
     public Vehicle getVehicle() {
-        return tripDetails.getVehicle();
+        return Rss.getInstance().getVehicleByLicencePlate(tripDetails.getLicenceNumber());
     }
     public RideStatus getStatus() {
         return status;
@@ -85,7 +83,7 @@ public class Ride {
     }
     public List<User> getPassengers() {
         List<User> passengers = new ArrayList<>();
-        for (String userId : passengerIds) {
+        for (String userId : passengerIds.keySet()) {
             passengers.add(Rss.getInstance().getUserById(userId));
         }
         return passengers;
@@ -100,7 +98,7 @@ public class Ride {
     }
 
     public void setAvailableSeats(int availableSeats) {
-        int physicalSeats = tripDetails.getVehicle().getPhysicalSeats();
+        int physicalSeats = getVehicle().getPhysicalSeats();
         if (availableSeats <= physicalSeats && availableSeats >= 0) {
             this.availableSeats = availableSeats;
         } else {
@@ -115,8 +113,8 @@ public class Ride {
         rideStopPoints.add(stopPoint);
     }
 
-    public void addPassenger(User passenger) {
-        passengerIds.add(passenger.getUniID());
+    public void addPassenger(User passenger, RideStopPoint rideStopPoint) {
+        passengerIds.put(passenger.getUniID(), rideStopPoint);
         availableSeats -= 1;
 
         if (availableSeats < 1) {
@@ -132,6 +130,54 @@ public class Ride {
         if (availableSeats == 1 && status == FULL) {
             status = AVAILABLE;
         }
+    }
+
+    public RideStopPoint getRspOfPassenger(User passenger) {
+        return passengerIds.get(passenger.getUniID());
+    }
+
+    public void updatePrices() {
+        for (RideStopPoint rideStopPoint : rideStopPoints) {
+            rideStopPoint.calculatePrice(this);
+            for (String id : passengerIds.keySet()) {
+                if (rideStopPoint.equals(passengerIds.get(id))) {
+                    User passenger = Rss.getInstance().getUserById(id);
+                    if (isWatchedByPassenger(passenger)) {
+                        String notification = "The price of ride: " + rideStopPoint + " " + getDirection() + " has been updated to: " + rideStopPoint.getPriceNZD();
+                        passenger.setUnseenRideNotification(notification);
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean isAllowedToBookRide(User user) {
+        boolean hasSeatsAvailable = getStatus() == AVAILABLE;
+        boolean isAlreadyBooked = getBookingStatus().equals(BookingStatus.BOOKED.toString());
+        boolean isFinished = getBookingStatus().equals(BookingStatus.DONE.toString());
+        boolean isDriver = getDriver().getUniID().equals(user.getUniID());
+        return hasSeatsAvailable && !isAlreadyBooked && !isFinished && !isDriver;
+    }
+
+    private boolean isWatchedByPassenger(User passenger) {
+        return (LocalDateTime.now().compareTo(time) <= 0) && passengerIds.keySet().contains(passenger.getUniID()) && isCancellableByDriver();
+    }
+
+    public boolean isCancellableByPassenger() {
+        boolean isDone = getBookingStatus().equals(BookingStatus.DONE.toString());
+        boolean isCancelled = getBookingStatus().equals(BookingStatus.CANCELLED.toString());
+        return !isDone && !isCancelled;
+    }
+
+    public boolean isCancellableByDriver() {
+        boolean isDone = status.equals(RideStatus.DONE);
+        boolean isCancelled = status.equals(RideStatus.CANCELLED);
+        boolean isUnshared = status.equals(RideStatus.UNSHARED);
+        return !isDone && !isCancelled && !isUnshared;
+    }
+
+    public boolean isShareable() {
+        return status == RideStatus.UNSHARED;
     }
 
     public String getHumanDate() {
@@ -155,7 +201,7 @@ public class Ride {
         if (LocalDateTime.now().compareTo(time) > 0) {
             return BookingStatus.DONE.toString();
         } else {
-            if (passengerIds.contains(user.getUniID())) {
+            if (passengerIds.keySet().contains(user.getUniID()) && isCancellableByDriver()) {
                 return BookingStatus.BOOKED.toString();
             } else {
                 return BookingStatus.CANCELLED.toString();

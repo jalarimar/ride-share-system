@@ -173,7 +173,7 @@ public class CreateRideController implements Initializable {
         } else {
             isFromUni = false;
         }
-        TripDetails trip = new TripDetails(vehicle, driver, isFromUni, isRecurrent, days, endDate);
+        TripDetails trip = new TripDetails(vehicle.getLicensePlate(), driver, isFromUni, isRecurrent, days, endDate);
 
 
         if (isRecurrent) {

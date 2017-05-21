@@ -65,9 +65,6 @@ public class StopPoint {
     public String getStreetNumber() {
         return streetNumber;
     }
-    /*public Integer getStreetNumAsInt() {
-        return streetNumber;
-    }*/
     public String getStreetName() {
         return streetName;
     }

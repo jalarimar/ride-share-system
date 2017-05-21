@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static controllers.Validator.isAlphanumeric;
+import static controllers.Validator.tryParseDouble;
 import static controllers.Validator.tryParseInt;
 
 /**
@@ -23,8 +24,6 @@ public class CreateVehicleController {
     private SessionManager main = SessionManager.getInstance();
     private Navigator fxml = new Navigator();
 
-    @FXML Button dashboardButton;
-    @FXML Button createButton;
     @FXML TextField vehicleType;
     @FXML TextField vehicleModel;
     @FXML TextField vehicleColour;
@@ -72,7 +71,7 @@ public class CreateVehicleController {
 
         int year = tryParseInt(yearString);
         int numSeats = tryParseInt(numSeatsString);
-        int performance = tryParseInt(performanceString);
+        double performance = tryParseDouble(performanceString);
 
         if (isValid && year > -1 && numSeats > -1 && performance > -1) {
             Vehicle vehicle = new Vehicle(type, model, colour, licensePlate, performance, year, numSeats, regExpiry, wofExpiry);
