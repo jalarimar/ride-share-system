@@ -119,7 +119,6 @@ public class DriverRidesController implements Initializable {
 
     @FXML
     protected void shareRide(ActionEvent event) throws Exception {
-        // TODO check acceptance criteria
         Ride ride = myRidesTable.getSelectionModel().getSelectedItem();
         ride.setAvailableSeats((int)availableSeatsChoice.getSelectionModel().getSelectedItem());
         ride.setStatus(RideStatus.AVAILABLE);

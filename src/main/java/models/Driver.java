@@ -20,17 +20,6 @@ public class Driver extends User {
     private List<Route> routes;
     private List<UUID> myRideIds;
 
-    // TODO remove this constructor is only used in tests
-    public Driver(String firstName, String lastName) {
-        super(firstName, lastName, true);
-        this.vehicles = new ArrayList<>();
-        this.stopPoints = new ArrayList<>();
-        this.routes = new ArrayList<>();
-        this.myRideIds = new ArrayList<>();
-
-        Rss.getInstance().addUser(this);
-    }
-
     public Driver(String firstName, String lastName, String uniID, String password, String email, StopPoint address, String homeNumber, String mobileNumber, File photo) {
         super(firstName, lastName, true, uniID, password, email, address, homeNumber, mobileNumber, photo);
         this.vehicles = new ArrayList<>();

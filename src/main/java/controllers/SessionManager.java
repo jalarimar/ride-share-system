@@ -78,19 +78,4 @@ public class SessionManager {
             Rss.getInstance().addUser(user);
         }
     }
-
-
-/*
-    // TODO move or remove this function
-    public boolean tryAddPassenger(Ride ride, User passenger) {
-        Vehicle vehicle = ride.getVehicle();
-        int nSeats = vehicle.getPhysicalSeats();
-        if (nSeats > 0 && !ride.getPassengers().contains(passenger)) {
-            ride.addPassenger(passenger);
-            return true;
-        } else {
-            return false;
-        }
-    }
-    */
 }

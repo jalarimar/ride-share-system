@@ -21,10 +21,6 @@ public class Vehicle implements Serializable {
     private NotificationStatus lastSeenWofNotification;
     private NotificationStatus lastSeenRegNotification;
 
-    public Vehicle(String licensePlate) {
-        this.licensePlate = licensePlate;
-    }
-
     public Vehicle(String type, String model, String colour, String licensePlate, double performance, int year, int physicalSeats, LocalDate regExpiry, LocalDate wofExpiry) {
         this.type = type;
         this.model = model;

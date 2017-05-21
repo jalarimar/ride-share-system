@@ -23,7 +23,8 @@ public class StopPointSteps {
 
     @Given("^a driver called \"([^\"]*)\" \"([^\"]*)\"$")
     public void aDriverCalled(String firstName, String lastName) {
-        driver = new Driver(firstName, lastName);
+        StopPoint defaultPoint = new StopPoint("20", "Kirkwood Ave", "Riccarton");
+        driver = new Driver(firstName, lastName, "ABC", "123", "driver@uclive.ac.nz", defaultPoint, "1", "0", null);
     }
 
     @When("^I create a stop point at (\\d+) (\\w+\\s\\w+), (\\w+)$")

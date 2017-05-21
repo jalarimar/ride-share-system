@@ -89,11 +89,13 @@ public class RideStopPoint {
     public String getPriceNZD() {return String.format("$%.2fNZD", price); }
 
     public void calculatePrice(Ride ride) {
-        double performance = ride.getVehicle().getPerformance(); // L/100km
-        double distance = this.stopPoint.getDistanceFromUni(); // km
-        double fuelPrice = 2.15; // $/L
+        if (ride.getVehicle() != null) {
+            double performance = ride.getVehicle().getPerformance(); // L/100km
+            double distance = this.stopPoint.getDistanceFromUni(); // km
+            double fuelPrice = 2.15; // $/L
 
-        this.price = fuelPrice * performance * (distance / 100); // $
+            this.price = fuelPrice * performance * (distance / 100); // $
+        }
     }
 
     public String getDay() {

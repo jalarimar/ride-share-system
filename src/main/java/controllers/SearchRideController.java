@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -21,7 +20,6 @@ import java.util.ResourceBundle;
 import static controllers.Navigator.rideSearch;
 import static controllers.Navigator.spSearch;
 import static controllers.Navigator.viewRide;
-import static models.RideStatus.AVAILABLE;
 
 /**
  * Created 22/03/2017.
@@ -79,22 +77,14 @@ public class SearchRideController implements Initializable {
         fxml.loadScene(spSearch);
     }
 
-    private boolean userIsAllowedToBookRide(User user, Ride ride) {
-        boolean hasSeatsAvailable = ride.getStatus() == AVAILABLE;
-        boolean isAlreadyBooked = ride.getBookingStatus().equals(BookingStatus.BOOKED.toString());
-        boolean isFinished = ride.getBookingStatus().equals(BookingStatus.DONE.toString());
-        boolean isDriver = ride.getDriver().getUniID().equals(user.getUniID());
-        return hasSeatsAvailable && !isAlreadyBooked && !isFinished && !isDriver;
-    }
-
     @FXML
     protected void bookRide(ActionEvent event) throws Exception {
         RideStopPoint rideStopPoint = (RideStopPoint)rideTable.getSelectionModel().getSelectedItem();
         User user = session.getCurrentUser();
         if (rideStopPoint != null) {
             Ride ride = rideStopPoint.getRide();
-            if (userIsAllowedToBookRide(user, ride)) {
-                if (!user.getBookedRideIds().contains(ride.getId())) {
+            if (ride.isAllowedToBookRide(user)) {
+                if (!user.getTrackedRideIds().contains(ride.getId())) {
                     user.addBooking(ride);
                 }
                 ride.addPassenger(user, rideStopPoint);

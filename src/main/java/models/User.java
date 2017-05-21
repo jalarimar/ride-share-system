@@ -1,14 +1,10 @@
 package models;
 
 
-import controllers.SessionManager;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import static controllers.Serializer.saveRss;
 
 /**
  * Created 21/03/2017.
@@ -25,17 +21,8 @@ public class User {
     private String homeNumber;
     private String mobileNumber;
     private File photo;
-    private List<UUID> bookedRideIds;
+    private List<UUID> trackedRideIds;
     private List<String> unseenRideNotifications;
-
-    // TODO remove only used by Driver
-    public User(String firstName, String lastName, boolean isDriver) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.isDriver = isDriver;
-
-        Rss.getInstance().addUser(this);
-    }
 
     public User(String firstName, String lastName, boolean isDriver, String uniID, String password, String email, StopPoint address, String homeNumber, String mobileNumber, File photo) {
         this.firstName = firstName;
@@ -48,7 +35,8 @@ public class User {
         this.homeNumber = homeNumber;
         this.mobileNumber = mobileNumber;
         this.photo = photo;
-        this.bookedRideIds = new ArrayList<>();
+        this.trackedRideIds = new ArrayList<>();
+        this.unseenRideNotifications = new ArrayList<>();
 
         Rss.getInstance().addUser(this);
     }
@@ -121,15 +109,15 @@ public class User {
     public void setUnseenRideNotification(String notification) {this.unseenRideNotifications.add(notification); }
 
     public void addBooking(Ride ride) {
-        bookedRideIds.add(ride.getId());
+        trackedRideIds.add(ride.getId());
     }
-    public List<UUID> getBookedRideIds() {
-        return bookedRideIds;
+    public List<UUID> getTrackedRideIds() {
+        return trackedRideIds;
     }
-    public void setBookedRideIds(List<UUID> bookedRides) {
+    public void setTrackedRideIds(List<UUID> bookedRides) {
         // used when user becomes driver
         for (UUID id : bookedRides) {
-            bookedRideIds.add(id);
+            trackedRideIds.add(id);
         }
     }
 }

@@ -43,7 +43,7 @@ public class BookedRidesController implements Initializable {
 
         User user = session.getCurrentUser();
         ObservableList<Ride> bookedRides = FXCollections.observableArrayList();
-        for (UUID rideId : user.getBookedRideIds()) {
+        for (UUID rideId : user.getTrackedRideIds()) {
             bookedRides.add(Rss.getInstance().getRideById(rideId));
         }
 

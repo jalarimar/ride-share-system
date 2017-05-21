@@ -13,7 +13,6 @@ import java.util.ResourceBundle;
 import static controllers.Navigator.bookedRides;
 import static controllers.Navigator.myRides;
 import static controllers.Navigator.rideSearch;
-import static models.RideStatus.AVAILABLE;
 
 /**
  * Created 22/03/2017.
@@ -85,20 +84,23 @@ public class RideDetailsController implements Initializable {
     protected void bookRide(ActionEvent event) throws Exception {
         Ride ride = session.getFocusedRide();
         User user = session.getCurrentUser();
+        StopPoint stopPoint = session.getFocusedStopPoint();
         if (ride.isAllowedToBookRide(user)) {
-            if (!user.getBookedRideIds().contains(ride.getId())) {
+            if (!user.getTrackedRideIds().contains(ride.getId())) {
                 user.addBooking(ride);
             }
             RideStopPoint rideStopPoint = ride.getRideStopPoints().get(0);
             for (RideStopPoint rsp : ride.getRideStopPoints()) {
-                if (rsp.toString().equals(session.getFocusedStopPoint().toString())) {
+                if (stopPoint != null && rsp.toString().equals(stopPoint.toString())) {
                     rideStopPoint = rsp;
                 }
             }
             ride.addPassenger(user, rideStopPoint);
             fxml.backToDashboard(event);
         } else {
-            errorMessage.setText("You cannot book this ride.");
+            if (errorMessage != null) {
+                errorMessage.setText("You cannot book this ride.");
+            }
         }
     }
 }

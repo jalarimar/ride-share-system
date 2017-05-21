@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Driver;
@@ -25,8 +27,6 @@ public class CreateUserController implements Initializable {
     private SessionManager session = SessionManager.getInstance();
     private Navigator fxml = new Navigator();
 
-    @FXML Button createButton;
-    @FXML Button uploadButton;
     @FXML Label fileNameLabel;
     @FXML TextField firstNameField;
     @FXML TextField lastNameField;
@@ -42,6 +42,7 @@ public class CreateUserController implements Initializable {
     @FXML RadioButton passengerRadio;
     @FXML RadioButton driverRadio;
     @FXML Label errorMessageLabel;
+    @FXML ImageView img;
 
     private String firstName;
     private String lastName;
@@ -70,7 +71,6 @@ public class CreateUserController implements Initializable {
         id = idField.getText();
         email = emailField.getText();
         address = new StopPoint(addressNumField.getText(),addressStreetField.getText(), addressSuburbField.getText());
-        // TODO change StopPoint to Address and use it here
         homeNumber = homeNumberField.getText();
         mobileNumber = mobileNumberField.getText();
         password1 = password1Field.getText();
@@ -155,6 +155,8 @@ public class CreateUserController implements Initializable {
             } else {
                 fileNameLabel.setText(photo.getName());
             }
+            Image image = new Image("file:" + photo.getAbsolutePath());
+            img.setImage(image);
         } else {
             fileNameLabel.setText(".jpg/.jpeg or .png");
         }

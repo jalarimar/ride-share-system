@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Driver;
@@ -43,6 +45,7 @@ public class EditUserController implements Initializable {
     @FXML RadioButton passengerRadio;
     @FXML RadioButton driverRadio;
     @FXML Label errorMessageLabel;
+    @FXML ImageView img;
 
     private String firstName;
     private String lastName;
@@ -91,6 +94,9 @@ public class EditUserController implements Initializable {
             passengerRadio.setSelected(true);
         }
 
+        Image image = new Image("file:" + user.getPhoto());
+        img.setImage(image);
+
         idField.setDisable(true);
     }
 
@@ -105,13 +111,11 @@ public class EditUserController implements Initializable {
         if (!addressNumField.getText().equals("") && !addressStreetField.getText().equals("") && !addressSuburbField.getText().equals("")) {
             address = new StopPoint(addressNumField.getText(), addressStreetField.getText(), addressSuburbField.getText());
         }
-        System.out.println(address);
-        System.out.println(user.getAddress());
         homeNumber = !homeNumberField.getText().equals("") ? homeNumberField.getText() : user.getHomeNumber();
         mobileNumber = !mobileNumberField.getText().equals("") ? mobileNumberField.getText() : user.getMobileNumber();
         password1 = !password1Field.getText().equals("") ? password1Field.getText() : user.getPassword();
         password2 = !password2Field.getText().equals("") ? password2Field.getText() : user.getPassword();
-        photo = user.getPhoto();
+        photo = photo != null? photo : user.getPhoto();
     }
 
     private boolean isValidPhoto() {
@@ -168,7 +172,7 @@ public class EditUserController implements Initializable {
                 if (driver == null) {
                     // user used to be a passenger
                     driver = new Driver(firstName, lastName, id, password1, email, address, homeNumber, mobileNumber, photo);
-                    driver.setBookedRideIds(SessionManager.getInstance().getCurrentUser().getBookedRideIds());
+                    driver.setTrackedRideIds(SessionManager.getInstance().getCurrentUser().getTrackedRideIds());
                     Rss.getInstance().addDriver(driver);
                     SessionManager.getInstance().setCurrentUser(driver);
                     fxml.loadScene(createLicence);
@@ -225,6 +229,8 @@ public class EditUserController implements Initializable {
             } else {
                 fileNameLabel.setText(photo.getName());
             }
+            Image image = new Image("file:" + photo);
+            img.setImage(image);
         } else {
             fileNameLabel.setText(".jpg/.jpeg or .png");
         }

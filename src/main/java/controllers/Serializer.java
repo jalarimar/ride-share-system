@@ -22,7 +22,7 @@ public final class Serializer {
             return gson.fromJson(reader, Rss.class);
 
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
             return null;
         }
     }
@@ -36,7 +36,7 @@ public final class Serializer {
             writer.close();
 
         } catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 }

@@ -157,7 +157,6 @@ public class CreateRideController implements Initializable {
 
     @FXML
     protected void createRide(ActionEvent event) throws Exception {
-        // TODO needs testing
         Driver driver = session.getCurrentDriver();
         Vehicle vehicle = (Vehicle)carChoice.getSelectionModel().getSelectedItem();
         String direction = directionChoice.getSelectionModel().getSelectedItem().toString();

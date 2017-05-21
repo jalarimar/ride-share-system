@@ -5,8 +5,11 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import models.Driver;
+import models.StopPoint;
 import models.Vehicle;
 import org.junit.Assert;
+
+import java.time.LocalDate;
 
 
 /**
@@ -19,13 +22,13 @@ public class DriverSteps {
 
     @Given("^a driver named \"([^\"]*)\" \"([^\"]*)\"$")
     public void aDriverNamed(String firstName, String lastName) {
-        driver = new Driver(firstName, lastName);
+        StopPoint defaultPoint = new StopPoint("20", "Kirkwood Ave", "Riccarton");
+        driver = new Driver(firstName, lastName, "ABC", "123", "driver@uclive.ac.nz", defaultPoint, "1", "0", null);
     }
-
 
     @When("^I register a (\\w+) car: (\\w+) (\\w+) (\\d+), with license (\\w+) and (\\d+) seats$")
     public void iRegisterACar(String colour, String type, String model, int year, String licensePlate, int physicalSeats) throws Throwable {
-        Vehicle vehicle = new Vehicle(licensePlate);
+        Vehicle vehicle = new Vehicle(type, model, colour, licensePlate, 1.0, year, physicalSeats, LocalDate.MAX, LocalDate.MAX);
         driver.addVehicle(vehicle);
     }
 
