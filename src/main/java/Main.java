@@ -40,6 +40,7 @@ public class Main extends Application {
 
         // For testing only
         String h = getShortDayOfDate(LocalDate.now());
+        // TODO clear rss.json before submission
     }
 
     @Override

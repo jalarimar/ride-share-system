@@ -5,14 +5,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import models.*;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static controllers.Navigator.bookedRides;
-import static controllers.Navigator.myRides;
-import static controllers.Navigator.rideSearch;
+import static controllers.Navigator.*;
 
 /**
  * Created 22/03/2017.
@@ -27,11 +28,13 @@ public class RideDetailsController implements Initializable {
     @FXML Label modelText;
     @FXML Label colourText;
     @FXML Label yearText;
+    @FXML Label performanceText;
     @FXML Label seatsText;
     @FXML Label lengthText;
     @FXML Label stopsText;
     @FXML Label priceText;
     @FXML Label errorMessage;
+    @FXML ImageView img;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,14 +54,22 @@ public class RideDetailsController implements Initializable {
         modelText.setText(vehicle.getTypeAndModel());
         colourText.setText(vehicle.getColour());
         yearText.setText(Integer.toString(vehicle.getYear()));
+        performanceText.setText(Double.toString(vehicle.getPerformance()) + "L/100km");
         seatsText.setText(Integer.toString(ride.getAvailableSeats()));
         lengthText.setText(rideStopPoint.getStopPoint().getDistanceFromUni() * 1000 + "m");
         stopsText.setText(Integer.toString(ride.getNumberOfStops() - ride.getRideStopPoints().indexOf(rideStopPoint)));
         priceText.setText(rideStopPoint.getPriceNZD());
 
+        Image image = new Image("file:" + driver.getPhoto());
+        img.setImage(image);
+
         String previousScene = session.getPreviousScene();
         if (previousScene.equals(myRides) || previousScene.equals(bookedRides)) {
             bookButton.setVisible(false);
+        }
+        if (previousScene.equals(createRide)) {
+            bookButton.setVisible(false);
+            errorMessage.setText("Ride has been created.");
         }
     }
 
@@ -86,7 +97,9 @@ public class RideDetailsController implements Initializable {
         User user = session.getCurrentUser();
         StopPoint stopPoint = session.getFocusedStopPoint();
         if (ride.isAllowedToBookRide(user)) {
-            if (!user.getTrackedRideIds().contains(ride.getId())) {
+            if (user.getTrackedRideIds() == null) {
+                user.addBooking(ride);
+            } else if (!user.getTrackedRideIds().contains(ride.getId())) {
                 user.addBooking(ride);
             }
             RideStopPoint rideStopPoint = ride.getRideStopPoints().get(0);
@@ -98,9 +111,7 @@ public class RideDetailsController implements Initializable {
             ride.addPassenger(user, rideStopPoint);
             fxml.backToDashboard(event);
         } else {
-            if (errorMessage != null) {
-                errorMessage.setText("You cannot book this ride.");
-            }
+            errorMessage.setText("You cannot book this ride.");
         }
     }
 }

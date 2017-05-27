@@ -5,17 +5,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.*;
 
 import java.net.URL;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static controllers.Navigator.rideSearch;
 import static controllers.Navigator.spSearch;
@@ -38,9 +33,19 @@ public class SearchRideController implements Initializable {
     @FXML TableColumn directionCol;
     @FXML TableColumn seatCol;
     @FXML Label errorMessage;
+    @FXML RadioButton toUni;
+    @FXML RadioButton fromUni;
+    @FXML RadioButton both;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        ToggleGroup direction = new ToggleGroup();
+        toUni.setToggleGroup(direction);
+        fromUni.setToggleGroup(direction);
+        both.setToggleGroup(direction);
+        both.setSelected(true);
 
         List<Ride> allRides = Rss.getInstance().getAvailableRides();
         StopPoint here = session.getFocusedStopPoint();
@@ -78,13 +83,63 @@ public class SearchRideController implements Initializable {
     }
 
     @FXML
+    protected void showFrom(ActionEvent event) throws Exception {
+        visibleRidesForThisStopPoint.clear();
+        List<Ride> allRides = Rss.getInstance().getAvailableRides();
+        StopPoint here = session.getFocusedStopPoint();
+
+        for (Ride ride : allRides) {
+            for (RideStopPoint r : ride.getRideStopPoints()) {
+                if (r.getStopPoint().equals(here) && ride.getDirection().equals("From University")) {
+                    visibleRidesForThisStopPoint.add(r);
+                }
+            }
+        }
+        Collections.sort(visibleRidesForThisStopPoint, Comparator.comparing(RideStopPoint::getRawTime));
+    }
+
+    @FXML
+    protected void showTo(ActionEvent event) throws Exception {
+        visibleRidesForThisStopPoint.clear();
+        List<Ride> allRides = Rss.getInstance().getAvailableRides();
+        StopPoint here = session.getFocusedStopPoint();
+
+        for (Ride ride : allRides) {
+            for (RideStopPoint r : ride.getRideStopPoints()) {
+                if (r.getStopPoint().equals(here) && ride.getDirection().equals("To University")) {
+                    visibleRidesForThisStopPoint.add(r);
+                }
+            }
+        }
+        Collections.sort(visibleRidesForThisStopPoint, Comparator.comparing(RideStopPoint::getRawTime));
+    }
+
+    @FXML
+    protected void showBoth(ActionEvent event) throws Exception {
+        visibleRidesForThisStopPoint.clear();
+        List<Ride> allRides = Rss.getInstance().getAvailableRides();
+        StopPoint here = session.getFocusedStopPoint();
+
+        for (Ride ride : allRides) {
+            for (RideStopPoint r : ride.getRideStopPoints()) {
+                if (r.getStopPoint().equals(here)) {
+                    visibleRidesForThisStopPoint.add(r);
+                }
+            }
+        }
+        Collections.sort(visibleRidesForThisStopPoint, Comparator.comparing(RideStopPoint::getRawTime));
+    }
+
+    @FXML
     protected void bookRide(ActionEvent event) throws Exception {
         RideStopPoint rideStopPoint = (RideStopPoint)rideTable.getSelectionModel().getSelectedItem();
         User user = session.getCurrentUser();
         if (rideStopPoint != null) {
             Ride ride = rideStopPoint.getRide();
             if (ride.isAllowedToBookRide(user)) {
-                if (!user.getTrackedRideIds().contains(ride.getId())) {
+                if (user.getTrackedRideIds() == null) {
+                    user.addBooking(ride);
+                } else if (!user.getTrackedRideIds().contains(ride.getId())) {
                     user.addBooking(ride);
                 }
                 ride.addPassenger(user, rideStopPoint);

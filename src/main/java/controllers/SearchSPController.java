@@ -53,7 +53,7 @@ public class SearchSPController implements Initializable {
         allStopPoints.addAll(Rss.getInstance().getAllStopPoints());
         visibleStopPoints.addAll(allStopPoints);
 
-        Collections.sort(visibleStopPoints, Comparator.comparing(StopPoint::getStreetNumber));
+        Collections.sort(visibleStopPoints, Comparator.comparing(StopPoint::getIntegerStreetNumber));
 
         spTable.setItems(visibleStopPoints);
 
@@ -153,6 +153,6 @@ public class SearchSPController implements Initializable {
                 }
             }
         }
-        Collections.sort(visibleStopPoints, Comparator.comparing(StopPoint::getStreetNumber));
+        Collections.sort(visibleStopPoints, Comparator.comparing(StopPoint::getIntegerStreetNumber));
     }
 }

@@ -20,6 +20,8 @@ import java.util.ResourceBundle;
 
 import static controllers.Converter.getReadableDate;
 import static controllers.Converter.getTimeFromString;
+import static controllers.Navigator.createRide;
+import static controllers.Navigator.viewRide;
 import static controllers.Validator.tryParseInt;
 
 /**
@@ -43,7 +45,6 @@ public class CreateRideController implements Initializable {
     @FXML CheckBox sat;
     @FXML CheckBox sun;
     @FXML DatePicker startDatePicker;
-    @FXML Label startLabel;
     @FXML DatePicker endDatePicker;
     @FXML Label endLabel;
     @FXML Label nStops;
@@ -174,7 +175,7 @@ public class CreateRideController implements Initializable {
         }
         TripDetails trip = new TripDetails(vehicle.getLicensePlate(), driver, isFromUni, isRecurrent, days, endDate);
 
-
+        Ride ride = null;
         if (isRecurrent) {
 
             // generate rides
@@ -182,7 +183,7 @@ public class CreateRideController implements Initializable {
                 if (days.contains(startDate.getDayOfWeek())) {
                     List<RideStopPoint> spWithTimes = mapTimesToStopPoints(route, startDate);
                     if (spWithTimes != null) {
-                        Ride ride = new Ride(trip, spWithTimes);
+                        ride = new Ride(trip, spWithTimes);
                         driver.addRide(ride);
                     }
                 }
@@ -192,12 +193,14 @@ public class CreateRideController implements Initializable {
         } else {
             List<RideStopPoint> spWithTimes = mapTimesToStopPoints(route, startDate);
             if (spWithTimes != null) {
-                Ride ride = new Ride(trip, spWithTimes);
+                ride = new Ride(trip, spWithTimes);
                 driver.addRide(ride);
             }
         }
 
-        fxml.backToDashboard(event);
+        SessionManager.getInstance().setFocusedRide(ride);
+        SessionManager.getInstance().setPreviousScene(createRide);
+        fxml.loadScene(viewRide);
 
     }
 

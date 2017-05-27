@@ -109,6 +109,9 @@ public class User {
     public void setUnseenRideNotification(String notification) {this.unseenRideNotifications.add(notification); }
 
     public void addBooking(Ride ride) {
+        if (trackedRideIds == null) {
+            trackedRideIds = new ArrayList<>();
+        }
         trackedRideIds.add(ride.getId());
     }
     public List<UUID> getTrackedRideIds() {

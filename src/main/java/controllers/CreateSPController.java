@@ -2,7 +2,7 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.Driver;
 import models.StopPoint;
@@ -21,23 +21,17 @@ public class CreateSPController {
     private SessionManager session = SessionManager.getInstance();
     private Navigator fxml = new Navigator();
 
-    @FXML
-    Button dashboardButton;
-    @FXML
-    Button createButton;
-    @FXML
-    TextField numberField;
-    @FXML
-    TextField nameField;
-    @FXML
-    TextField suburbField;
+    @FXML TextField numberField;
+    @FXML TextField nameField;
+    @FXML TextField suburbField;
+    @FXML Label errorMessage;
 
     @FXML
     protected void backToDashboard(ActionEvent event) throws Exception {
         fxml.backToDashboard(event);
     }
 
-    private List<String> getExistingAdresses() {
+    private List<String> getExistingAddresses() {
         List<String> existing = new ArrayList<>();
         for (StopPoint sp : session.getCurrentDriver().getStopPoints()) {
             existing.add(sp.toString());
@@ -58,11 +52,13 @@ public class CreateSPController {
             Driver driver = session.getCurrentDriver();
 
             // same address cannot be added more than once
-            List<String> existingAdresses = getExistingAdresses();
-            if (!existingAdresses.contains(stopPoint.toString())) {
+            List<String> existingAddresses = getExistingAddresses();
+            if (!existingAddresses.contains(stopPoint.toString())) {
                 driver.addStopPoint(stopPoint);
+                fxml.backToDashboard(event);
+            } else {
+                errorMessage.setText("This stop point has already been added.");
             }
-            fxml.backToDashboard(event);
 
         } else {
             System.out.println("Validation Failed");
