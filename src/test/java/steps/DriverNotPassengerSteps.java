@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 
 /**
@@ -43,10 +42,11 @@ public class DriverNotPassengerSteps extends RideDetailsController {
 
     @When("^I try to book the ride$")
     public void iTryToBookTheRide() throws Throwable {
-        ActionEvent event = new ActionEvent();
         SessionManager.getInstance().setCurrentUser(driver);
         SessionManager.getInstance().setFocusedRide(ride);
-        bookRide(event);
+
+        RideDetailsController rdc = new RideDetailsController();
+        rdc.tryBookRide();
     }
 
     @Then("^I am not allowed to book the ride$")

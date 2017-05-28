@@ -23,6 +23,7 @@ import static controllers.Converter.getTimeFromString;
 import static controllers.Navigator.createRide;
 import static controllers.Navigator.viewRide;
 import static controllers.Validator.tryParseInt;
+import static controllers.Validator.validTimes;
 
 /**
  * Created 22/03/2017.
@@ -48,6 +49,7 @@ public class CreateRideController implements Initializable {
     @FXML DatePicker endDatePicker;
     @FXML Label endLabel;
     @FXML Label nStops;
+    @FXML Label errorMessage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -126,34 +128,60 @@ public class CreateRideController implements Initializable {
         return days;
     }
 
-    private List<RideStopPoint> mapTimesToStopPoints(Route route, LocalDate date) {
+    private boolean moreThan5MinsApart(List<LocalDateTime> times) {
+        LocalDateTime lastTime = LocalDateTime.now();
+        for (LocalDateTime time : times) {
+            if (time.compareTo(lastTime.plusMinutes(5)) < 0) {
+                return false;
+            }
+            lastTime = time;
+        }
+        return true;
+    }
+
+    private boolean dateAfterExpiry(LocalDate date) {
+        Driver driver = SessionManager.getInstance().getCurrentDriver();
+        Vehicle vehicle = (Vehicle)carChoice.getSelectionModel().getSelectedItem();
+        LocalDate licenceExpiry = driver.getLicence().getExpiryDate();
+        LocalDate regExpiry = vehicle.getRegExpiry();
+        LocalDate wofExpiry = vehicle.getWofExpiry();
+
+        return (date.compareTo(licenceExpiry) > 0 || date.compareTo(regExpiry) > 0 || date.compareTo(wofExpiry) > 0);
+    }
+
+    public List<RideStopPoint> mapTimesToStopPoints(Route route, LocalDate date, String rawInput) {
         List<StopPoint> stopPoints = route.getRoute();
         LocalDateTime earliestTime = LocalDateTime.now().plusHours(1);
-        String rawInput = timesField.getText();
 
+        if (!validTimes(date, rawInput)) {
+            return null;
+        }
         List<LocalDateTime> times = new ArrayList<>();
         for (String time : rawInput.split(",")) {
             LocalDateTime thyme = getTimeFromString(getReadableDate(date) + time.trim());
-            if (thyme != null && (date != LocalDate.now() || thyme.compareTo(earliestTime) > 0)) {
+            if (date.compareTo(LocalDate.now()) > 0 || thyme.compareTo(earliestTime) > 0) {
                 times.add(thyme);
             }
         }
-
-        if (times.size() == stopPoints.size()) {
-
-            List<RideStopPoint> rsps = new ArrayList<>();
-
-            for (int i = 0; i < stopPoints.size(); i++) {
-                StopPoint stopPoint = stopPoints.get(i);
-                LocalDateTime time = times.get(i);
-
-                RideStopPoint rideStopPoint = new RideStopPoint(stopPoint, time, date);
-                rsps.add(rideStopPoint);
-            }
-            return rsps;
-        } else {
+        if (!moreThan5MinsApart(times)) {
             return null;
         }
+        if (dateAfterExpiry(date)) {
+            return null;
+        }
+        if (times.size() != stopPoints.size()) {
+            return null;
+        }
+
+        List<RideStopPoint> rsps = new ArrayList<>();
+        for (int i = 0; i < stopPoints.size(); i++) {
+            StopPoint stopPoint = stopPoints.get(i);
+            LocalDateTime time = times.get(i);
+
+            RideStopPoint rideStopPoint = new RideStopPoint(stopPoint, time, date);
+            rsps.add(rideStopPoint);
+        }
+        return rsps;
     }
 
     @FXML
@@ -175,33 +203,38 @@ public class CreateRideController implements Initializable {
         }
         TripDetails trip = new TripDetails(vehicle.getLicensePlate(), driver, isFromUni, isRecurrent, days, endDate);
 
+        boolean failed = false;
         Ride ride = null;
         if (isRecurrent) {
 
             // generate rides
             while (startDate.compareTo(endDate) <= 0) {
                 if (days.contains(startDate.getDayOfWeek())) {
-                    List<RideStopPoint> spWithTimes = mapTimesToStopPoints(route, startDate);
+                    List<RideStopPoint> spWithTimes = mapTimesToStopPoints(route, startDate, timesField.getText());
                     if (spWithTimes != null) {
                         ride = new Ride(trip, spWithTimes);
                         driver.addRide(ride);
+                    } else {
+                        errorMessage.setText("Check your stop point times and dates");
+                        failed = true;
                     }
                 }
                 startDate = startDate.plusDays(1);
             }
-
         } else {
-            List<RideStopPoint> spWithTimes = mapTimesToStopPoints(route, startDate);
+            List<RideStopPoint> spWithTimes = mapTimesToStopPoints(route, startDate, timesField.getText());
             if (spWithTimes != null) {
                 ride = new Ride(trip, spWithTimes);
                 driver.addRide(ride);
+            } else {
+                errorMessage.setText("Check your stop point times and dates");
+                failed = true;
             }
         }
-
-        SessionManager.getInstance().setFocusedRide(ride);
-        SessionManager.getInstance().setPreviousScene(createRide);
-        fxml.loadScene(viewRide);
-
+        if (!failed) {
+            SessionManager.getInstance().setFocusedRide(ride);
+            SessionManager.getInstance().setPreviousScene(createRide);
+            fxml.loadScene(viewRide);
+        }
     }
-
 }

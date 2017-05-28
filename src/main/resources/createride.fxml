@@ -43,11 +43,6 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </Label>
-      <Label GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-         <GridPane.margin>
-            <Insets right="10.0" />
-         </GridPane.margin>
-      </Label>
       <Label text="Car" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="10.0" />
@@ -117,7 +112,7 @@
             <Insets left="100.0" />
          </GridPane.margin>
       </TextField>
-      <Label fx:id="errorMessage" GridPane.rowIndex="9" />
+      <Label fx:id="errorMessage" textFill="#eb2b00" GridPane.rowIndex="9" />
       <Label fx:id="nStops" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
       <Label text="Recurrent?" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
          <GridPane.margin>

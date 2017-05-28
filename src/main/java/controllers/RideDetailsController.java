@@ -91,8 +91,7 @@ public class RideDetailsController implements Initializable {
         }
     }
 
-    @FXML
-    protected void bookRide(ActionEvent event) throws Exception {
+    public boolean tryBookRide() {
         Ride ride = session.getFocusedRide();
         User user = session.getCurrentUser();
         StopPoint stopPoint = session.getFocusedStopPoint();
@@ -109,6 +108,17 @@ public class RideDetailsController implements Initializable {
                 }
             }
             ride.addPassenger(user, rideStopPoint);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @FXML
+    protected void bookRide(ActionEvent event) throws Exception {
+
+        boolean isAllowed = tryBookRide();
+        if (isAllowed) {
             fxml.backToDashboard(event);
         } else {
             errorMessage.setText("You cannot book this ride.");

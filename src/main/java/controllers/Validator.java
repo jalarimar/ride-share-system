@@ -1,6 +1,12 @@
 package controllers;
 
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import static controllers.Converter.getReadableDate;
+import static controllers.Converter.getTimeFromString;
+
 /**
  * Created 6/05/2017.
  */
@@ -36,6 +42,16 @@ public final class Validator {
             }
         }
         return false;
+    }
+
+    public static boolean validTimes(LocalDate date, String rawInput) {
+        for (String time : rawInput.split(",")) {
+            LocalDateTime thyme = getTimeFromString(getReadableDate(date) + time.trim());
+            if (thyme == null) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
