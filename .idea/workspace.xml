@@ -1,74 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5782a7d4-d326-46cf-a282-6bb9963896cc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/utilities/Calculator.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/controllers/Converter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/controllers/Navigator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/controllers/Serializer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/controllers/SessionManager.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/controllers/Validator.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/controllers/Converter.java" afterPath="$PROJECT_DIR$/src/main/java/utilities/Converter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/controllers/Navigator.java" afterPath="$PROJECT_DIR$/src/main/java/utilities/Navigator.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/controllers/Serializer.java" afterPath="$PROJECT_DIR$/src/main/java/utilities/Serializer.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/controllers/SessionManager.java" afterPath="$PROJECT_DIR$/src/main/java/utilities/SessionManager.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/controllers/Validator.java" afterPath="$PROJECT_DIR$/src/main/java/utilities/Validator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main.class" afterPath="$PROJECT_DIR$/target/classes/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/BookedRidesController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/BookedRidesController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/CreateLicenceController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/CreateLicenceController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/CreateRideController$1.class" afterPath="$PROJECT_DIR$/target/classes/controllers/CreateRideController$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/CreateRideController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/CreateRideController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/CreateRouteController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/CreateRouteController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/CreateSPController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/CreateSPController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/CreateUserController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/CreateUserController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/CreateVehicleController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/CreateVehicleController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/DriverDashController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/DriverDashController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/DriverRidesController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/DriverRidesController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/EditDashController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/EditDashController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/EditLicenceController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/EditLicenceController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/EditUserController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/EditUserController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/EditVehicleController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/EditVehicleController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/LoginController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/LoginController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/PassengerDashController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/PassengerDashController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/RideDetailsController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/RideDetailsController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/SearchRideController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/SearchRideController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/SearchSPController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/SearchSPController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/models/Driver.class" afterPath="$PROJECT_DIR$/target/classes/models/Driver.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/models/Licence.class" afterPath="$PROJECT_DIR$/target/classes/models/Licence.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/models/Ride.class" afterPath="$PROJECT_DIR$/target/classes/models/Ride.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/models/RideStopPoint.class" afterPath="$PROJECT_DIR$/target/classes/models/RideStopPoint.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/models/Rss.class" afterPath="$PROJECT_DIR$/target/classes/models/Rss.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/steps/DriverNotPassengerSteps.class" afterPath="$PROJECT_DIR$/target/test-classes/steps/DriverNotPassengerSteps.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/steps/RideStopTimeSteps.class" afterPath="$PROJECT_DIR$/target/test-classes/steps/RideStopTimeSteps.class" />
+    <list default="true" id="5782a7d4-d326-46cf-a282-6bb9963896cc" name="Default" comment="Use ids instead of full objects where possible">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/unit_tests/ConverterTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/unit_tests/SessionManagerTests.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/unit_tests/ValidatorTests.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/test-classes/unit_tests/RideTests.class" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/models/StopPoint.class" afterPath="$PROJECT_DIR$/target/classes/models/StopPoint.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/utilities/Validator.class" afterPath="$PROJECT_DIR$/target/classes/utilities/Validator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/unit_tests/StopPointTests.class" afterPath="$PROJECT_DIR$/target/test-classes/unit_tests/StopPointTests.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Main.java" afterPath="$PROJECT_DIR$/src/main/java/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/BookedRidesController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/BookedRidesController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/CreateLicenceController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/CreateLicenceController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/CreateRideController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/CreateRideController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/CreateRouteController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/CreateRouteController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/CreateSPController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/CreateSPController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/CreateUserController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/CreateUserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/CreateVehicleController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/CreateVehicleController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/DriverDashController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/DriverDashController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/DriverRidesController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/DriverRidesController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/EditDashController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/EditDashController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/EditLicenceController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/EditLicenceController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/EditUserController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/EditUserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/EditVehicleController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/EditVehicleController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/PassengerDashController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/PassengerDashController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/RideDetailsController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/RideDetailsController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/SearchRideController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/SearchRideController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/SearchSPController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/SearchSPController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/models/Driver.java" afterPath="$PROJECT_DIR$/src/main/java/models/Driver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/models/Licence.java" afterPath="$PROJECT_DIR$/src/main/java/models/Licence.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/models/Ride.java" afterPath="$PROJECT_DIR$/src/main/java/models/Ride.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/models/RideStopPoint.java" afterPath="$PROJECT_DIR$/src/main/java/models/RideStopPoint.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/models/Rss.java" afterPath="$PROJECT_DIR$/src/main/java/models/Rss.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/rss.json" afterPath="$PROJECT_DIR$/src/main/resources/rss.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/steps/DriverNotPassengerSteps.java" afterPath="$PROJECT_DIR$/src/test/java/steps/DriverNotPassengerSteps.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/steps/RideStopTimeSteps.java" afterPath="$PROJECT_DIR$/src/test/java/steps/RideStopTimeSteps.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/rss.json" afterPath="$PROJECT_DIR$/target/classes/rss.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/models/StopPoint.java" afterPath="$PROJECT_DIR$/src/main/java/models/StopPoint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/utilities/Converter.java" afterPath="$PROJECT_DIR$/src/main/java/utilities/Converter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/utilities/Validator.java" afterPath="$PROJECT_DIR$/src/main/java/utilities/Validator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/unit_tests/RideTests.java" afterPath="$PROJECT_DIR$/src/test/java/unit_tests/RideTests.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/unit_tests/StopPointTests.java" afterPath="$PROJECT_DIR$/src/test/java/unit_tests/StopPointTests.java" />
     </list>
     <ignored path="ride-sharing-system.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -80,6 +26,20 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/ride_sharing_system$SessionManagerTests.coverage" NAME="SessionManagerTests Coverage Results" MODIFIED="1496122663596" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>unit_tests.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/ride_sharing_system$StopPointTests.coverage" NAME="StopPointTests Coverage Results" MODIFIED="1496122640790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>unit_tests.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/ride_sharing_system$ValidatorTests.coverage" NAME="ValidatorTests Coverage Results" MODIFIED="1496122691722" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>unit_tests.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/ride_sharing_system$ConverterTests.coverage" NAME="ConverterTests Coverage Results" MODIFIED="1496122517738" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>unit_tests.*</FILTER>
+    </SUITE>
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -89,58 +49,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CreateRideController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/controllers/CreateRideController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
-              <caret line="211" column="42" lean-forward="false" selection-start-line="211" selection-start-column="42" selection-end-line="211" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SearchSPController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/controllers/SearchSPController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="63" column="43" lean-forward="false" selection-start-line="63" selection-start-column="43" selection-end-line="63" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RideStopPoint.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/models/RideStopPoint.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="799">
-              <caret line="85" column="43" lean-forward="true" selection-start-line="85" selection-start-column="43" selection-end-line="85" selection-end-column="43" />
-              <folding>
-                <element signature="method#equals#0;class#RideStopPoint#0" expanded="false" />
-                <element signature="method#hashCode#0;class#RideStopPoint#0" expanded="false" />
-                <element signature="method#getDay#0;class#RideStopPoint#0" expanded="false" />
-                <element signature="method#getHumanDate#0;class#RideStopPoint#0" expanded="false" />
-                <element signature="method#getDirection#0;class#RideStopPoint#0" expanded="false" />
-                <element signature="method#getAvailableSeats#0;class#RideStopPoint#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Converter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/utilities/Converter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="54" column="18" lean-forward="false" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Ride.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/models/Ride.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="145" column="29" lean-forward="false" selection-start-line="145" selection-start-column="29" selection-end-line="145" selection-end-column="29" />
+            <state relative-caret-position="242">
+              <caret line="106" column="34" lean-forward="true" selection-start-line="106" selection-start-column="34" selection-end-line="106" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RideTests.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/unit_tests/RideTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -158,7 +81,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>user.get</find>
       <find>user.gett</find>
       <find>user.gettr</find>
       <find>y</find>
@@ -188,6 +110,7 @@
       <find>il</find>
       <find>ila</find>
       <find>ilam</find>
+      <find>vehicle</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -201,19 +124,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/models/BookingStatus.java" />
-        <option value="$PROJECT_DIR$/src/main/java/models/RideStatus.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/driverdash.fxml" />
-        <option value="$PROJECT_DIR$/src/main/java/controllers/CreateRouteController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controllers/Navigator.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/driversrides.fxml" />
-        <option value="$PROJECT_DIR$/src/main/java/controllers/EditVehicleController.java" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/CreateVehicleController.java" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" />
         <option value="$PROJECT_DIR$/src/main/java/models/Rss.java" />
         <option value="$PROJECT_DIR$/src/main/java/models/TripDetails.java" />
         <option value="$PROJECT_DIR$/src/main/resources/rss.json" />
-        <option value="$PROJECT_DIR$/src/main/java/models/Ride.java" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/SessionManager.java" />
         <option value="$PROJECT_DIR$/src/main/resources/createuser.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/CreateUserController.java" />
@@ -249,9 +164,17 @@
         <option value="$PROJECT_DIR$/src/main/java/controllers/CreateRideController.java" />
         <option value="$PROJECT_DIR$/src/test/java/features/notafterexpiry.feature" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/SearchSPController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/models/StopPoint.java" />
         <option value="$PROJECT_DIR$/src/main/java/utilities/Calculator.java" />
         <option value="$PROJECT_DIR$/src/main/java/models/RideStopPoint.java" />
+        <option value="$PROJECT_DIR$/src/main/java/models/StopPoint.java" />
+        <option value="$PROJECT_DIR$/src/main/java/models/Ride.java" />
+        <option value="$PROJECT_DIR$/src/test/java/unit_tests/RideTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/unit_tests/SessionManagerTests.java" />
+        <option value="$PROJECT_DIR$/src/main/java/utilities/Validator.java" />
+        <option value="$PROJECT_DIR$/src/test/java/unit_tests/ValidatorTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/unit_tests/ConverterTests.java" />
+        <option value="$PROJECT_DIR$/src/main/java/utilities/Converter.java" />
+        <option value="$PROJECT_DIR$/src/test/java/unit_tests/StopPointTests.java" />
       </list>
     </option>
   </component>
@@ -524,6 +447,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -553,53 +477,19 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration default="false" name="Scenario: Register Car" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.ValidatorTests">
+    <configuration default="false" name="SessionManagerTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="cucumber.api.cli.*" />
+          <option name="PATTERN" value="unit_tests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="myFilePath" value="$PROJECT_DIR$/src/test/java/features/driver.feature" />
-      <option name="GLUE" value="steps" />
-      <option name="myNameFilter" value="^Register Car$" />
-      <option name="myGeneratedName" value="Scenario: Register Car" />
-      <option name="MAIN_CLASS_NAME" value="cucumber.api.cli.Main" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvmSMFormatter --monochrome --name &quot;^Register Car$&quot;" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="ride-sharing-system" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="Main" type="Application" factoryName="Application" singleton="true" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="Main" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="ride-sharing-system" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="RunCucumberTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="ride-sharing-system" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="RunCucumberTests" />
+      <option name="PACKAGE_NAME" value="unit_tests" />
+      <option name="MAIN_CLASS_NAME" value="unit_tests.SessionManagerTests" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -614,7 +504,7 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="RideTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="ValidatorTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="unit_tests.*" />
@@ -625,12 +515,53 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="unit_tests" />
-      <option name="MAIN_CLASS_NAME" value="unit_tests.RideTests" />
+      <option name="MAIN_CLASS_NAME" value="unit_tests.ValidatorTests" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="ride-sharing-system" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="ConverterTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" track_test_folders="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="unit_tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="ride-sharing-system" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="unit_tests" />
+      <option name="MAIN_CLASS_NAME" value="unit_tests.ConverterTests" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <option name="TEST_SEARCH_SCOPE">
@@ -870,18 +801,20 @@
       <listeners />
       <method />
     </configuration>
-    <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="Application.Main" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.RunCucumberTests" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.RideTests" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.StopPointTests" />
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="JUnit.SessionManagerTests" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.ValidatorTests" />
+      <item index="2" class="java.lang.String" itemvalue="Application.Main" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.ConverterTests" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.StopPointTests" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.RunCucumberTests" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="JUnit.ValidatorTests" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.SessionManagerTests" />
         <item index="2" class="java.lang.String" itemvalue="JUnit.StopPointTests" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.RideTests" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.ConverterTests" />
+        <item index="4" class="java.lang.String" itemvalue="Application.Main" />
       </list>
     </recent_temporary>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -934,35 +867,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="RunCucumberTests - 2017.05.27 at 23h 07m 47s.xml">
-      <configuration name="RunCucumberTests" configurationId="JUnit" />
+    <history-entry file="ConverterTests - 2017.05.30 at 17h 28m 49s.xml">
+      <configuration name="ConverterTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RunCucumberTests - 2017.05.27 at 23h 12m 12s.xml">
-      <configuration name="RunCucumberTests" configurationId="JUnit" />
+    <history-entry file="ConverterTests - 2017.05.30 at 17h 29m 20s.xml">
+      <configuration name="ConverterTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RunCucumberTests - 2017.05.28 at 23h 14m 17s.xml">
-      <configuration name="RunCucumberTests" configurationId="JUnit" />
+    <history-entry file="ConverterTests - 2017.05.30 at 17h 30m 47s.xml">
+      <configuration name="ConverterTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RunCucumberTests - 2017.05.28 at 23h 14m 41s.xml">
-      <configuration name="RunCucumberTests" configurationId="JUnit" />
+    <history-entry file="ConverterTests - 2017.05.30 at 17h 31m 03s.xml">
+      <configuration name="ConverterTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RunCucumberTests - 2017.05.28 at 23h 15m 13s.xml">
-      <configuration name="RunCucumberTests" configurationId="JUnit" />
+    <history-entry file="ConverterTests - 2017.05.30 at 17h 33m 00s.xml">
+      <configuration name="ConverterTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RunCucumberTests - 2017.05.28 at 23h 15m 58s.xml">
-      <configuration name="RunCucumberTests" configurationId="JUnit" />
+    <history-entry file="ConverterTests - 2017.05.30 at 17h 34m 46s.xml">
+      <configuration name="ConverterTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RunCucumberTests - 2017.05.28 at 23h 17m 55s.xml">
-      <configuration name="RunCucumberTests" configurationId="JUnit" />
+    <history-entry file="ConverterTests - 2017.05.30 at 17h 35m 18s.xml">
+      <configuration name="ConverterTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RunCucumberTests - 2017.05.28 at 23h 19m 18s.xml">
-      <configuration name="RunCucumberTests" configurationId="JUnit" />
+    <history-entry file="SessionManagerTests - 2017.05.30 at 17h 37m 44s.xml">
+      <configuration name="SessionManagerTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RunCucumberTests - 2017.05.28 at 23h 30m 35s.xml">
-      <configuration name="RunCucumberTests" configurationId="JUnit" />
+    <history-entry file="StopPointTests - 2017.05.30 at 17h 37m 23s.xml">
+      <configuration name="StopPointTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RunCucumberTests - 2017.05.28 at 23h 32m 06s.xml">
-      <configuration name="RunCucumberTests" configurationId="JUnit" />
+    <history-entry file="ValidatorTests - 2017.05.30 at 17h 38m 12s.xml">
+      <configuration name="ValidatorTests" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TodoView" selected-index="4">
@@ -989,11 +922,12 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26971608" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329429" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23426062" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23499268" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21135646" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1038,61 +972,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/driversrides.fxml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="52" column="100" lean-forward="false" selection-start-line="52" selection-start-column="100" selection-end-line="52" selection-end-column="100" />
-          <folding>
-            <marker date="1495331346185" expanded="true" signature="3629:4447" ph="..." />
-            <marker date="1495331346185" expanded="true" signature="3629:4459" ph="..." />
-            <marker date="1495331346185" expanded="true" signature="3771:3889" ph="..." />
-            <marker date="1495331346185" expanded="true" signature="3801:3872" ph="..." />
-            <marker date="1495331346185" expanded="true" signature="3976:4099" ph="..." />
-            <marker date="1495331346185" expanded="true" signature="4006:4078" ph="..." />
-          </folding>
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/bookedrides.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="39" column="63" lean-forward="false" selection-start-line="39" selection-start-column="63" selection-end-line="39" selection-end-column="63" />
-          <folding>
-            <marker date="1495278076450" expanded="true" signature="3495:3795" ph="..." />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/EditLicenceController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="33" column="4" lean-forward="false" selection-start-line="33" selection-start-column="4" selection-end-line="35" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/EditVehicleController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="83" column="40" lean-forward="true" selection-start-line="83" selection-start-column="40" selection-end-line="83" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/CreateVehicleController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="76" column="110" lean-forward="true" selection-start-line="76" selection-start-column="110" selection-end-line="76" selection-end-column="110" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/lang/Object.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="146">
@@ -1101,14 +980,6 @@
             <element signature="e#5748#5749#0" expanded="false" />
             <element signature="e#5784#5785#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/unit_tests/StopPointTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="22" column="11" lean-forward="false" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1147,14 +1018,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/utilities/Serializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="24" column="32" lean-forward="true" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/steps/StopPointSteps.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="163">
@@ -1187,30 +1050,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/models/Vehicle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="21" column="55" lean-forward="false" selection-start-line="21" selection-start-column="55" selection-end-line="21" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/models/Rss.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="105" column="19" lean-forward="false" selection-start-line="105" selection-start-column="19" selection-end-line="105" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/CreateSPController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="57" column="35" lean-forward="true" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/createstoppoint.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-782">
@@ -1220,17 +1059,6 @@
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/utilities/SessionManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="62" column="16" lean-forward="false" selection-start-line="62" selection-start-column="16" selection-end-line="62" selection-end-column="16" />
-          <folding>
-            <element signature="e#1435#1436#0" expanded="false" />
-            <element signature="e#1469#1470#0" expanded="false" />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controllers/LoginController.java">
@@ -1250,14 +1078,6 @@
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/rss.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="0" column="1040" lean-forward="true" selection-start-line="0" selection-start-column="1040" selection-end-line="0" selection-end-column="1040" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controllers/BookedRidesController.java">
@@ -1287,30 +1107,6 @@
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/EditUserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1264">
-          <caret line="96" column="8" lean-forward="false" selection-start-line="96" selection-start-column="8" selection-end-line="97" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/models/Driver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="42" column="26" lean-forward="false" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controllers/SearchRideController.java">
@@ -1412,16 +1208,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/utilities/Validator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/features/ridestoptime.feature">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1454,26 +1240,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/CreateRideController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/utilities/Calculator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="211" column="42" lean-forward="false" selection-start-line="211" selection-start-column="42" selection-end-line="211" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/steps/RideStopTimeSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="46" column="62" lean-forward="false" selection-start-line="46" selection-start-column="62" selection-end-line="46" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/models/StopPoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1207">
-          <caret line="88" column="25" lean-forward="true" selection-start-line="88" selection-start-column="25" selection-end-line="88" selection-end-column="25" />
+        <state relative-caret-position="153">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1486,10 +1256,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/utilities/Converter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/models/Driver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="54" column="18" lean-forward="false" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
+        <state relative-caret-position="145">
+          <caret line="16" column="11" lean-forward="false" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/models/Vehicle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-370">
+          <caret line="30" column="34" lean-forward="false" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
           <folding />
         </state>
       </provider>
@@ -1509,18 +1287,182 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/utilities/Calculator.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/EditUserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="177" column="38" lean-forward="false" selection-start-line="177" selection-start-column="38" selection-end-line="177" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/rss.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="0" column="1468" lean-forward="false" selection-start-line="0" selection-start-column="1468" selection-end-line="0" selection-end-column="1468" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utilities/Navigator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/models/StopPoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-169">
+          <caret line="21" column="42" lean-forward="false" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
+          <folding>
+            <element signature="method#equals#0;class#StopPoint#0" expanded="false" />
+            <element signature="method#hashCode#0;class#StopPoint#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/unit_tests/SessionManagerTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="22" column="79" lean-forward="true" selection-start-line="22" selection-start-column="79" selection-end-line="22" selection-end-column="79" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#287#288#0" expanded="true" />
+            <element signature="e#341#342#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utilities/SessionManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="62" column="16" lean-forward="false" selection-start-line="62" selection-start-column="16" selection-end-line="62" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utilities/Serializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="18" column="22" lean-forward="false" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/models/Rss.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="16" column="26" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="22" column="27" lean-forward="false" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
+          <folding>
+            <element signature="e#1134#1135#0" expanded="true" />
+            <element signature="e#1159#1160#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/CreateSPController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="49" column="21" lean-forward="false" selection-start-line="49" selection-start-column="21" selection-end-line="49" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utilities/Validator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="21" column="33" lean-forward="true" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/unit_tests/ValidatorTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2397">
+          <caret line="141" column="48" lean-forward="true" selection-start-line="141" selection-start-column="48" selection-end-line="141" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#277#278#0" expanded="true" />
+            <element signature="e#331#332#0" expanded="true" />
+            <element signature="e#388#389#0" expanded="true" />
+            <element signature="e#444#445#0" expanded="true" />
+            <element signature="e#495#496#0" expanded="true" />
+            <element signature="e#551#552#0" expanded="true" />
+            <element signature="e#605#606#0" expanded="true" />
+            <element signature="e#661#662#0" expanded="true" />
+            <element signature="e#737#738#0" expanded="true" />
+            <element signature="e#796#797#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/CreateRideController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="161" column="69" lean-forward="true" selection-start-line="161" selection-start-column="69" selection-end-line="161" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/unit_tests/ConverterTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1326">
+          <caret line="78" column="24" lean-forward="true" selection-start-line="78" selection-start-column="24" selection-end-line="78" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#343#344#0" expanded="true" />
+            <element signature="e#384#385#0" expanded="true" />
+            <element signature="e#1945#1946#0" expanded="true" />
+            <element signature="e#2009#2010#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utilities/Converter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="16" column="30" lean-forward="true" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/unit_tests/StopPointTests.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <caret line="11" column="17" lean-forward="true" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/steps/RideStopTimeSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="48" column="89" lean-forward="false" selection-start-line="48" selection-start-column="52" selection-end-line="48" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/unit_tests/RideTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/models/Ride.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="145" column="29" lean-forward="false" selection-start-line="145" selection-start-column="29" selection-end-line="145" selection-end-column="29" />
+        <state relative-caret-position="242">
+          <caret line="106" column="34" lean-forward="true" selection-start-line="106" selection-start-column="34" selection-end-line="106" selection-end-column="34" />
           <folding />
         </state>
       </provider>

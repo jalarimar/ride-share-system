@@ -5,20 +5,19 @@ import models.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class StopPointTests {
 
     @Test
     public void testToStringFormat() {
         StopPoint stopPoint = new StopPoint(2, "Mulberry Grove", "Warwickville");
-        Assert.assertTrue(stopPoint.toString().equals(stopPoint.getStreetNumber() + " " + stopPoint.getStreetName() + ", " + stopPoint.getSuburb()));
+        String expected = (stopPoint.getStreetNumber() + " " + stopPoint.getStreetName() + ", " + stopPoint.getSuburb());
+        Assert.assertEquals(expected, stopPoint.toString());
     }
 
     @Test
-    public void testStreetNumberNonNegative() {
+    public void ifStreetNumberNegativeUseAbsolute() {
         StopPoint stopPoint = new StopPoint(-2, "Mulberry Grove", "Warwickville");
-        Assert.assertTrue(stopPoint.getStreetNumber().equals("0"));
+        Assert.assertTrue(stopPoint.getStreetNumber().equals("2"));
     }
 }

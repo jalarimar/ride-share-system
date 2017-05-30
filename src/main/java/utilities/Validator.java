@@ -18,7 +18,10 @@ public final class Validator {
     public static Integer tryParseInt(String text) {
         if (text != null && !text.isEmpty()) {
             if (text.trim().matches("[0-9]+")) {
-                return Integer.valueOf(text.trim());
+                Integer number = Integer.valueOf(text.trim());
+                if (number > 0) {
+                    return number;
+                }
             }
         }
         return -1;
@@ -27,7 +30,12 @@ public final class Validator {
     public static double tryParseDouble(String text) {
         if (text != null && !text.isEmpty()) {
             try {
-                return Double.parseDouble(text);
+                Double number = Double.parseDouble(text.trim());
+                if (number > 0.0) {
+                    return number;
+                } else {
+                    return -1;
+                }
             } catch (Exception e) {
                 return -1;
             }

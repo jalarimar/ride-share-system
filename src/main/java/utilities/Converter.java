@@ -21,8 +21,6 @@ public final class Converter {
 
     public static String getShortDayOfDate(LocalDate date) {
         DayOfWeek day = date.getDayOfWeek();
-        String n = day.name();
-        System.out.println(n);
         return day.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
     }
 

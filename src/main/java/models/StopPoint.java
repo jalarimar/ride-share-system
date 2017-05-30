@@ -18,6 +18,9 @@ public class StopPoint {
 
     public StopPoint(int streetNumber, String streetName, String suburb) {
         this.streetNumber = Integer.toString(streetNumber);
+        if (streetNumber < 0) {
+            this.streetNumber = Integer.toString(-1 * streetNumber);
+        }
         this.streetName = streetName;
         this.suburb = suburb;
 
@@ -36,7 +39,6 @@ public class StopPoint {
     public String toString() {
         return streetNumber + " " + streetName + ", " + suburb;
     }
-
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -54,7 +56,6 @@ public class StopPoint {
         }
         return true;
     }
-
     @Override
     public int hashCode() {
         int result = 17;
