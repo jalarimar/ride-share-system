@@ -1,13 +1,7 @@
 package models;
 
-import controllers.SessionManager;
-
 import java.time.LocalDate;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Vector;
 
-import static controllers.Serializer.saveRss;
 import static models.NotificationStatus.NONE;
 
 /**

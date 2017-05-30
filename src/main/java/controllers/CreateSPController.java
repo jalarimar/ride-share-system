@@ -6,12 +6,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.Driver;
 import models.StopPoint;
+import utilities.Navigator;
+import utilities.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static controllers.Validator.isAlphanumeric;
-import static controllers.Validator.tryParseInt;
+import static utilities.Validator.isAlphanumeric;
+import static utilities.Validator.tryParseInt;
 
 /**
  * Created 22/03/2017.

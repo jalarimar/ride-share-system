@@ -1,15 +1,13 @@
 package models;
 
 
-import controllers.SessionManager;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import static controllers.Converter.getLongDayOfDate;
-import static controllers.Converter.getReadableDate;
-import static controllers.Converter.getReadableTime;
+import static utilities.Converter.getLongDayOfDate;
+import static utilities.Converter.getReadableDate;
+import static utilities.Converter.getReadableTime;
 
 /**
  * Created 04/04/2017.
@@ -57,7 +55,6 @@ public class RideStopPoint {
         return result;
     }
 
-
     public void setRide(Ride ride) {
         this.rideId = ride.getId();
         calculatePrice(ride);
@@ -86,8 +83,6 @@ public class RideStopPoint {
         this.date = date;
     }
 
-    public String getPriceNZD() {return String.format("$%.2fNZD", price); }
-
     public void calculatePrice(Ride ride) {
         if (ride.getVehicle() != null) {
             double performance = ride.getVehicle().getPerformance(); // L/100km
@@ -97,6 +92,7 @@ public class RideStopPoint {
             this.price = fuelPrice * performance * (distance / 100); // $
         }
     }
+    public String getPriceNZD() {return String.format("$%.2fNZD", price); }
 
     public String getDay() {
         // used by PropertyValueFactory

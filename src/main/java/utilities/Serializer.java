@@ -1,4 +1,4 @@
-package controllers;
+package utilities;
 
 import gherkin.deps.com.google.gson.Gson;
 import gherkin.deps.com.google.gson.GsonBuilder;

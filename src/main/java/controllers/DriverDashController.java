@@ -2,8 +2,9 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import utilities.Navigator;
 
-import static controllers.Navigator.*;
+import static utilities.Navigator.*;
 
 /**
  * Created 22/03/2017.

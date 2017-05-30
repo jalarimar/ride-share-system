@@ -1,12 +1,12 @@
 package models;
 
-import controllers.SessionManager;
+import utilities.SessionManager;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static controllers.Converter.getReadableDate;
+import static utilities.Converter.getReadableDate;
 import static models.RideStatus.AVAILABLE;
 import static models.RideStatus.FULL;
 

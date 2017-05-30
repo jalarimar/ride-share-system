@@ -1,11 +1,8 @@
 package models;
 
-import controllers.SessionManager;
-
 import java.util.*;
 
-import static controllers.Serializer.loadRss;
-import static controllers.Serializer.saveRss;
+import static utilities.Serializer.loadRss;
 import static models.RideStatus.AVAILABLE;
 
 /**

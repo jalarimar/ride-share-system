@@ -7,13 +7,15 @@ import javafx.scene.control.*;
 import models.Licence;
 import models.Rss;
 import models.User;
+import utilities.Navigator;
+import utilities.SessionManager;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import static controllers.Navigator.driverDashboard;
-import static controllers.Navigator.passengerDashboard;
+import static utilities.Navigator.driverDashboard;
+import static utilities.Navigator.passengerDashboard;
 
 /**
  * Created 22/03/2017.

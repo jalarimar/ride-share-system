@@ -8,12 +8,13 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import models.*;
+import utilities.Navigator;
+import utilities.SessionManager;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static controllers.Navigator.*;
+import static utilities.Navigator.*;
 
 /**
  * Created 22/03/2017.

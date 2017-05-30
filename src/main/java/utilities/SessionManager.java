@@ -1,13 +1,7 @@
-package controllers;
+package utilities;
 
 import javafx.stage.Stage;
 import models.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static controllers.Serializer.loadRss;
-import static controllers.Serializer.saveRss;
 
 /**
  * Created by jar156 on 6/05/17.

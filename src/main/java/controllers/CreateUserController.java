@@ -11,13 +11,15 @@ import javafx.stage.Stage;
 import models.Driver;
 import models.StopPoint;
 import models.User;
+import utilities.Navigator;
+import utilities.SessionManager;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static controllers.Navigator.*;
-import static controllers.Validator.isAlphanumeric;
+import static utilities.Navigator.*;
+import static utilities.Validator.isAlphanumeric;
 
 /**
  * Created 22/03/2017.

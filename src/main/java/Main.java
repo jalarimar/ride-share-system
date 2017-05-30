@@ -1,5 +1,5 @@
 
-import controllers.SessionManager;
+import utilities.SessionManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,13 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.Rss;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-import static controllers.Converter.getReadableDate;
-import static controllers.Converter.getShortDayOfDate;
-import static controllers.Converter.getTimeFromString;
-import static controllers.Serializer.saveRss;
+import static utilities.Converter.getShortDayOfDate;
+import static utilities.Serializer.saveRss;
 
 
 /**

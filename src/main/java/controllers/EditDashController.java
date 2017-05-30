@@ -8,13 +8,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import models.Vehicle;
+import utilities.Navigator;
+import utilities.SessionManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static controllers.Navigator.editLicence;
-import static controllers.Navigator.editUser;
-import static controllers.Navigator.editVehicle;
+import static utilities.Navigator.editLicence;
+import static utilities.Navigator.editUser;
+import static utilities.Navigator.editVehicle;
 
 /**
  * Created 09/05/2017.

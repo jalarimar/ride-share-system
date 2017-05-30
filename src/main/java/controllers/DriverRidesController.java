@@ -11,6 +11,8 @@ import models.Driver;
 import models.Ride;
 import models.RideStatus;
 import models.User;
+import utilities.Navigator;
+import utilities.SessionManager;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -18,9 +20,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 
-import static controllers.Navigator.bookedRides;
-import static controllers.Navigator.myRides;
-import static controllers.Navigator.viewRide;
+import static utilities.Navigator.myRides;
+import static utilities.Navigator.viewRide;
 
 /**
  * Created 22/03/2017.

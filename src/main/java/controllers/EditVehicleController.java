@@ -6,13 +6,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import models.Vehicle;
+import utilities.Navigator;
+import utilities.SessionManager;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import static controllers.Validator.tryParseDouble;
-import static controllers.Validator.tryParseInt;
+import static utilities.Validator.tryParseDouble;
 
 /**
  * Created 22/03/2017.

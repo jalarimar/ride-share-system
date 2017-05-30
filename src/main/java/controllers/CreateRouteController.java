@@ -5,18 +5,19 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import models.Driver;
 import models.Route;
 import models.StopPoint;
+import utilities.Navigator;
+import utilities.SessionManager;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static controllers.Validator.isAlphanumeric;
+import static utilities.Validator.isAlphanumeric;
 
 /**
  * Created 22/03/2017.

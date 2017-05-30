@@ -2,19 +2,20 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import models.Driver;
 import models.Vehicle;
+import utilities.Navigator;
+import utilities.SessionManager;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static controllers.Validator.isAlphanumeric;
-import static controllers.Validator.tryParseDouble;
-import static controllers.Validator.tryParseInt;
+import static utilities.Validator.isAlphanumeric;
+import static utilities.Validator.tryParseDouble;
+import static utilities.Validator.tryParseInt;
 
 /**
  * Created 22/03/2017.

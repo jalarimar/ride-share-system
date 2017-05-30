@@ -2,12 +2,10 @@ package steps;
 
 import controllers.CreateRideController;
 import controllers.RideDetailsController;
-import controllers.SessionManager;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import javafx.event.ActionEvent;
 import models.*;
 import org.junit.Assert;
 
@@ -16,9 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static controllers.Converter.addZeroBeforeTimeIfNecessary;
-import static controllers.Converter.getReadableDate;
-import static controllers.Converter.getTimeFromString;
+import static utilities.Converter.addZeroBeforeTimeIfNecessary;
 
 
 /**

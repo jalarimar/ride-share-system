@@ -1,12 +1,11 @@
 package steps;
 
 import controllers.RideDetailsController;
-import controllers.SessionManager;
+import utilities.SessionManager;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import javafx.event.ActionEvent;
 import models.*;
 import org.junit.Assert;
 

@@ -8,13 +8,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.*;
+import utilities.Navigator;
+import utilities.SessionManager;
 
 import java.net.URL;
 import java.util.*;
 
-import static controllers.Navigator.rideSearch;
-import static controllers.Navigator.spSearch;
-import static controllers.Navigator.viewRide;
+import static utilities.Navigator.rideSearch;
+import static utilities.Navigator.spSearch;
+import static utilities.Navigator.viewRide;
 
 /**
  * Created 22/03/2017.

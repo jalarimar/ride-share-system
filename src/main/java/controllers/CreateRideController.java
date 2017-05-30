@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import models.*;
+import utilities.Navigator;
+import utilities.SessionManager;
 
 import java.net.URL;
 import java.time.DayOfWeek;
@@ -18,12 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static controllers.Converter.getReadableDate;
-import static controllers.Converter.getTimeFromString;
-import static controllers.Navigator.createRide;
-import static controllers.Navigator.viewRide;
-import static controllers.Validator.tryParseInt;
-import static controllers.Validator.validTimes;
+import static utilities.Converter.getReadableDate;
+import static utilities.Converter.getTimeFromString;
+import static utilities.Navigator.createRide;
+import static utilities.Navigator.viewRide;
+import static utilities.Validator.validTimes;
 
 /**
  * Created 22/03/2017.

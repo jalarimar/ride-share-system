@@ -4,11 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import models.*;
+import utilities.Navigator;
+import utilities.SessionManager;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import static controllers.Navigator.*;
+import static utilities.Navigator.*;
 import static models.NotificationStatus.*;
 
 

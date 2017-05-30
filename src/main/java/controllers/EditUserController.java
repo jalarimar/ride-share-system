@@ -12,15 +12,17 @@ import models.Driver;
 import models.Rss;
 import models.StopPoint;
 import models.User;
+import utilities.Navigator;
+import utilities.SessionManager;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static controllers.Navigator.createLicence;
-import static controllers.Navigator.driverDashboard;
-import static controllers.Navigator.passengerDashboard;
-import static controllers.Validator.isAlphanumeric;
+import static utilities.Navigator.createLicence;
+import static utilities.Navigator.driverDashboard;
+import static utilities.Navigator.passengerDashboard;
+import static utilities.Validator.isAlphanumeric;
 
 /**
  * Created 09/05/2017.

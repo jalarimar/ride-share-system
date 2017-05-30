@@ -1,13 +1,7 @@
 package models;
 
-import controllers.SessionManager;
-import javafx.fxml.Initializable;
-
 import java.io.File;
-import java.net.URL;
 import java.util.*;
-
-import static controllers.Serializer.saveRss;
 
 /**
  * Created 21/03/2017.
