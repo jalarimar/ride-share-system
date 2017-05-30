@@ -64,7 +64,7 @@ public class SearchSPController implements Initializable {
 
         spTable.getColumns().setAll(numberCol, nameCol, suburbCol, distanceCol);
 
-        String defaultAddress = "University Dr, Ilam";
+        String defaultAddress = "Science Rd, Ilam";
         loadMap(defaultAddress);
 
         waitForSelection();

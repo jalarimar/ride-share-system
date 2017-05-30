@@ -80,7 +80,7 @@ public class StopPoint {
 
 
     private void calculateDistanceFromUni() {
-        String uniAddress = "University Dr, Ilam";
+        String uniAddress = "Science Rd, Ilam";
         String thisAddress = this.toString();
         String apikey =  "AIzaSyDimWu3GwLCSyM22KEE-0jh9Z9oJoW-6Ek";
         String baseUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?";
