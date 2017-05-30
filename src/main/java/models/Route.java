@@ -1,8 +1,15 @@
 package models;
 
+import utilities.SessionManager;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static utilities.Converter.getReadableDate;
+import static utilities.Converter.getTimeFromString;
+import static utilities.Validator.validTimes;
 
 /**
  * Created 21/03/2017.

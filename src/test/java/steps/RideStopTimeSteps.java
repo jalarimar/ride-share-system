@@ -1,7 +1,6 @@
 package steps;
 
 import controllers.CreateRideController;
-import controllers.RideDetailsController;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -20,12 +19,14 @@ import static utilities.Converter.addZeroBeforeTimeIfNecessary;
 /**
  * Created on 11/03/17.
  */
-public class RideStopTimeSteps extends RideDetailsController {
+public class RideStopTimeSteps {
 
     Route route;
-    LocalDate startDate;
+    LocalDate date;
     String rawTimeInput;
     List<RideStopPoint> stopPointsWithTimes;
+    Vehicle vehicle;
+    Driver driver;
 
     @Given("^I have defined a route with (\\d+) stop points$")
     public void iHaveDefinedARoute(int numberOfStopPoints) {
@@ -36,11 +37,15 @@ public class RideStopTimeSteps extends RideDetailsController {
         stopPoints.add(secondPoint);
         Assert.assertTrue(numberOfStopPoints == stopPoints.size());
         route = new Route("My Route", stopPoints);
+
+        vehicle = new Vehicle("", "", "", "", 1, 1, 1, LocalDate.MAX, LocalDate.MAX);
+        driver = new Driver("", "", "", "", "", null, "", "", null);
+        driver.setLicence(new Licence("", "", LocalDate.MAX, LocalDate.MAX));
     }
 
     @And("^The first time in my list of (\\d+) times is less than (\\d+) hour ahead of my system time$")
     public void theFirstTimeIsLessThan1HourAheadOfSystemTime(int numberOfTimes, int numberOfHours) throws Throwable {
-        startDate = LocalDate.now();
+        date = LocalDate.now();
         LocalDateTime hourAhead = LocalDateTime.now().plusHours(1);
         LocalDateTime firstTime = LocalDateTime.now().plusMinutes(20);
         LocalDateTime secondTime = LocalDateTime.now().plusMinutes(30);
@@ -56,7 +61,7 @@ public class RideStopTimeSteps extends RideDetailsController {
 
     @And("^The second time in my list of (\\d+) times is less than (\\d+) minutes ahead of the first time$")
     public void theSecondTimeIsLessThan5MinsAheadOfTheFirst(int numberOfTimes, int numberOfMinutes) throws Throwable {
-        startDate = LocalDate.now();
+        date = LocalDate.now();
         LocalDateTime firstTime = LocalDateTime.now().plusMinutes(20);
         LocalDateTime secondTime = LocalDateTime.now().plusMinutes(24);
         Assert.assertTrue(secondTime.compareTo(firstTime.plusMinutes(5)) < 0);
@@ -71,7 +76,7 @@ public class RideStopTimeSteps extends RideDetailsController {
 
     @And("^I have defined a list of (\\d+) time$")
     public void iHaveDefinedAListOfTimes(int numberOfTimes) throws Throwable {
-        startDate = LocalDate.now();
+        date = LocalDate.now();
         LocalDateTime firstTime = LocalDateTime.now().plusMinutes(20);
 
         String hour1 = addZeroBeforeTimeIfNecessary(Integer.toString(firstTime.getHour()));
@@ -80,10 +85,17 @@ public class RideStopTimeSteps extends RideDetailsController {
         Assert.assertTrue(rawTimeInput.split(",").length == numberOfTimes);
     }
 
+    @And("^The expiry date is after the driver's licence expiry$")
+    public void expiryDateIsAfterLicenceExpiry() throws Throwable {
+        driver.setLicence(new Licence("", "", LocalDate.MIN, LocalDate.now()));
+        date = LocalDate.now().plusDays(10);
+        rawTimeInput = "0900,0930";
+    }
+
     @When("^I try to map these times to the route$")
     public void iTryToMapTheTimes() throws Throwable {
         CreateRideController crc = new CreateRideController();
-        stopPointsWithTimes = crc.mapTimesToStopPoints(route, startDate, rawTimeInput);
+        stopPointsWithTimes = crc.mapTimesToStopPoints(route, vehicle, driver, date, rawTimeInput);
     }
 
     @Then("^The mapping will not succeed$")

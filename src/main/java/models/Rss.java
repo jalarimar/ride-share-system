@@ -111,4 +111,8 @@ public class Rss {
         }
         return vehicle;
     }
+
+    public StopPoint getUniversityStopPoint() {
+        return new StopPoint("", "Science Rd", "Ilam");
+    }
 }

@@ -41,13 +41,13 @@ public class RideTests {
     }
 
     @Test
-    public void availableSeatsLessThanPhysical() {
-        ride.setAvailableSeats(7);
+    public void availableSeatsNeverMoreThanPhysical() {
+        ride.setAvailableSeats(100);
         Assert.assertTrue(ride.getAvailableSeats() <= vehicle.getPhysicalSeats());
     }
 
     @Test
-    public void availableSeatsGreaterThanZero() {
+    public void availableSeatsNeverLessThanZero() {
         ride.setAvailableSeats(-7);
         Assert.assertTrue(ride.getAvailableSeats() >= 0);
     }

@@ -5,10 +5,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import models.Driver;
 import models.Route;
+import models.Rss;
 import models.StopPoint;
 import utilities.Navigator;
 import utilities.SessionManager;
@@ -32,12 +34,14 @@ public class CreateRouteController implements Initializable {
     @FXML TextField nameField;
     @FXML ListView<StopPoint> includedStopPointList;
     @FXML ListView<StopPoint> excludedStopPointList;
+    @FXML Label errorMessage;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         List<StopPoint> stopPoints = main.getCurrentDriver().getStopPoints();
         availablePoints.addAll(stopPoints);
+        availablePoints.add(Rss.getInstance().getUniversityStopPoint());
 
         excludedStopPointList.setItems(availablePoints);
         includedStopPointList.setItems(route);
@@ -70,17 +74,22 @@ public class CreateRouteController implements Initializable {
         }
     }
 
+    public boolean startsOrEndsWithUni() {
+        StopPoint uni = Rss.getInstance().getUniversityStopPoint();
+        return (route.get(0).equals(uni) || route.get(route.size()-1).equals(uni));
+    }
+
     @FXML
     protected void createRoute(ActionEvent event) throws Exception {
         String name = nameField.getText();
-        if (isAlphanumeric(name)) {
+        if (isAlphanumeric(name) && startsOrEndsWithUni()) {
             Driver driver = main.getCurrentDriver();
             Route r = new Route(name, route);
             driver.addRoute(r);
 
             fxml.backToDashboard(event);
         } else {
-            System.out.println("Validation Failed");
+            errorMessage.setText("Validation Failed");
         }
     }
 
