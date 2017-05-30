@@ -1,9 +1,11 @@
 package models;
 
+import enums.NotificationStatus;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import static models.NotificationStatus.NONE;
+import static enums.NotificationStatus.NONE;
 
 /**
  * Created 21/03/2017.

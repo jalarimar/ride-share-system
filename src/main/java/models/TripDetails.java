@@ -2,12 +2,7 @@ package models;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
-import static models.RideStatus.AVAILABLE;
-import static models.RideStatus.FULL;
 
 /**
  * Created 21/03/2017.

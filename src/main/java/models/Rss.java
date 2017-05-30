@@ -3,7 +3,7 @@ package models;
 import java.util.*;
 
 import static utilities.Serializer.loadRss;
-import static models.RideStatus.AVAILABLE;
+import static enums.RideStatus.AVAILABLE;
 
 /**
  * Created 26/04/2017.

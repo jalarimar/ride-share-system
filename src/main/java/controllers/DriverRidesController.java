@@ -9,7 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.Driver;
 import models.Ride;
-import models.RideStatus;
+import enums.RideStatus;
 import models.User;
 import utilities.Navigator;
 import utilities.SessionManager;

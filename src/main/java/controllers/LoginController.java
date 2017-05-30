@@ -1,5 +1,6 @@
 package controllers;
 
+import enums.NotificationStatus;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static utilities.Navigator.*;
-import static models.NotificationStatus.*;
+import static enums.NotificationStatus.*;
 
 
 /**

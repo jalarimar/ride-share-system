@@ -1,4 +1,4 @@
-package models;
+package enums;
 
 /**
  * Created 08/05/2017.

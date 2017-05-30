@@ -1,12 +1,10 @@
-package models;
+package enums;
 
 /**
- * Created 24/03/2017.
+ * Created 20/05/2017.
  */
-public enum RideStatus {
-    UNSHARED,
-    AVAILABLE,
-    FULL,
+public enum BookingStatus {
+    BOOKED,
     DONE,
     CANCELLED;
 
@@ -14,14 +12,10 @@ public enum RideStatus {
     public String toString() {
         switch(super.ordinal()) {
             case 0:
-                return "Unshared";
+                return "Booked";
             case 1:
-                return "Available";
-            case 2:
-                return "Full";
-            case 3:
                 return "Done";
-            case 4:
+            case 2:
                 return "Cancelled";
             default:
                 return "Unknown";

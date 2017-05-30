@@ -1,5 +1,7 @@
 package models;
 
+import enums.BookingStatus;
+import enums.RideStatus;
 import utilities.SessionManager;
 
 import java.time.LocalDate;
@@ -7,8 +9,8 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import static utilities.Converter.getReadableDate;
-import static models.RideStatus.AVAILABLE;
-import static models.RideStatus.FULL;
+import static enums.RideStatus.AVAILABLE;
+import static enums.RideStatus.FULL;
 
 /**
  * Created 21/03/2017.

@@ -1,8 +1,10 @@
 package models;
 
+import enums.NotificationStatus;
+
 import java.time.LocalDate;
 
-import static models.NotificationStatus.NONE;
+import static enums.NotificationStatus.NONE;
 
 /**
  * Created 26/04/2017.
