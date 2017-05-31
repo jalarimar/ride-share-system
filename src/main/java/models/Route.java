@@ -36,6 +36,9 @@ public class Route {
     }
 
     public void setRoute(List<StopPoint> stopPoints) {
+        if(route.size() > 0) {
+            route.clear();
+        }
         for (StopPoint sp : stopPoints) {
             route.add(sp);
         }

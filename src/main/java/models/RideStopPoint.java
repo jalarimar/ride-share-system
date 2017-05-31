@@ -89,9 +89,10 @@ public class RideStopPoint {
             double distance = this.stopPoint.getDistanceFromUni(); // km
             double fuelPrice = 2.15; // $/L
 
-            this.price = fuelPrice * performance * (distance / 100); // $
+            this.price = (fuelPrice * distance * 100)/ performance; // $
         }
     }
+    public double getPrice() {return price; }
     public String getPriceNZD() {return String.format("$%.2fNZD", price); }
 
     public String getDay() {

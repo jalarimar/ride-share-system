@@ -92,6 +92,20 @@ public class RideStopTimeSteps {
         rawTimeInput = "0900,0930";
     }
 
+    @And("^The expiry date is after the vehicle's WOF expiry$")
+    public void expiryDateIsAfterWofExpiry() throws Throwable {
+        vehicle.setWofExpiry(LocalDate.now());
+        date = LocalDate.now().plusDays(10);
+        rawTimeInput = "0900,0930";
+    }
+
+    @And("^The expiry date is after the vehicle's registration expiry$")
+    public void expiryDateIsAfterRegExpiry() throws Throwable {
+        vehicle.setRegExpiry(LocalDate.now());
+        date = LocalDate.now().plusDays(10);
+        rawTimeInput = "0900,0930";
+    }
+
     @When("^I try to map these times to the route$")
     public void iTryToMapTheTimes() throws Throwable {
         CreateRideController crc = new CreateRideController();

@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static enums.RideStatus.DONE;
 import static utilities.Converter.getReadableDate;
 import static enums.RideStatus.AVAILABLE;
 import static enums.RideStatus.FULL;
@@ -111,6 +112,11 @@ public class Ride {
         }
     }
 
+    public void share(int availableSeats) {
+        setAvailableSeats(availableSeats);
+        setStatus(RideStatus.AVAILABLE);
+    }
+
     public void addStopPoint(RideStopPoint stopPoint) {
         rideStopPoints.add(stopPoint);
     }
@@ -200,7 +206,7 @@ public class Ride {
     public String getBookingStatus() {
         // used by PropertyValueFactory
         User user = SessionManager.getInstance().getCurrentUser();
-        if (LocalDateTime.now().compareTo(time) > 0) {
+        if (LocalDateTime.now().compareTo(time) > 0 || status.equals(DONE)) {
             return BookingStatus.DONE.toString();
         } else {
             if (passengerIds.keySet().contains(user.getUniID()) && isCancellableByDriver()) {

@@ -74,7 +74,7 @@ public class CreateRouteController implements Initializable {
         }
     }
 
-    public boolean startsOrEndsWithUni() {
+    public boolean startsOrEndsWithUni(List<StopPoint> route) {
         StopPoint uni = Rss.getInstance().getUniversityStopPoint();
         return (route.get(0).equals(uni) || route.get(route.size()-1).equals(uni));
     }
@@ -82,7 +82,7 @@ public class CreateRouteController implements Initializable {
     @FXML
     protected void createRoute(ActionEvent event) throws Exception {
         String name = nameField.getText();
-        if (isAlphanumeric(name) && startsOrEndsWithUni()) {
+        if (isAlphanumeric(name) && startsOrEndsWithUni(route)) {
             Driver driver = main.getCurrentDriver();
             Route r = new Route(name, route);
             driver.addRoute(r);

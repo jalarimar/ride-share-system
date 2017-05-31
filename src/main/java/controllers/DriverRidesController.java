@@ -121,9 +121,7 @@ public class DriverRidesController implements Initializable {
     @FXML
     protected void shareRide(ActionEvent event) throws Exception {
         Ride ride = myRidesTable.getSelectionModel().getSelectedItem();
-        ride.setAvailableSeats((int)availableSeatsChoice.getSelectionModel().getSelectedItem());
-        ride.setStatus(RideStatus.AVAILABLE);
-
+        ride.share((int)availableSeatsChoice.getSelectionModel().getSelectedItem());
         fxml.backToDashboard(event);
     }
 

@@ -56,6 +56,7 @@ public class Rss {
     }
 
     public void addDriver(Driver driver) {
+        allUsers.put(driver.getUniID(), driver);
         allDrivers.put(driver.getUniID(), driver);
     }
 
