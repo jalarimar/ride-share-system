@@ -74,15 +74,18 @@ public final class Validator {
     }
 
     public static boolean isValidEmailAddress(String email) {
-        String studentEmailRegex = "^[a-zA-Z0-9]+@uclive.ac.nz$";
-        String staffEmailRegex = "^[a-zA-Z0-9]+@canterbury.ac.nz$";
-        return email.matches(studentEmailRegex) || email.matches(staffEmailRegex);
+        String studentEmailRegex = "^[a-zA-Z0-9.]+@uclive.ac.nz$";
+        String staffEmailRegex = "^[a-zA-Z0-9.]+@canterbury.ac.nz$";
+        return email != null && (email.matches(studentEmailRegex) || email.matches(staffEmailRegex));
 
-        // TODO test email, photo, alphabetic
+        // TODO mockito
     }
 
     public static boolean startsOrEndsWithUni(List<StopPoint> route) {
         StopPoint uni = Rss.getInstance().getUniversityStopPoint();
+        if (route.size() < 1) {
+            return false;
+        }
         return (route.get(0).equals(uni) || route.get(route.size()-1).equals(uni));
     }
 
@@ -95,5 +98,4 @@ public final class Validator {
         }
         return true;
     }
-
 }

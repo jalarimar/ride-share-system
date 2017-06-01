@@ -42,7 +42,6 @@ public class RideDetailsController implements Initializable {
         Ride ride = session.getFocusedRide();
         Driver driver = ride.getDriver();
         Vehicle vehicle = ride.getVehicle();
-
         RideStopPoint rideStopPoint = ride.getRideStopPointOfPassenger(session.getCurrentUser());
 
         nameText.setText(driver.toString());
@@ -54,10 +53,13 @@ public class RideDetailsController implements Initializable {
         lengthText.setText(rideStopPoint.getStopPoint().getDistanceFromUni() * 1000 + "m");
         stopsText.setText(Integer.toString(ride.getNumberOfStops() - ride.getRideStopPoints().indexOf(rideStopPoint)));
         priceText.setText(rideStopPoint.getPriceNZD());
-
         Image image = new Image("file:" + driver.getPhoto());
         img.setImage(image);
 
+        determineIfUserCanBook();
+    }
+
+    private void determineIfUserCanBook() {
         String previousScene = session.getPreviousScene();
         if (previousScene.equals(myRides) || previousScene.equals(bookedRides)) {
             bookButton.setVisible(false);

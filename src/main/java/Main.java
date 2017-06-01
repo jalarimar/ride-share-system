@@ -24,8 +24,6 @@ public class Main extends Application {
         SessionManager session = SessionManager.getInstance();
         session.setStage(stage);
 
-        System.out.println(rss.getAllUsers().toString());
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root, 500, 400);
@@ -34,8 +32,6 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
 
-        // For testing only
-        String h = getShortDayOfDate(LocalDate.now());
         // TODO clear rss.json before submission
     }
 

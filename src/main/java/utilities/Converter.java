@@ -57,9 +57,4 @@ public final class Converter {
         ZoneId zone = ZoneId.of("Pacific/Auckland");
         return localDateTime.atZone(zone);
     }
-
-    public static void adjustForDST(LocalDateTime localDateTime) {
-        ZoneId zone = ZoneId.of("Pacific/Auckland");
-        ZonedDateTime zonedDateTime = localDateTime.atZone(zone);
-    }
 }

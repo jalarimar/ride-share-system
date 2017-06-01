@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.time.LocalDate;
 
 import static utilities.Validator.*;
@@ -36,6 +37,31 @@ public class ValidatorTests {
     @Test
     public void mixedCharactersCapsAndNumbersAreAlphanumeric() {
         Assert.assertTrue(isAlphanumeric("a1B2c3"));
+    }
+
+    @Test
+    public void emptyTextNotAlphabetic() {
+        Assert.assertFalse(isAlphabetic(""));
+    }
+
+    @Test
+    public void charactersAreAlphabetic() {
+        Assert.assertTrue(isAlphabetic("abc"));
+    }
+
+    @Test
+    public void capsAreAlphabetic() {
+        Assert.assertTrue(isAlphabetic("ABC"));
+    }
+
+    @Test
+    public void numbersNotAlphabetic() {
+        Assert.assertFalse(isAlphabetic("123"));
+    }
+
+    @Test
+    public void mixedCharactersAndCapsAlphabetic() {
+        Assert.assertTrue(isAlphabetic("aBcD"));
     }
 
     @Test
@@ -150,5 +176,66 @@ public class ValidatorTests {
         String rawInput = "abc";
         Double failure = -1.0;
         Assert.assertEquals(failure, (Double)tryParseDouble(rawInput));
+    }
+
+    @Test
+    public void EmptyAddressNotValid() {
+        Assert.assertFalse(isValidEmailAddress(""));
+    }
+
+    @Test
+    public void StudentAddressValid() {
+        Assert.assertTrue(isValidEmailAddress("jar156@uclive.ac.nz"));
+    }
+
+    @Test
+    public void StaffAddressValid() {
+        Assert.assertTrue(isValidEmailAddress("jessica.robertson@canterbury.ac.nz"));
+    }
+
+    @Test
+    public void RandomAddressNotValid() {
+        Assert.assertFalse(isValidEmailAddress("jessica.robertson@telogis.com"));
+    }
+
+    @Test
+    public void WeirdCharacterAddressNotValid() {
+        Assert.assertFalse(isValidEmailAddress("c++@uclive.ac.nz"));
+    }
+
+    @Test
+    public void NullEmailNotValid() {
+        String email = null;
+        Assert.assertFalse(isValidEmailAddress(email));
+    }
+
+    @Test
+    public void NullPhotoNotValid() {
+        File photo = null;
+        Assert.assertFalse(isValidPhoto(photo));
+    }
+
+    @Test
+    public void NoExtensionPhotoNotValid() {
+        File photo = new File("bob");
+        Assert.assertFalse(isValidPhoto(photo));
+    }
+
+    @Test
+    public void PngPhotoValid() {
+        File photo = new File("bob.png");
+        Assert.assertTrue(isValidPhoto(photo));
+    }
+
+    @Test
+    public void CapitalExtensionValid() {
+        File photo = new File("bob.PNG");
+        Assert.assertTrue(isValidPhoto(photo));
+    }
+
+    @Test
+    public void WeirdCharacterPhotoValid() {
+        File photo = new File("$*()#@.jpeg");
+        Assert.assertTrue(isValidPhoto(photo));
     }
 }

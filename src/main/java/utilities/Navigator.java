@@ -46,7 +46,6 @@ public class Navigator {
             stage.show();
         } catch (Exception e) {
             System.out.println("Load Scene Failed");
-            e.printStackTrace();
         }
     }
 
