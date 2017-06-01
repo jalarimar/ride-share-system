@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 import static utilities.Navigator.createLicence;
 import static utilities.Navigator.driverDashboard;
 import static utilities.Navigator.passengerDashboard;
-import static utilities.Validator.isAlphanumeric;
+import static utilities.Validator.*;
 
 /**
  * Created 09/05/2017.
@@ -104,13 +104,14 @@ public class EditUserController implements Initializable {
 
     private void collectInputFromFields() {
         User user = session.getCurrentUser();
-
         firstName = !firstNameField.getText().equals("") ? firstNameField.getText() : user.getFirstName();
         lastName = !lastNameField.getText().equals("") ? lastNameField.getText() : user.getLastName();
         id = user.getUniID();
         email = !emailField.getText().equals("") ? emailField.getText() : user.getEmail();
         address = user.getAddress();
-        if (!addressNumField.getText().equals("") && !addressStreetField.getText().equals("") && !addressSuburbField.getText().equals("")) {
+        if (isAlphanumeric(addressNumField.getText()) &&
+                isAlphabetic(addressStreetField.getText()) &&
+                isAlphabetic(addressSuburbField.getText())) {
             address = new StopPoint(addressNumField.getText(), addressStreetField.getText(), addressSuburbField.getText());
         }
         homeNumber = !homeNumberField.getText().equals("") ? homeNumberField.getText() : user.getHomeNumber();
@@ -120,18 +121,18 @@ public class EditUserController implements Initializable {
         photo = photo != null? photo : user.getPhoto();
     }
 
-    private boolean isValidPhoto() {
-        String fileFormatRegex = "^.*\\.(jpg|JPG|jpeg|JPEG|png|PNG)$";
-        return photo != null && photo.getName().matches(fileFormatRegex);
-    }
-
     private boolean isValidInput() {
         errorMessage = "Validation Failed";  // default message
         boolean isValid = true;
 
-        // TODO more general validation - Validator class
-        if (!isAlphanumeric(firstName) || !isAlphanumeric(lastName)) {
+        if (!isAlphabetic(firstName) || !isAlphabetic(lastName)) {
             isValid = false;
+            errorMessage = "Your name must consist of characters/spaces";
+        }
+
+        if (!isAlphanumeric(id)) {
+            isValid = false;
+            errorMessage = "ID must consist of numbers/characters";
         }
 
         // check home and/or mobile number has been entered
@@ -141,20 +142,18 @@ public class EditUserController implements Initializable {
         }
 
         // check email address is correct format
-        String studentEmailRegex = "^[a-zA-Z0-9]+@uclive.ac.nz$";
-        String staffEmailRegex = "^[a-zA-Z0-9]+@canterbury.ac.nz$";
-        if (!email.matches(studentEmailRegex) && !email.matches(staffEmailRegex)) {
+        if (!isValidEmailAddress(email)) {
             isValid = false;
             errorMessage = "Invalid email address";
         }
 
         // check password matches
-        if (!password1.equals(password2)) {
+        if (!password1.equals(password2) || password1.isEmpty()) {
             isValid = false;
             errorMessage = "Passwords do not match";
         }
 
-        if (!isValidPhoto()) {
+        if (!isValidPhoto(photo)) {
             isValid = false;
             errorMessage = "Valid photo must be uploaded";
         }
@@ -225,7 +224,7 @@ public class EditUserController implements Initializable {
         Stage stage = session.getStage();
         photo = fileChooser.showOpenDialog(stage);
         
-        if (isValidPhoto()) {
+        if (isValidPhoto(photo)) {
             if (photo.getName().length() > 30) {
                 fileNameLabel.setText(photo.getName().substring(0, 28) + "...");
             } else {

@@ -140,10 +140,6 @@ public class Ride {
         }
     }
 
-    public RideStopPoint getRspOfPassenger(User passenger) {
-        return passengerIds.get(passenger.getUniID());
-    }
-
     public void updatePrices() {
         for (RideStopPoint rideStopPoint : rideStopPoints) {
             rideStopPoint.calculatePrice(this);
@@ -165,6 +161,39 @@ public class Ride {
         boolean isFinished = getBookingStatus().equals(BookingStatus.DONE.toString());
         boolean isDriver = getDriver().getUniID().equals(user.getUniID());
         return hasSeatsAvailable && !isAlreadyBooked && !isFinished && !isDriver;
+    }
+
+    public boolean tryBookRide() {
+        User user = SessionManager.getInstance().getCurrentUser();
+        StopPoint stopPoint = SessionManager.getInstance().getFocusedStopPoint();
+        if (isAllowedToBookRide(user)) {
+            if (user.getTrackedRideIds() == null) {
+                user.addBooking(this);
+            } else if (!user.getTrackedRideIds().contains(getId())) {
+                user.addBooking(this);
+            }
+            RideStopPoint rideStopPoint = getRideStopPoints().get(0);
+            for (RideStopPoint rsp : getRideStopPoints()) {
+                if (stopPoint != null && rsp.toString().equals(stopPoint.toString())) {
+                    rideStopPoint = rsp;
+                }
+            }
+            addPassenger(user, rideStopPoint);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public RideStopPoint getRideStopPointOfPassenger(User passenger) {
+        RideStopPoint rideStopPoint = getRideStopPoints().get(0); // default
+        for (RideStopPoint rsp : getRideStopPoints()) {
+            RideStopPoint r = passengerIds.get(passenger.getUniID());
+            if (r != null && rsp.toString().equals(r.toString())) {
+                rideStopPoint = rsp;
+            }
+        }
+        return rideStopPoint;
     }
 
     private boolean isWatchedByPassenger(User passenger) {

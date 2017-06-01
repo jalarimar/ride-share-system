@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import static utilities.Navigator.driverDashboard;
+import static utilities.Validator.isAlphanumeric;
 
 /**
  * Created 22/03/2017.
@@ -41,7 +42,6 @@ public class EditLicenceController implements Initializable {
         learnerRadio.setToggleGroup(licenceType);
         restrictedRadio.setToggleGroup(licenceType);
         fullRadio.setToggleGroup(licenceType);
-
         fullRadio.setSelected(true);
 
         Licence licence = session.getCurrentDriver().getLicence();
@@ -67,7 +67,14 @@ public class EditLicenceController implements Initializable {
         errorMessage = "Validation Failed"; // default message
         boolean isValid = true;
 
-        // TODO more general validation - Validator class
+        if (!isAlphanumeric(number)) {
+            isValid = false;
+            errorMessage = "Licence number must consist of numbers/characters";
+        }
+        if (!fullRadio.isSelected()) {
+            isValid = false;
+            errorMessage = "You can only be a driver if you have a full licence.";
+        }
 
         return isValid;
     }
@@ -78,20 +85,14 @@ public class EditLicenceController implements Initializable {
         collectInputFromFields();
 
         if (isValidInput()) {
-            if (fullRadio.isSelected()) {
+            Licence licence = SessionManager.getInstance().getCurrentDriver().getLicence();
+            licence.setNumber(number);
+            licence.setIssueDate(issueDate);
+            licence.setExpiryDate(expiryDate);
 
-                Licence licence = SessionManager.getInstance().getCurrentDriver().getLicence();
-                licence.setNumber(number);
-                licence.setIssueDate(issueDate);
-                licence.setExpiryDate(expiryDate);
-
-                fxml.loadScene(driverDashboard);
-            } else {
-                errorMessageLabel.setText("You can only be a driver if you have a full licence.");
-            }
+            fxml.loadScene(driverDashboard);
         } else {
             errorMessageLabel.setText(errorMessage);
         }
     }
-
 }

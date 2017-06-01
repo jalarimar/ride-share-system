@@ -1,8 +1,13 @@
 package utilities;
 
 
+import models.Rss;
+import models.StopPoint;
+
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static utilities.Converter.getReadableDate;
 import static utilities.Converter.getTimeFromString;
@@ -19,6 +24,7 @@ public final class Validator {
         if (text != null && !text.isEmpty()) {
             if (text.trim().matches("[0-9]+")) {
                 Integer number = Integer.valueOf(text.trim());
+                // number positive non-zero
                 if (number > 0) {
                     return number;
                 }
@@ -31,6 +37,7 @@ public final class Validator {
         if (text != null && !text.isEmpty()) {
             try {
                 Double number = Double.parseDouble(text.trim());
+                // number positive non-zero
                 if (number > 0.0) {
                     return number;
                 } else {
@@ -50,6 +57,33 @@ public final class Validator {
             }
         }
         return false;
+    }
+
+    public static boolean isAlphabetic(String text) {
+        if (text != null && !text.isEmpty()) {
+            if (text.matches("[a-zA-Z ]+")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isValidPhoto(File photo) {
+        String fileFormatRegex = "^.*\\.(jpg|JPG|jpeg|JPEG|png|PNG)$";
+        return photo != null && photo.getName().matches(fileFormatRegex);
+    }
+
+    public static boolean isValidEmailAddress(String email) {
+        String studentEmailRegex = "^[a-zA-Z0-9]+@uclive.ac.nz$";
+        String staffEmailRegex = "^[a-zA-Z0-9]+@canterbury.ac.nz$";
+        return email.matches(studentEmailRegex) || email.matches(staffEmailRegex);
+
+        // TODO test email, photo, alphabetic
+    }
+
+    public static boolean startsOrEndsWithUni(List<StopPoint> route) {
+        StopPoint uni = Rss.getInstance().getUniversityStopPoint();
+        return (route.get(0).equals(uni) || route.get(route.size()-1).equals(uni));
     }
 
     public static boolean validTimes(LocalDate date, String rawInput) {

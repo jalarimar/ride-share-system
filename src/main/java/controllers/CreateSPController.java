@@ -5,13 +5,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.Driver;
+import models.Rss;
 import models.StopPoint;
 import utilities.Navigator;
 import utilities.SessionManager;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import static utilities.Validator.isAlphabetic;
 import static utilities.Validator.isAlphanumeric;
 import static utilities.Validator.tryParseInt;
 
@@ -33,39 +36,26 @@ public class CreateSPController {
         fxml.backToDashboard(event);
     }
 
-    private List<String> getExistingAddresses() {
-        List<String> existing = new ArrayList<>();
-        for (StopPoint sp : session.getCurrentDriver().getStopPoints()) {
-            existing.add(sp.toString());
-        }
-        return existing;
-    }
-
     @FXML
     protected void createStopPoint(ActionEvent event) throws Exception {
-        String numberInput = numberField.getText();
-        String name = nameField.getText();
+        String number = numberField.getText();
+        String street = nameField.getText();
         String suburb = suburbField.getText();
 
-        int number = tryParseInt(numberInput);
-
-        if (number > -1 && isAlphanumeric(name) && isAlphanumeric(suburb)) {
-            StopPoint stopPoint = new StopPoint(number, name, suburb);
+        if ((isAlphanumeric(number)||number.isEmpty()) && isAlphabetic(street) && isAlphabetic(suburb)) {
+            StopPoint stopPoint = new StopPoint(number, street, suburb);
             Driver driver = session.getCurrentDriver();
 
             // same address cannot be added more than once
-            List<String> existingAddresses = getExistingAddresses();
-            if (!existingAddresses.contains(stopPoint.toString())) {
+            Collection<StopPoint> existingAddresses = Rss.getInstance().getAllStopPoints();
+            if (!existingAddresses.contains(stopPoint)) {
                 driver.addStopPoint(stopPoint);
                 fxml.backToDashboard(event);
             } else {
-                errorMessage.setText("This stop point has already been added.");
+                errorMessage.setText("This stop point has already been added");
             }
-
         } else {
-            System.out.println("Validation Failed");
+            errorMessage.setText("Invalid address");
         }
     }
-
-
 }

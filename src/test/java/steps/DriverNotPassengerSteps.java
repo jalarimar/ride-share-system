@@ -44,8 +44,7 @@ public class DriverNotPassengerSteps extends RideDetailsController {
         SessionManager.getInstance().setCurrentUser(driver);
         SessionManager.getInstance().setFocusedRide(ride);
 
-        RideDetailsController rdc = new RideDetailsController();
-        rdc.tryBookRide();
+        ride.tryBookRide();
     }
 
     @Then("^I am not allowed to book the ride$")

@@ -1,7 +1,12 @@
 package models;
 
+import enums.NotificationStatus;
+
 import java.io.File;
+import java.time.LocalDate;
 import java.util.*;
+
+import static enums.NotificationStatus.*;
 
 /**
  * Created 21/03/2017.
@@ -68,5 +73,20 @@ public class Driver extends User {
             }
         }
         return null;
+    }
+
+    public NotificationStatus getTimeUntilExpiry(LocalDate expiryDate) {
+        LocalDate now = LocalDate.now();
+
+        if (now.isAfter(expiryDate.minusWeeks(1))) {
+            return ONE_WEEK;
+        } else if (now.isAfter(expiryDate.minusWeeks(2))) {
+            return TWO_WEEKS;
+        } else if (now.isAfter(expiryDate.minusMonths(1))) {
+            return ONE_MONTH;
+        } else {
+            // more than one month until expiry
+            return NONE;
+        }
     }
 }

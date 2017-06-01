@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 
 import static utilities.Navigator.driverDashboard;
 import static utilities.Navigator.passengerDashboard;
+import static utilities.Validator.isAlphanumeric;
 
 /**
  * Created 22/03/2017.
@@ -25,8 +26,6 @@ public class CreateLicenceController implements Initializable {
     private SessionManager session = SessionManager.getInstance();
     private Navigator fxml = new Navigator();
 
-    @FXML Button createButton;
-    @FXML Button cancelButton;
     @FXML TextField numberField;
     @FXML DatePicker issuePicker;
     @FXML DatePicker expiryPicker;
@@ -69,8 +68,25 @@ public class CreateLicenceController implements Initializable {
         errorMessage = "Validation Failed"; // default message
         boolean isValid = true;
 
-        // TODO more general validation - Validator class
+        if (!isAlphanumeric(number)) {
+            isValid = false;
+            errorMessage = "Licence number must consist of numbers/characters";
+        }
 
+        if (expiryDate == null) {
+            isValid = false;
+            errorMessage = "Expiry date must be selected";
+        }
+
+        if (issueDate == null) {
+            isValid = false;
+            errorMessage = "Issue date must be selected";
+        }
+
+        if (!fullRadio.isSelected()) {
+            isValid = false;
+            errorMessage = "You can only be a driver if you have a full licence.";
+        }
         return isValid;
     }
 
@@ -80,16 +96,11 @@ public class CreateLicenceController implements Initializable {
         collectInputFromFields();
 
         if (isValidInput()) {
-            if (fullRadio.isSelected()) {
-                Licence licence = new Licence("Full", number, issueDate, expiryDate);
-                session.getCurrentDriver().setLicence(licence);
-                fxml.loadScene(driverDashboard);
-            } else {
-                errorMessageLabel.setText("You can only be a driver if you have a full licence.");
-            }
+            Licence licence = new Licence("Full", number, issueDate, expiryDate);
+            session.getCurrentDriver().setLicence(licence);
+            fxml.loadScene(driverDashboard);
         } else {
             errorMessageLabel.setText(errorMessage);
         }
     }
-
 }

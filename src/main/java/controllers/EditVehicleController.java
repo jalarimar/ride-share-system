@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.Vehicle;
 import utilities.Navigator;
@@ -32,6 +33,7 @@ public class EditVehicleController implements Initializable {
     @FXML TextField vehiclePerformance;
     @FXML DatePicker regPicker;
     @FXML DatePicker wofPicker;
+    @FXML Label errorLabel;
 
     private Vehicle vehicle;
     private String performanceString;
@@ -48,6 +50,10 @@ public class EditVehicleController implements Initializable {
         vehicleYear.setText(Integer.toString(vehicle.getYear()));
         vehicleNos.setText(Integer.toString(vehicle.getPhysicalSeats()));
 
+        disableMostFields();
+    }
+
+    private void disableMostFields() {
         vehicleType.setDisable(true);
         vehicleModel.setDisable(true);
         vehicleColour.setDisable(true);
@@ -55,11 +61,9 @@ public class EditVehicleController implements Initializable {
         vehicleYear.setDisable(true);
         vehicleNos.setDisable(true);
         // only performance, WOF and registration expiry can be updated
-
         vehiclePerformance.setPromptText(Double.toString(vehicle.getPerformance()));
         regPicker.setPromptText(vehicle.getRegExpiry().toString());
         wofPicker.setPromptText(vehicle.getWofExpiry().toString());
-
     }
 
     @FXML
@@ -68,7 +72,6 @@ public class EditVehicleController implements Initializable {
     }
 
     private void collectInputFromFields() {
-
         performanceString = !vehiclePerformance.getText().equals("") ? vehiclePerformance.getText() : Double.toString(vehicle.getPerformance());
         regExpiry = regPicker.getValue() != null ? regPicker.getValue() : vehicle.getRegExpiry();
         wofExpiry = wofPicker.getValue() != null ? wofPicker.getValue() : vehicle.getWofExpiry();
@@ -80,7 +83,6 @@ public class EditVehicleController implements Initializable {
         collectInputFromFields();
 
         double performance = tryParseDouble(performanceString);
-
         if (performance > -1) {
             vehicle.setPerformance(performance);
             vehicle.setRegExpiry(regExpiry);
@@ -88,9 +90,7 @@ public class EditVehicleController implements Initializable {
 
             fxml.backToDashboard(event);
         } else {
-            System.out.println("Validation Failed");
+            errorLabel.setText("Performance must be positive number");
         }
     }
-
-
 }

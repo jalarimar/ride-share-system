@@ -18,30 +18,21 @@ public class RideTests {
     Vehicle vehicle;
     Driver driver;
     Ride ride;
-    Rss rss;
 
     @Before
     public void setUp() {
-        rss = Rss.getInstance();
         vehicle = new Vehicle("Ford", "Fiesta", "White", "JH007", 10, 2001, 3, LocalDate.now(), LocalDate.now());
         StopPoint stopPoint = new StopPoint(80, "Rattray Street", "Riccarton");
-        driver = new Driver("J", "H", "jha53", "torchwood", "jha53@uclive.ac.nz", stopPoint, "0", "0", null);
+        driver = new Driver("J", "H", "jha5", "torchwood", "jha53@uclive.ac.nz", stopPoint, "0", "0", null);
         driver.addVehicle(vehicle);
 
-        TripDetails tripDetails = new TripDetails("JH007", driver, true, false, new ArrayList<>(), LocalDate.now());
-        RideStopPoint rideStopPoint = new RideStopPoint(stopPoint, LocalDateTime.now(), LocalDate.now());
+        TripDetails tripDetails = new TripDetails(vehicle.getLicensePlate(), driver, true, false, new ArrayList<>(), LocalDate.now());
+        RideStopPoint rideStopPoint = new RideStopPoint(stopPoint, LocalDateTime.MAX, LocalDate.MAX);
         List rsps = new ArrayList();
-        rsps.add(new RideStopPoint(rss.getUniversityStopPoint(), LocalDateTime.now().plusHours(1), LocalDate.now()));
+        rsps.add(new RideStopPoint(Rss.getInstance().getUniversityStopPoint(), LocalDateTime.MAX, LocalDate.MAX));
         rsps.add(rideStopPoint);
         ride = new Ride(tripDetails, rsps);
         SessionManager.getInstance().setCurrentUser(driver);
-    }
-
-    @After
-    public void tearDown() {
-        vehicle = null;
-        driver = null;
-        ride = null;
     }
 
     @Test
@@ -87,7 +78,7 @@ public class RideTests {
     public void CanFindRideStopPointOfGivenPassenger() {
         RideStopPoint rsp = ride.getRideStopPoints().get(0);
         ride.addPassenger(driver, rsp);
-        Assert.assertEquals(rsp, ride.getRspOfPassenger(driver));
+        Assert.assertEquals(rsp, ride.getRideStopPointOfPassenger(driver));
     }
 
     @Test
@@ -187,6 +178,6 @@ public class RideTests {
         ride.addPassenger(driver, ride.getRideStopPoints().get(0));
         int passengerNotifications = driver.getUnseenRideNotifications().size();
         vehicle.setPerformance(vehicle.getPerformance() + 10);
-        Assert.assertTrue(driver.getUnseenRideNotifications().size() == (passengerNotifications + 1));
+        Assert.assertTrue(driver.getUnseenRideNotifications().size() > passengerNotifications);
     }
 }

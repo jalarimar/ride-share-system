@@ -80,4 +80,15 @@ public class RssTests {
         Assert.assertTrue(Rss.getInstance() != null);
     }
 
+    @Test
+    public void IncorrectPasswordFails() {
+        String passwordAttempt = driver.getPassword() + "attempt";
+        Assert.assertFalse(Rss.getInstance().hasCorrectPassword(driver.getUniID(), passwordAttempt));
+    }
+
+    @Test
+    public void CorrectPasswordSucceeds() {
+        String passwordAttempt = driver.getPassword();
+        Assert.assertTrue(Rss.getInstance().hasCorrectPassword(driver.getUniID(), passwordAttempt));
+    }
 }

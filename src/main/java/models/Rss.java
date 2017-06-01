@@ -1,5 +1,7 @@
 package models;
 
+import utilities.SessionManager;
+
 import java.util.*;
 
 import static utilities.Serializer.loadRss;
@@ -85,6 +87,16 @@ public class Rss {
 
     public Driver getDriverById(String id) {
         return allDrivers.get(id);
+    }
+
+    public boolean hasCorrectPassword(String userId, String password) {
+        User rssUser = getUserById(userId);
+        if (rssUser != null) {
+            String rssPassword = rssUser.getPassword();
+            return password.equals(rssPassword);
+        } else {
+            return false;
+        }
     }
 
     public Ride getRideById(UUID id) {

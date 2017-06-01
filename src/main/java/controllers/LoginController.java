@@ -27,25 +27,10 @@ public class LoginController {
     @FXML PasswordField passwordField;
     @FXML Label errorMessageLabel;
 
-    private NotificationStatus getTimeUntilExpiry(LocalDate expiryDate) {
-        LocalDate now = LocalDate.now();
-
-        if (now.isAfter(expiryDate.minusWeeks(1))) {
-            return ONE_WEEK;
-        } else if (now.isAfter(expiryDate.minusWeeks(2))) {
-            return TWO_WEEKS;
-        } else if (now.isAfter(expiryDate.minusMonths(1))) {
-            return ONE_MONTH;
-        } else {
-            // more than one month until expiry
-            return NONE;
-        }
-    }
-
     private void checkExpiries(Driver driver) {
 
         LocalDate licenceExpiry = driver.getLicence().getExpiryDate();
-        NotificationStatus timeUntilLicenceExpiry = getTimeUntilExpiry(licenceExpiry);
+        NotificationStatus timeUntilLicenceExpiry = driver.getTimeUntilExpiry(licenceExpiry);
         NotificationStatus lastSeenLicenceNotification = driver.getLicence().getLastSeenNotification();
         boolean notifyLicence = timeUntilLicenceExpiry.ordinal() < lastSeenLicenceNotification.ordinal();
 
@@ -61,8 +46,8 @@ public class LoginController {
         List<Vehicle> vehicles = driver.getVehicles();
         for (Vehicle vehicle : vehicles) {
 
-            NotificationStatus wofNotification = getTimeUntilExpiry(vehicle.getWofExpiry());
-            NotificationStatus regNotification = getTimeUntilExpiry(vehicle.getRegExpiry());
+            NotificationStatus wofNotification = driver.getTimeUntilExpiry(vehicle.getWofExpiry());
+            NotificationStatus regNotification = driver.getTimeUntilExpiry(vehicle.getRegExpiry());
 
             // find vehicle with most urgent expiry
             if (wofNotification.ordinal() < timeUntilWofExpiry.ordinal()) {
@@ -129,7 +114,7 @@ public class LoginController {
         String userId = usernameField.getText();
         String password = passwordField.getText();
 
-        if (hasCorrectPassword(userId, password)) {
+        if (Rss.getInstance().hasCorrectPassword(userId, password)) {
 
             User user = Rss.getInstance().getUserById(userId);
             session.setCurrentUser(user);
@@ -153,15 +138,5 @@ public class LoginController {
     @FXML
     protected void loadCreateUser(ActionEvent event) throws Exception {
         fxml.loadScene(createUser);
-    }
-
-    private boolean hasCorrectPassword(String userId, String password) {
-        User rssUser = Rss.getInstance().getUserById(userId);
-        if (rssUser != null) {
-            String rssPassword = rssUser.getPassword();
-            return password.equals(rssPassword);
-        } else {
-            return false;
-        }
     }
 }

@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static utilities.Validator.startsOrEndsWithUni;
+
 /**
  * Created on 11/05/17.
  */
@@ -41,13 +43,13 @@ public class UniversitySteps {
 
     @Then("^it will not pass validation$")
     public void notPassValidation() throws Throwable {
-        CreateRouteController crc = new CreateRouteController();
-        Assert.assertFalse(crc.startsOrEndsWithUni(stopPoints));
+        Assert.assertFalse(startsOrEndsWithUni(stopPoints));
     }
 
     @Then("^it will pass validation$")
     public void passValidation() throws Throwable {
-        CreateRouteController crc = new CreateRouteController();
-        Assert.assertTrue(crc.startsOrEndsWithUni(stopPoints));
+        Assert.assertTrue(startsOrEndsWithUni(stopPoints));
     }
+
+    // TODO time cucumbers
 }

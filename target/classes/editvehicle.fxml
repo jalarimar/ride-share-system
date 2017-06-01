@@ -117,5 +117,6 @@
       </Label>
       <DatePicker fx:id="regPicker" GridPane.columnIndex="1" GridPane.rowIndex="8" />
       <DatePicker fx:id="wofPicker" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+        <Label fx:id="errorLabel" textFill="#c60000" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="10" />
     </children>
 </GridPane>

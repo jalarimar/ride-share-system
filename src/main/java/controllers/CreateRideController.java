@@ -189,8 +189,20 @@ public class CreateRideController implements Initializable {
     protected void createRide(ActionEvent event) throws Exception {
         Driver driver = session.getCurrentDriver();
         Vehicle vehicle = (Vehicle)carChoice.getSelectionModel().getSelectedItem();
-        String direction = directionChoice.getSelectionModel().getSelectedItem().toString();
+        if (vehicle == null) {
+            errorMessage.setText("Please select a vehicle.");
+            return;
+        }
+        String direction = directionChoice.getSelectionModel().getSelectedItem() != null ? directionChoice.getSelectionModel().getSelectedItem().toString() : "";
+        if (direction.isEmpty()) {
+            errorMessage.setText("Please select a direction.");
+            return;
+        }
         Route route = (Route)routeChoice.getSelectionModel().getSelectedItem();
+        if (route == null) {
+            errorMessage.setText("Please select a route.");
+            return;
+        }
         LocalDate startDate = startDatePicker.getValue() != null ? startDatePicker.getValue() : LocalDate.now();
         LocalDate endDate = endDatePicker.getValue();
         List<DayOfWeek> days = getSelectedDays();
@@ -200,14 +212,13 @@ public class CreateRideController implements Initializable {
         StopPoint university = Rss.getInstance().getUniversityStopPoint();
         TripDetails trip = new TripDetails(vehicle.getLicensePlate(), driver, isFromUni, isRecurrent, days, endDate);
 
-        boolean failed = false;
-
         if (isFromUni && !route.getRoute().get(0).equals(university) || !isFromUni && !route.getRoute().get(route.getRoute().size()-1).equals(university)) {
             errorMessage.setText("That route does not match the direction.");
-            failed = true;
+            return;
         }
 
         Ride ride = null;
+        boolean failed = false;
         if (isRecurrent) {
 
             // generate rides
@@ -218,7 +229,7 @@ public class CreateRideController implements Initializable {
                         ride = new Ride(trip, spWithTimes);
                         driver.addRide(ride);
                     } else {
-                        errorMessage.setText("Check your stop point times and dates");
+                        errorMessage.setText("Check your dates and times");
                         failed = true;
                     }
                 }
@@ -230,7 +241,7 @@ public class CreateRideController implements Initializable {
                 ride = new Ride(trip, spWithTimes);
                 driver.addRide(ride);
             } else {
-                errorMessage.setText("Check your stop point times and dates");
+                errorMessage.setText("Check your dates and times");
                 failed = true;
             }
         }

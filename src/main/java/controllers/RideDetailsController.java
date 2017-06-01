@@ -43,13 +43,7 @@ public class RideDetailsController implements Initializable {
         Driver driver = ride.getDriver();
         Vehicle vehicle = ride.getVehicle();
 
-        RideStopPoint rideStopPoint = ride.getRideStopPoints().get(0); // default
-        for (RideStopPoint rsp : ride.getRideStopPoints()) {
-            RideStopPoint r = ride.getRspOfPassenger(session.getCurrentUser());
-            if (r != null && rsp.toString().equals(r.toString())) {
-                rideStopPoint = rsp;
-            }
-        }
+        RideStopPoint rideStopPoint = ride.getRideStopPointOfPassenger(session.getCurrentUser());
 
         nameText.setText(driver.toString());
         modelText.setText(vehicle.getTypeAndModel());
@@ -81,44 +75,25 @@ public class RideDetailsController implements Initializable {
 
     @FXML
     protected void backToRideSearch(ActionEvent event) throws Exception {
-        if (session.getPreviousScene().equals(bookedRides)) {
-            fxml.loadScene(bookedRides);
-        } else if (session.getPreviousScene().equals(myRides)) {
-            fxml.loadScene(myRides);
-        } else if (session.getPreviousScene().equals(rideSearch)) {
-            fxml.loadScene(rideSearch);
-        } else {
-            fxml.backToDashboard(event);
-        }
-    }
-
-    public boolean tryBookRide() {
-        Ride ride = session.getFocusedRide();
-        User user = session.getCurrentUser();
-        StopPoint stopPoint = session.getFocusedStopPoint();
-        if (ride.isAllowedToBookRide(user)) {
-            if (user.getTrackedRideIds() == null) {
-                user.addBooking(ride);
-            } else if (!user.getTrackedRideIds().contains(ride.getId())) {
-                user.addBooking(ride);
-            }
-            RideStopPoint rideStopPoint = ride.getRideStopPoints().get(0);
-            for (RideStopPoint rsp : ride.getRideStopPoints()) {
-                if (stopPoint != null && rsp.toString().equals(stopPoint.toString())) {
-                    rideStopPoint = rsp;
-                }
-            }
-            ride.addPassenger(user, rideStopPoint);
-            return true;
-        } else {
-            return false;
+        switch (session.getPreviousScene()) {
+            case bookedRides:
+                fxml.loadScene(bookedRides);
+                break;
+            case myRides:
+                fxml.loadScene(myRides);
+                break;
+            case rideSearch:
+                fxml.loadScene(rideSearch);
+                break;
+            default:
+                fxml.backToDashboard(event);
+                break;
         }
     }
 
     @FXML
     protected void bookRide(ActionEvent event) throws Exception {
-
-        boolean isAllowed = tryBookRide();
+        boolean isAllowed = session.getFocusedRide().tryBookRide();
         if (isAllowed) {
             fxml.backToDashboard(event);
         } else {

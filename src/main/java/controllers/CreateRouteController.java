@@ -16,17 +16,28 @@ import utilities.Navigator;
 import utilities.SessionManager;
 
 import java.net.URL;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import static utilities.Validator.isAlphanumeric;
+import static utilities.Validator.startsOrEndsWithUni;
 
 /**
  * Created 22/03/2017.
  */
 public class CreateRouteController implements Initializable {
 
-    private SessionManager main = SessionManager.getInstance();
+    /*public void MockCreateRouteController() {
+        CreateRouteController x = mock(CreateRouteController.class);
+        when(x.getSelectedStopPoint()).thenReturn(new StopPoint(5, "Street", "Suburb"));
+
+        int oldRouteSize = route.size();
+        x.addStopPointToRoute();
+        Assert.assertTrue(route.size() > oldRouteSize);
+
+    }*/
+
     private Navigator fxml = new Navigator();
     private ObservableList<StopPoint> route = FXCollections.observableArrayList();
     private ObservableList<StopPoint> availablePoints = FXCollections.observableArrayList();
@@ -36,10 +47,9 @@ public class CreateRouteController implements Initializable {
     @FXML ListView<StopPoint> excludedStopPointList;
     @FXML Label errorMessage;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        List<StopPoint> stopPoints = main.getCurrentDriver().getStopPoints();
+        Collection<StopPoint> stopPoints = Rss.getInstance().getAllStopPoints();
         availablePoints.addAll(stopPoints);
         availablePoints.add(Rss.getInstance().getUniversityStopPoint());
 
@@ -74,34 +84,17 @@ public class CreateRouteController implements Initializable {
         }
     }
 
-    public boolean startsOrEndsWithUni(List<StopPoint> route) {
-        StopPoint uni = Rss.getInstance().getUniversityStopPoint();
-        return (route.get(0).equals(uni) || route.get(route.size()-1).equals(uni));
-    }
-
     @FXML
     protected void createRoute(ActionEvent event) throws Exception {
         String name = nameField.getText();
-        if (isAlphanumeric(name) && startsOrEndsWithUni(route)) {
-            Driver driver = main.getCurrentDriver();
+        if (isAlphanumeric(name) && route.size() > 0 && startsOrEndsWithUni(route)) {
+            Driver driver = SessionManager.getInstance().getCurrentDriver();
             Route r = new Route(name, route);
             driver.addRoute(r);
 
             fxml.backToDashboard(event);
         } else {
-            errorMessage.setText("Validation Failed");
+            errorMessage.setText("Must start/end with Science Rd");
         }
     }
-
-
-    /*public void MockCreateRouteController() {
-        CreateRouteController x = mock(CreateRouteController.class);
-        when(x.getSelectedStopPoint()).thenReturn(new StopPoint(5, "Street", "Suburb"));
-
-        int oldRouteSize = route.size();
-        x.addStopPointToRoute();
-        Assert.assertTrue(route.size() > oldRouteSize);
-
-    }*/
-
 }
