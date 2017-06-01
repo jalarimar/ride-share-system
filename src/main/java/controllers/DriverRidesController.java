@@ -15,7 +15,7 @@ import utilities.Navigator;
 import utilities.SessionManager;
 
 import java.net.URL;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.ResourceBundle;
@@ -147,7 +147,7 @@ public class DriverRidesController implements Initializable {
                 confirmCancel.setVisible(true);
                 backButton.setVisible(true);
 
-                if (ride.getTime().compareTo(LocalDateTime.now().plusHours(2)) < 0) {
+                if (ride.getTime().compareTo(ZonedDateTime.now().plusHours(2)) < 0) {
                     warningLabel.setText("Less than 2 hours before ride. You may not be well evaluated.");
                     warningLabel.setVisible(true);
                 } else {

@@ -22,7 +22,6 @@ public final class Serializer {
             return gson.fromJson(reader, Rss.class);
 
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }

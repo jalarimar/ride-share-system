@@ -5,13 +5,14 @@ import enums.RideStatus;
 import utilities.SessionManager;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 import static enums.RideStatus.DONE;
 import static utilities.Converter.getReadableDate;
 import static enums.RideStatus.AVAILABLE;
 import static enums.RideStatus.FULL;
+import static utilities.Converter.toZonedTime;
 
 /**
  * Created 21/03/2017.
@@ -25,7 +26,7 @@ public class Ride {
     private int availableSeats;
     private Map<String, RideStopPoint> passengerIds;
     private LocalDate date;
-    private LocalDateTime time; // first stop time
+    private ZonedDateTime time; // first stop time
 
     public Ride(TripDetails trip, List<RideStopPoint> rsps) {
         this.id = UUID.randomUUID();
@@ -39,7 +40,7 @@ public class Ride {
         this.availableSeats = 0;
         this.passengerIds = new HashMap<>();
         this.date = rsps.get(0).getDate();
-        this.time = rsps.get(0).getRawTime();
+        this.time = toZonedTime(rsps.get(0).getRawTime());
 
         Rss.getInstance().addRide(this);
     }
@@ -71,7 +72,7 @@ public class Ride {
         return availableSeats;
     }
     public LocalDate getDate() {return date; }
-    public LocalDateTime getTime() { return time; }
+    public ZonedDateTime getTime() { return time; }
 
     public String getDirection() {
         if (tripDetails.isFromUni()) {
@@ -197,7 +198,7 @@ public class Ride {
     }
 
     private boolean isWatchedByPassenger(User passenger) {
-        return (LocalDateTime.now().compareTo(time) <= 0) && passengerIds.keySet().contains(passenger.getUniID()) && isCancellableByDriver();
+        return (ZonedDateTime.now().compareTo(time) <= 0) && passengerIds.keySet().contains(passenger.getUniID()) && isCancellableByDriver();
     }
 
     public boolean isCancellableByPassenger() {
@@ -235,7 +236,7 @@ public class Ride {
     public String getBookingStatus() {
         // used by PropertyValueFactory
         User user = SessionManager.getInstance().getCurrentUser();
-        if (LocalDateTime.now().compareTo(time) > 0 || status.equals(DONE)) {
+        if (ZonedDateTime.now().compareTo(time) > 0 || status.equals(DONE)) {
             return BookingStatus.DONE.toString();
         } else {
             if (passengerIds.keySet().contains(user.getUniID()) && isCancellableByDriver()) {

@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import static utilities.Converter.*;
 
@@ -98,5 +99,32 @@ public class ConverterTests {
         LocalDate date = LocalDate.of(2017, 5, 30);
         String expected = "Tuesday";
         Assert.assertEquals(expected, getLongDayOfDate(date));
+    }
+
+    @Test
+    public void HourLostWhenDstEnds() {
+        LocalDateTime dstEnd = LocalDateTime.of(2017,4,2,1,0);
+        LocalDateTime threeHoursLater = dstEnd.plusHours(3);
+        ZonedDateTime end = toZonedTime(dstEnd);
+        ZonedDateTime endPlusThree = end.plusHours(3);
+        Assert.assertTrue(threeHoursLater.compareTo(endPlusThree.toLocalDateTime()) > 0);
+    }
+
+    @Test
+    public void HourGainedWhenDstBegins() {
+        LocalDateTime dstEnd = LocalDateTime.of(2016,9,25,1,0);
+        LocalDateTime threeHoursLater = dstEnd.plusHours(3);
+        ZonedDateTime end = toZonedTime(dstEnd);
+        ZonedDateTime endPlusThree = end.plusHours(3);
+        Assert.assertTrue(threeHoursLater.compareTo(endPlusThree.toLocalDateTime()) < 0);
+    }
+
+    @Test
+    public void NoChangeWhenDstSame() {
+        LocalDateTime dstEnd = LocalDateTime.of(2016,2,16,4,0);
+        LocalDateTime threeHoursLater = dstEnd.plusHours(3);
+        ZonedDateTime end = toZonedTime(dstEnd);
+        ZonedDateTime endPlusThree = end.plusHours(3);
+        Assert.assertTrue(threeHoursLater.compareTo(endPlusThree.toLocalDateTime()) == 0);
     }
 }

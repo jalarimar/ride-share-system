@@ -16,6 +16,7 @@ import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -150,7 +151,7 @@ public class CreateRideController implements Initializable {
 
     public List<RideStopPoint> mapTimesToStopPoints(Route route, Vehicle vehicle, Driver driver, LocalDate date, String rawInput) {
         List<StopPoint> stopPoints = route.getRoute();
-        LocalDateTime earliestTime = LocalDateTime.now().plusHours(1);
+        ZonedDateTime earliestTime = ZonedDateTime.now().plusHours(1);
 
         if (!validTimes(date, rawInput)) {
             return null;
@@ -158,7 +159,7 @@ public class CreateRideController implements Initializable {
         List<LocalDateTime> times = new ArrayList<>();
         for (String time : rawInput.split(",")) {
             LocalDateTime thyme = getTimeFromString(getReadableDate(date) + time.trim());
-            if (date.compareTo(LocalDate.now()) > 0 || thyme.compareTo(earliestTime) > 0) {
+            if (date.compareTo(LocalDate.now()) > 0 || thyme.compareTo(earliestTime.toLocalDateTime()) > 0) {
                 times.add(thyme);
             }
         }

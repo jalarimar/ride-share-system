@@ -1,8 +1,6 @@
 package utilities;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.TextStyle;
@@ -53,5 +51,15 @@ public final class Converter {
         } else {
             return time;
         }
+    }
+
+    public static ZonedDateTime toZonedTime(LocalDateTime localDateTime) {
+        ZoneId zone = ZoneId.of("Pacific/Auckland");
+        return localDateTime.atZone(zone);
+    }
+
+    public static void adjustForDST(LocalDateTime localDateTime) {
+        ZoneId zone = ZoneId.of("Pacific/Auckland");
+        ZonedDateTime zonedDateTime = localDateTime.atZone(zone);
     }
 }

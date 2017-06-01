@@ -3,11 +3,10 @@ package models;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
-import static utilities.Converter.getLongDayOfDate;
-import static utilities.Converter.getReadableDate;
-import static utilities.Converter.getReadableTime;
+import static utilities.Converter.*;
 
 /**
  * Created 04/04/2017.
@@ -15,14 +14,14 @@ import static utilities.Converter.getReadableTime;
 public class RideStopPoint {
     private UUID rideId;
     private StopPoint stopPoint;
-    private LocalDateTime time;
+    private ZonedDateTime time;
     private LocalDate date;
     private double price;
 
     public RideStopPoint(StopPoint sp, LocalDateTime time, LocalDate date) {
         this.rideId = null;
         this.stopPoint = sp;
-        this.time = time;
+        this.time = toZonedTime(time);
         this.date = date;
     }
 
@@ -44,7 +43,7 @@ public class RideStopPoint {
         }
         RideStopPoint rideStopPoint = (RideStopPoint) obj;
         return this.toString().equals(rideStopPoint.toString())
-                && time.compareTo(rideStopPoint.getRawTime()) == 0
+                && time.compareTo(toZonedTime(rideStopPoint.getRawTime())) == 0
                 && rideId.equals(rideStopPoint.rideId);
     }
 
@@ -70,12 +69,13 @@ public class RideStopPoint {
         this.stopPoint = stopPoint;
     }
 
+    public ZonedDateTime getZonedTime() {return time;}
     public LocalDateTime getRawTime() {
-        return time;
+        return time.toLocalDateTime();
     }
-    public String getTime() {return getReadableTime(time); }
+    public String getTime() {return getReadableTime(time.toLocalDateTime()); }
     public void setTime(LocalDateTime time) {
-        this.time = time;
+        this.time = toZonedTime(time);
     }
 
     public LocalDate getDate() {return date; }

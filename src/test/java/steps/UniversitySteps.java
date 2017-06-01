@@ -50,6 +50,4 @@ public class UniversitySteps {
     public void passValidation() throws Throwable {
         Assert.assertTrue(startsOrEndsWithUni(stopPoints));
     }
-
-    // TODO time cucumbers
 }
