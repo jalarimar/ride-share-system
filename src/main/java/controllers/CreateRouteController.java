@@ -28,15 +28,15 @@ import static utilities.Validator.startsOrEndsWithUni;
  */
 public class CreateRouteController implements Initializable {
 
-    /*public void MockCreateRouteController() {
-        CreateRouteController x = mock(CreateRouteController.class);
-        when(x.getSelectedStopPoint()).thenReturn(new StopPoint(5, "Street", "Suburb"));
-
-        int oldRouteSize = route.size();
-        x.addStopPointToRoute();
-        Assert.assertTrue(route.size() > oldRouteSize);
-
-    }*/
+//    public void MockCreateRouteController() {
+//        CreateRouteController x = mock(CreateRouteController.class);
+//        when(x.getSelectedStopPoint()).thenReturn(new StopPoint(5, "Street", "Suburb"));
+//
+//        int oldRouteSize = route.size();
+//        x.addStopPointToRoute();
+//        Assert.assertTrue(route.size() > oldRouteSize);
+//
+//    }
 
     private Navigator fxml = new Navigator();
     private ObservableList<StopPoint> route = FXCollections.observableArrayList();

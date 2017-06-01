@@ -118,10 +118,6 @@ public class Ride {
         setStatus(RideStatus.AVAILABLE);
     }
 
-    public void addStopPoint(RideStopPoint stopPoint) {
-        rideStopPoints.add(stopPoint);
-    }
-
     public void addPassenger(User passenger, RideStopPoint rideStopPoint) {
         passengerIds.put(passenger.getUniID(), rideStopPoint);
         availableSeats -= 1;

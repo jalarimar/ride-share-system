@@ -77,8 +77,6 @@ public final class Validator {
         String studentEmailRegex = "^[a-zA-Z0-9.]+@uclive.ac.nz$";
         String staffEmailRegex = "^[a-zA-Z0-9.]+@canterbury.ac.nz$";
         return email != null && (email.matches(studentEmailRegex) || email.matches(staffEmailRegex));
-
-        // TODO mockito
     }
 
     public static boolean startsOrEndsWithUni(List<StopPoint> route) {

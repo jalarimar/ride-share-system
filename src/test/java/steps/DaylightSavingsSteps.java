@@ -7,14 +7,14 @@ import cucumber.api.java.en.When;
 import models.*;
 import org.junit.Assert;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static utilities.Converter.toZonedTime;
-import static utilities.Validator.startsOrEndsWithUni;
 
 /**
  * Created on 11/05/17.
@@ -37,18 +37,14 @@ public class DaylightSavingsSteps {
 
     @When("^I try to catch a (\\d+):(\\d+)am ride$")
     public void rideIs230(int hour, int minute) throws Throwable {
-        StopPoint blank = new StopPoint("", "", "");
         LocalDateTime plannedTime = LocalDateTime.of(2017,4,2,hour,minute);
-        rideStopPoint = new RideStopPoint(blank, plannedTime, LocalDate.of(2017,4,2));
+
+        rideStopPoint = mock(RideStopPoint.class);
+        when(rideStopPoint.getRawTime()).thenReturn(plannedTime);
         List<RideStopPoint> rideStopPoints = new ArrayList<>();
         rideStopPoints.add(rideStopPoint);
 
-        Vehicle vehicle = new Vehicle("Ford", "Fiesta", "White", "JH007", 10, 2001, 3, LocalDate.now(), LocalDate.now());
-        StopPoint stopPoint = new StopPoint(80, "Rattray Street", "Riccarton");
-        Driver driver = new Driver("J", "H", "jha53", "torchwood", "jha53@uclive.ac.nz", stopPoint, "0", "0", null);
-        driver.addVehicle(vehicle);
-
-        TripDetails tripDetails = new TripDetails("JH007", driver, true, false, new ArrayList<>(), LocalDate.now());
+        TripDetails tripDetails = mock(TripDetails.class);
         earlyRide = new Ride(tripDetails, rideStopPoints);
     }
 

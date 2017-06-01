@@ -14,6 +14,8 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static utilities.Validator.startsOrEndsWithUni;
 
 /**
@@ -22,15 +24,20 @@ import static utilities.Validator.startsOrEndsWithUni;
 public class RouteTests {
 
     @Test
-    public void replaceRouteReplacesWholeList() {
+    public void SetRouteReplacesWholeList() {
+
         List<StopPoint> oldStopPoints = new ArrayList<>();
-        oldStopPoints.add(new StopPoint("18A", "Aileen Place", "Riccarton"));
+        StopPoint aileen = new StopPoint("18A", "Aileen Place", "Riccarton");
+        oldStopPoints.add(aileen);
+        Route route = new Route("", oldStopPoints);
+
         List<StopPoint> newStopPoints = new ArrayList<>();
         newStopPoints.add(new StopPoint(104, "Victoria Street", "Christchurch"));
         newStopPoints.add(new StopPoint(29, "Arapiki Rd", "Nelson"));
-        Route route = new Route("", oldStopPoints);
         route.setRoute(newStopPoints);
+
         Assert.assertEquals(2, route.getRoute().size());
+        Assert.assertFalse(route.getRoute().contains(aileen));
     }
 
     @Test

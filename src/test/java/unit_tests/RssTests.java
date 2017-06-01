@@ -15,6 +15,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 /**
  * Created 30/05/2017.
  */
@@ -25,18 +28,23 @@ public class RssTests {
 
     @Before
     public void setUp() {
-        vehicle = new Vehicle("Ford", "Fiesta", "White", "JH007", 10, 2001, 3, LocalDate.now(), LocalDate.now());
-        StopPoint stopPoint = new StopPoint(80, "Rattray Street", "Riccarton");
-        driver = new Driver("J", "H", "jha53", "torchwood", "jha53@uclive.ac.nz", stopPoint, "0", "0", null);
-        driver.addVehicle(vehicle);
+        // mock a vehicle
+        vehicle = mock(Vehicle.class);
+        when(vehicle.getLicensePlate()).thenReturn("JH007");
+        List<Vehicle> vehicles = new ArrayList<>();
+        vehicles.add(vehicle);
 
-        TripDetails tripDetails = new TripDetails("JH007", driver, true, false, new ArrayList<>(), LocalDate.now());
-        RideStopPoint rideStopPoint = new RideStopPoint(stopPoint, LocalDateTime.now(), LocalDate.now());
-        List rsps = new ArrayList();
-        rsps.add(new RideStopPoint(Rss.getInstance().getUniversityStopPoint(), LocalDateTime.now().plusHours(1), LocalDate.now()));
-        rsps.add(rideStopPoint);
-        ride = new Ride(tripDetails, rsps);
+        // mock a driver
+        driver = mock(Driver.class);
+        when(driver.getVehicles()).thenReturn(vehicles);
+        when(driver.getUniID()).thenReturn("jha53");
+        when(driver.getPassword()).thenReturn("correcthorsebatterystaple");
+        Rss.getInstance().addUser(driver);
         SessionManager.getInstance().setCurrentUser(driver);
+
+        // mock a ride
+        ride = mock(Ride.class);
+        Rss.getInstance().addRide(ride);
     }
 
     @Test
@@ -48,14 +56,14 @@ public class RssTests {
 
     @Test
     public void RideIncludedInAvailableIfStatusAvailable() {
-        ride.setStatus(RideStatus.AVAILABLE);
+        when(ride.getStatus()).thenReturn(RideStatus.AVAILABLE);
         List<Ride> availableRides = Rss.getInstance().getAvailableRides();
         Assert.assertTrue(availableRides.contains(ride));
     }
 
     @Test
     public void RideNotIncludedInAvailableIfStatusFull() {
-        ride.setStatus(RideStatus.FULL);
+        when(ride.getStatus()).thenReturn(RideStatus.FULL);
         List<Ride> availableRides = Rss.getInstance().getAvailableRides();
         Assert.assertFalse(availableRides.contains(ride));
     }

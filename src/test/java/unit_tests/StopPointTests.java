@@ -60,5 +60,4 @@ public class StopPointTests {
 
         Assert.assertTrue(oldPrice > newPrice);
     }
-
 }
